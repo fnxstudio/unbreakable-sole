@@ -1,5 +1,8 @@
 # Unbreakable Sole — book site
 
+**Live:** https://fnxstudio.github.io/unbreakable-sole/ · **Repo:** https://github.com/fnxstudio/unbreakable-sole
+
+
 Static site for Missy Moss Wright's book **Unbreakable Sole: Finding Joy, Purpose,
 and Strength in Life's Toughest Miles**. This is a self-contained, hand-hostable
 copy of the live site (originally on HubSpot at unbreakablesole.com), with the
