@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════════════
-   UNBREAKABLE SOLE v2 — Spiffy checkout drawer (mock preview)
-   Hardcover + FREE Audiobook ($48 → $29) with the Collective Soul
+   UNBREAKABLE SOLE v2 , Spiffy checkout drawer (mock preview)
+   Hardcover + FREE Audiobook ($48 → $29) with the Collective Sole
    $39/mo community upsell as an order bump. To go live, set
    window.US_SPIFFY_CHECKOUT_URL and the real Spiffy form replaces the mock.
    ═══════════════════════════════════════════════════════════════ */
@@ -82,6 +82,15 @@ var US_BOOK_IMG = "assets/98c4b7e6_9dc97fc9c0a88c0b3335df172fcbabdd48094a471.web
   .us-ck-ghost{background:none;border:1.5px solid #c3d2dc;color:#22303a;border-radius:6px;padding:11px 26px;font-weight:700;cursor:pointer;font-size:13.5px;}
   .us-ck-ghost:hover{border-color:var(--blue);color:var(--blue);}
   .us-ck-frame{width:100%;height:100%;min-height:560px;border:0;display:block;}
+  .us-ck-oto{text-align:center;padding:14px 6px;}
+  .us-ck-oto-flag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#7a5a12;background:#fdf3d6;border:1px solid #f0dca0;border-radius:20px;padding:5px 14px;margin:0 0 14px;}
+  .us-ck-oto h3{font-size:20px;font-weight:900;color:#22303a;margin:0 0 10px;}
+  .us-ck-oto>p{font-size:14px;color:#5a6b76;line-height:1.5;margin:0 auto 14px;max-width:32em;}
+  .us-ck-oto-price{font-size:38px;font-weight:900;color:var(--blue);letter-spacing:-.03em;}
+  .us-ck-oto-price span{font-size:15px;font-weight:700;color:#8a97a0;}
+  .us-ck-oto ul{list-style:none;text-align:left;max-width:300px;margin:12px auto 14px;padding:0;}
+  .us-ck-oto li{position:relative;padding:5px 0 5px 24px;font-size:13.5px;color:#43535d;}
+  .us-ck-oto li::before{content:"✓";position:absolute;left:0;color:var(--gold);font-weight:800;}
   @media (max-width:520px){.us-ck{width:100vw;}}
   `;
 
@@ -93,7 +102,7 @@ var US_BOOK_IMG = "assets/98c4b7e6_9dc97fc9c0a88c0b3335df172fcbabdd48094a471.web
   <div class="us-ck-head">
     <div class="us-ck-eyebrow">Secure Checkout</div>
     <div class="us-ck-title">UNBREAKABLE <span>SOLE</span></div>
-    <div class="us-ck-sub">Hardcover + FREE audiobook, read by Missy</div>
+    <div class="us-ck-sub">Hardcover plus a free audiobook, yours to take anywhere</div>
   </div>
   <div class="us-ck-body">
     <div class="us-ck-mount" id="usCkMount">
@@ -115,11 +124,11 @@ var US_BOOK_IMG = "assets/98c4b7e6_9dc97fc9c0a88c0b3335df172fcbabdd48094a471.web
             </div>
           </div>
 
-          <!-- Order bump: The Collective Soul -->
+          <!-- Order bump: The Collective Sole -->
           <label class="us-ck-bump" id="usCkBumpLabel">
             <span class="us-ck-bump-top">
               <input type="checkbox" id="usCkSoul">
-              <b>Add The Collective Soul community</b>
+              <b>Add The Collective Sole community</b>
               <span class="pr">+$39/mo</span>
             </span>
             <span class="us-ck-bump-sub">
@@ -179,22 +188,38 @@ var US_BOOK_IMG = "assets/98c4b7e6_9dc97fc9c0a88c0b3335df172fcbabdd48094a471.web
           <div class="us-ck-sum">
             <div class="us-ck-sum-row"><span id="usCkSubLabel">Unbreakable Sole &times; 1</span><span id="usCkSub">${money(US_BOOK_PRICE)}</span></div>
             <div class="us-ck-sum-row"><span>Shipping</span><span class="free">FREE</span></div>
-            <div class="us-ck-sum-row" id="usCkSoulRow" hidden><span>The Collective Soul</span><span>${money(US_SOUL_PRICE)}/mo</span></div>
+            <div class="us-ck-sum-row" id="usCkSoulRow" hidden><span>The Collective Sole</span><span>${money(US_SOUL_PRICE)}/mo</span></div>
             <div class="us-ck-sum-row tot"><span>Due today</span><span id="usCkTotal">${money(US_BOOK_PRICE)}</span></div>
-            <div class="us-ck-sum-note" id="usCkNote" hidden>then ${money(US_SOUL_PRICE)}/mo for The Collective Soul</div>
+            <div class="us-ck-sum-note" id="usCkNote" hidden>then ${money(US_SOUL_PRICE)}/mo for The Collective Sole</div>
           </div>
 
           <button type="submit" class="us-ck-submit">Complete Order</button>
         </form>
 
+        <div class="us-ck-oto" id="usCkOto" hidden>
+          <div class="us-ck-oto-flag">One-time offer</div>
+          <h3>Before your order is done&hellip;</h3>
+          <p>You're about to close the book on the best part. Add <b>The Collective Sole</b> and keep growing after the last page, with people running the same hard miles as you.</p>
+          <div class="us-ck-oto-price">$39<span>/mo</span></div>
+          <ul>
+            <li>The full digital resource library</li>
+            <li>The 6-week Unbreakable training program</li>
+            <li>Connection with like-minded, sole-growth people</li>
+            <li>Access to the exclusive Hardy Club room</li>
+          </ul>
+          <p style="font-size:12px;">Cancel anytime. You won't be shown this offer again.</p>
+          <button type="button" class="us-ck-submit" id="usCkOtoYes">Yes, Add The Collective Sole</button>
+          <button type="button" class="us-ck-ghost" id="usCkOtoNo" style="width:100%;margin-top:9px;">No thanks, just the book</button>
+        </div>
+
         <div class="us-ck-confirm" id="usCkConfirm" hidden>
           <div class="us-ck-check"><svg viewBox="0 0 24 24"><polyline points="4 12 10 18 20 6"/></svg></div>
           <p class="us-ck-confirm-t">Order Confirmed</p>
-          <p class="us-ck-confirm-s">Your copy of <strong>Unbreakable Sole</strong> is on its way &mdash; hardcover plus your free audiobook. Get ready to run your toughest miles.</p>
+          <p class="us-ck-confirm-s">Your copy of <strong>Unbreakable Sole</strong> is on its way , hardcover plus your free audiobook. Get ready to run your toughest miles.</p>
           <div class="us-ck-order">
             <div><span>Confirmation</span><strong id="usCkOrderNo">#US-000000</strong></div>
             <div><span>Book (qty)</span><strong id="usCkOrderQty">1</strong></div>
-            <div id="usCkOrderSoul" hidden><span>The Collective Soul</span><strong>$39/mo</strong></div>
+            <div id="usCkOrderSoul" hidden><span>The Collective Sole</span><strong>$39/mo</strong></div>
             <div><span>Due today</span><strong id="usCkOrderTotal">${money(US_BOOK_PRICE)}</strong></div>
           </div>
           <p class="us-ck-confirm-s">A confirmation email with your receipt, tracking, and audiobook access is on the way.</p>
@@ -210,7 +235,7 @@ var US_BOOK_IMG = "assets/98c4b7e6_9dc97fc9c0a88c0b3335df172fcbabdd48094a471.web
   var overlay = document.createElement('div'); overlay.className = 'us-ck-overlay'; overlay.id = 'usCkOverlay'; overlay.hidden = true;
   var drawer = document.createElement('aside'); drawer.className = 'us-ck'; drawer.id = 'usCkDrawer';
   drawer.setAttribute('role', 'dialog'); drawer.setAttribute('aria-modal', 'true'); drawer.setAttribute('aria-hidden', 'true');
-  drawer.setAttribute('aria-label', 'Checkout — Unbreakable Sole'); drawer.innerHTML = HTML;
+  drawer.setAttribute('aria-label', 'Checkout , Unbreakable Sole'); drawer.innerHTML = HTML;
   document.body.appendChild(overlay); document.body.appendChild(drawer);
 
   var $ = function (id) { return document.getElementById(id); };
@@ -239,23 +264,32 @@ var US_BOOK_IMG = "assets/98c4b7e6_9dc97fc9c0a88c0b3335df172fcbabdd48094a471.web
   drawer.querySelectorAll('.us-ck-pm').forEach(function (pm) { pm.addEventListener('click', function () { selectMethod(pm.getAttribute('data-method')); }); });
   selectMethod('card');
 
-  function resetPreview() { form.hidden = false; confirmView.hidden = true; qty = 1; soul = false; soulBox.checked = false; totals(); selectMethod('card'); }
+  function scrollTop() { var b = drawer.querySelector('.us-ck-body'); if (b) b.scrollTop = 0; }
+  function resetPreview() { form.hidden = false; $('usCkOto').hidden = true; confirmView.hidden = true; qty = 1; soul = false; soulBox.checked = false; totals(); selectMethod('card'); }
 
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
+  function goConfirm() {
     $('usCkOrderNo').textContent = '#US-' + Math.floor(100000 + Math.random() * 899999);
     $('usCkOrderQty').textContent = qty;
     $('usCkOrderSoul').hidden = !soul;
     $('usCkOrderTotal').textContent = money(dueToday());
-    form.hidden = true; confirmView.hidden = false;
-    var b = drawer.querySelector('.us-ck-body'); if (b) b.scrollTop = 0;
+    form.hidden = true; $('usCkOto').hidden = true; confirmView.hidden = false;
+    scrollTop();
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (soul) { goConfirm(); return; }          // already added the community -> straight to confirmation
+    form.hidden = true; $('usCkOto').hidden = false;   // skipped it -> one-time offer first
+    scrollTop();
   });
+  $('usCkOtoYes').addEventListener('click', function () { soul = true; soulBox.checked = true; totals(); goConfirm(); });
+  $('usCkOtoNo').addEventListener('click', goConfirm);
 
   function mountSpiffy() {
     if (mount.dataset.mounted || !window.US_SPIFFY_CHECKOUT_URL) return;
     var frame = document.createElement('iframe');
     frame.className = 'us-ck-frame'; frame.src = window.US_SPIFFY_CHECKOUT_URL;
-    frame.title = 'Secure checkout — Unbreakable Sole'; frame.setAttribute('allow', 'payment *');
+    frame.title = 'Secure checkout , Unbreakable Sole'; frame.setAttribute('allow', 'payment *');
     mount.insertBefore(frame, mount.firstChild);
     if (preview) preview.style.display = 'none'; mount.dataset.mounted = '1';
   }
