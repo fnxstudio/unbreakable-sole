@@ -1310,7 +1310,32 @@ a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-b
 <div class="span12 widget-span widget-type-cell cell_17688284844812-padding dnd-column" style="" data-widget-type="cell" data-x="0" data-w="12">
 
 
-<!-- Vimeo "Website Ending" player removed -->
+<!-- Unbreakable Sole website video (self-hosted, autoplay-in-view, no Vimeo player) -->
+<style>
+.us-video-section{padding:8px 20px 44px;text-align:center;}
+.us-video-wrap{position:relative;max-width:900px;margin:0 auto;border-radius:14px;overflow:hidden;
+  box-shadow:0 14px 44px rgba(67,116,143,.22);background:#000;aspect-ratio:16/9;}
+.us-video-wrap video{display:block;width:100%;height:100%;object-fit:cover;}
+</style>
+<div class="us-video-section">
+  <div class="us-video-wrap">
+    <video class="us-website-video" muted playsinline controls preload="none"
+           poster="assets/us_website_video_poster.webp"
+           controlslist="nodownload" disablepictureinpicture>
+      <source src="assets/us_website_video.mp4" type="video/mp4">
+    </video>
+  </div>
+</div>
+<script>
+(function(){
+  var v=document.querySelector('.us-website-video');
+  if(!v||!('IntersectionObserver' in window))return;
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){var p=v.play();if(p&&p.catch)p.catch(function(){});io.unobserve(v);}
+  });},{threshold:0.4});
+  io.observe(v);
+})();
+</script>
 <!--end row-wrapper -->
 
 </div><!--end widget-span -->
