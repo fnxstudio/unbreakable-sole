@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page Not Found — Unbreakable Sole</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://use.typekit.net/vzy5fke.css">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{
+    font-family:"proxima-nova","Source Sans Pro","Helvetica Neue",Arial,sans-serif;
+    color:#3c4a54;
+    background:linear-gradient(180deg,#eaf4fb 0%,#cfe3f1 52%,#eaf4fb 100%);
+    min-height:100%;display:flex;flex-direction:column;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  }
+  .us-404{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:56px 24px 64px;}
+  .us-404 .logo{height:38px;width:auto;margin:0 0 40px;opacity:.95;}
+  .us-404 .code{
+    font-family:"termina","proxima-nova",sans-serif;font-weight:800;
+    font-size:clamp(96px,21vw,196px);line-height:.9;color:#43748f;
+    letter-spacing:.02em;margin:0 0 6px;}
+  .us-404 .code .sun{color:#e0a63f;text-shadow:0 0 34px rgba(240,183,96,.75),0 0 8px rgba(240,183,96,.6);}
+  .us-404 .kicker{font-family:"termina",sans-serif;font-weight:700;text-transform:uppercase;
+    letter-spacing:.22em;font-size:13px;color:#6c93a8;margin:0 0 22px;}
+  .us-404 h1{font-family:"proxima-nova",sans-serif;font-weight:800;color:#365d73;
+    font-size:clamp(24px,4.4vw,34px);line-height:1.2;margin:0 0 16px;max-width:16ch;}
+  .us-404 p.lead{font-size:clamp(16px,2.2vw,18px);line-height:1.6;color:#4a5b66;
+    max-width:46ch;margin:0 auto 34px;}
+  .us-404 .btn{display:inline-block;background:#ffdd60;color:#1b2126;font-weight:800;
+    text-decoration:none;text-transform:uppercase;letter-spacing:.12em;font-size:15px;
+    padding:16px 44px;border-radius:44px;box-shadow:0 8px 22px rgba(67,116,143,.28);
+    transition:transform .12s ease,box-shadow .12s ease,background .12s ease;}
+  .us-404 .btn:hover{background:#ffd63f;transform:translateY(-2px);box-shadow:0 12px 26px rgba(67,116,143,.34);}
+  .us-404 .links{margin:30px 0 0;font-size:14px;font-weight:600;letter-spacing:.02em;}
+  .us-404 .links a{color:#43748f;text-decoration:none;margin:0 12px;white-space:nowrap;}
+  .us-404 .links a:hover{text-decoration:underline;text-underline-offset:3px;}
+  .us-404 .links .sep{color:#a9c2d1;}
+  /* slim brand footer (matches the site) */
+  .us-site-footer{background:#43748f;color:#fff;border-top:2px solid #e8bc6c;font-size:13px;line-height:1.5;}
+  .us-site-footer .us-inner{max-width:1120px;margin:0 auto;padding:15px 26px;display:flex;flex-wrap:wrap;
+    align-items:center;justify-content:space-between;gap:6px 20px;}
+  .us-site-footer p{margin:0;}
+  .us-site-footer .us-copy{opacity:.85;letter-spacing:.02em;}
+  .us-site-footer a{color:#fff;text-decoration:none;opacity:.92;}
+  .us-site-footer a:hover{opacity:1;text-decoration:underline;text-underline-offset:2px;}
+  .us-site-footer .us-legal a{margin-left:20px;}
+  .us-site-footer .us-legal a:first-child{margin-left:0;}
+  @media (max-width:600px){
+    .us-404 .links a{display:inline-block;margin:4px 10px;}
+    .us-site-footer .us-inner{flex-direction:column;text-align:center;gap:8px;}
+    .us-site-footer .us-legal a{margin:0 10px;}
+  }
+</style>
+</head>
+<body>
+  <main class="us-404">
+    <img class="logo" id="logo" src="/unbreakable-sole/assets/7e74f503_Horizontal_20Logo_201.webp" alt="Unbreakable Sole">
+    <div class="code">4<span class="sun">0</span>4</div>
+    <p class="kicker">Off the map</p>
+    <h1>Looks like you&rsquo;ve hit an unexpected detour.</h1>
+    <p class="lead">This page wandered off the trail. But every tough mile leads somewhere &mdash; let&rsquo;s get you back on the path.</p>
+    <a class="btn" id="home-btn" href="/unbreakable-sole/home.html">Return home</a>
+    <nav class="links" id="quick-links">
+      <a data-page="about.html">About</a>
+      <span class="sep">&middot;</span>
+      <a data-page="resources.html">Free Resources</a>
+      <span class="sep">&middot;</span>
+      <a data-page="connect.html">Connect</a>
+    </nav>
+  </main>
+
+  <footer class="us-site-footer">
+    <div class="us-inner">
+      <p class="us-copy">&copy; 2026 Unbreakable Sole. All Rights Reserved.</p>
+      <p class="us-legal">
+        <a href="https://dh.darrenhardy.com/terms-of-service/" target="_blank" rel="noopener">Terms &amp; Conditions</a>
+        <a href="https://dh.darrenhardy.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Resolve links whether served at the site root (local preview) or the
+    // /unbreakable-sole/ project path (GitHub Pages), at any missing depth.
+    (function(){
+      var base = location.hostname.endsWith('github.io') ? '/unbreakable-sole/' : '/';
+      var logo = document.getElementById('logo');
+      logo.src = base + 'assets/7e74f503_Horizontal_20Logo_201.webp';
+      document.getElementById('home-btn').href = base + 'home.html';
+      document.querySelectorAll('#quick-links a[data-page]').forEach(function(a){
+        a.href = base + a.getAttribute('data-page');
+      });
+    })();
+  </script>
+</body>
+</html>
