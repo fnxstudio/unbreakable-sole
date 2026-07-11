@@ -1,6 +1,8 @@
 # Unbreakable Sole — book site
 
-**Live:** https://fnxstudio.github.io/unbreakable-sole/ · **Repo:** https://github.com/fnxstudio/unbreakable-sole
+**Live:** https://fnxstudio.github.io/unbreakable-sole/home.html · **Repo:** https://github.com/fnxstudio/unbreakable-sole
+
+(The bare URL `…/unbreakable-sole/` redirects to `home.html`.)
 
 
 Static site for Missy Moss Wright's book **Unbreakable Sole: Finding Joy, Purpose,
@@ -12,7 +14,8 @@ checkout re-pointed to Spiffy. It is a **separate repo from Darren Hardy**.
 
 | File              | Nav label       |
 |-------------------|-----------------|
-| `index.html`      | Home            |
+| `home.html`       | Home            |
+| `index.html`      | → redirects to `home.html` |
 | `about.html`      | About           |
 | `sole-wall.html`  | Sole Wall       |
 | `resources.html`  | Free Resources  |
