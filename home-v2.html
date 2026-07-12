@@ -41,17 +41,6 @@
   .topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:66px;}
   .topbar img{height:30px;}
   .topbar .btn{padding:11px 22px;font-size:13px;box-shadow:none;}
-  /* sticky buy bar */
-  .buybar{position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(34,48,58,.97);color:#fff;
-    transform:translateY(110%);transition:transform .28s ease;box-shadow:0 -8px 30px rgba(0,0,0,.2);}
-  .buybar.show{transform:none;}
-  .buybar .wrap{display:flex;align-items:center;gap:16px;padding:12px 24px;}
-  .buybar img{height:40px;border-radius:2px;}
-  .buybar .bt{font-weight:800;font-size:15px;} .buybar .bs{font-size:12.5px;color:#b9c6ce;}
-  .buybar .price{margin-left:auto;font-weight:800;} .buybar .price .was{color:#8496a0;text-decoration:line-through;font-size:14px;margin-right:6px;}
-  .buybar .price .now{color:var(--gold);font-size:20px;}
-  .buybar .btn{padding:12px 22px;font-size:13px;box-shadow:none;}
-  @media (max-width:640px){.buybar .bs,.buybar img{display:none;}}
   /* HERO (light) */
   .hero{background:linear-gradient(180deg,#eaf4fb 0%,#f2f9fc 60%,#fbfcfd 100%);padding:56px 0 64px;overflow:hidden;}
   .hero .wrap{display:grid;grid-template-columns:.92fr 1.08fr;gap:44px;align-items:center;}
@@ -539,16 +528,6 @@
   </div>
 </footer>
 
-<!-- STICKY BUY BAR -->
-<div class="buybar" id="buybar">
-  <div class="wrap">
-    <img src="assets/98c4b7e6_9dc97fc9c0a88c0b3335df172fcbabdd48094a471.webp" alt="">
-    <div><div class="bt">Unbreakable Sole</div><div class="bs">Hardcover plus a free audiobook</div></div>
-    <div class="price"><span class="was">$48</span><span class="now">$29</span></div>
-    <a href="#offer" class="btn" data-open-checkout>Get The Book</a>
-  </div>
-</div>
-
 <script>
 /* video play-on-click + autoplay-in-view (muted) */
 (function(){
@@ -559,14 +538,6 @@
   if('IntersectionObserver' in window){
     var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){play();io.unobserve(w);}});},{threshold:0.4});
     io.observe(w);
-  }
-})();
-/* sticky buy bar: show after hero scrolls out */
-(function(){
-  var bar=document.getElementById('buybar'), hero=document.getElementById('top'); if(!bar||!hero)return;
-  if('IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){bar.classList.toggle('show',!e.isIntersecting);});},{threshold:0});
-    io.observe(hero);
   }
 })();
 </script>
