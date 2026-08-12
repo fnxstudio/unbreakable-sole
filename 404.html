@@ -95,8 +95,11 @@
   .us-book-cover{width:72px;height:auto;flex:0 0 72px;display:block;
     filter:drop-shadow(0 6px 16px rgba(34,48,58,.34));}
   .us-book-text{display:block;min-width:0;}
+  /* this eyebrow is meant to wrap; balance it so it reads "FOR YOUR /
+     TOUGHEST MILES" rather than orphaning MILES on its own line */
   .us-book-kicker{display:block;font-family:"termina","Inter",sans-serif;font-weight:700;
-    text-transform:uppercase;letter-spacing:.2em;font-size:10px;color:var(--gold);margin:0 0 7px;}
+    text-transform:uppercase;letter-spacing:.2em;font-size:10px;color:var(--gold);
+    margin:0 0 7px;line-height:1.5;text-wrap:balance;}
   .us-book-title{display:block;font-family:"termina","Inter",sans-serif;font-weight:800;
     font-size:16.5px;line-height:1.15;margin:0 0 7px;white-space:nowrap;}
   /* text-wrap:pretty stops "free." being orphaned on its own line */
@@ -185,7 +188,7 @@
           <a class="us-book-corner" href="https://secure.darrenhardy.com/checkout/unbreakable-sole" target="_blank" rel="noopener">
             <img class="us-book-cover" data-asset="assets/book-cover.webp" alt="Unbreakable Sole book cover">
             <span class="us-book-text">
-              <span class="us-book-kicker">For Your Hard Miles</span>
+              <span class="us-book-kicker">For Your Toughest Miles</span>
               <span class="us-book-title">Unbreakable Sole</span>
               <span class="us-book-sub">Every hardcover includes the full audiobook, free.</span>
               <span class="us-book-cta">Get Your Copy &#8599;</span>
