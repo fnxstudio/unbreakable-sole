@@ -121,7 +121,10 @@
     .us-404{padding:72px 22px 96px;}
     .us-site-footer .us-inner{padding:40px 22px 0;}
     .us-foot-grid{grid-template-columns:1fr;gap:32px;text-align:center;}
-    .us-foot-logo,.us-foot-tag{margin-left:auto;margin-right:auto;}
+    /* scoped to out-specify .us-site-footer p{margin:0}, which is (0,1,1);
+       a bare .us-foot-tag is (0,1,0) and loses no matter where it sits */
+    .us-site-footer .us-foot-logo,
+    .us-site-footer .us-foot-tag{margin-left:auto;margin-right:auto;}
     .us-socials{justify-content:center;}
     .us-foot-bottom{flex-direction:column;text-align:center;gap:8px;}
     .us-foot-bottom .us-legal a{margin:0 10px;}
