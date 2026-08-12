@@ -16,12 +16,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://use.typekit.net/vzy5fke.css">
 <style>
-  /* tokens lifted verbatim from home-v2.html (the brand source of truth) */
+  /* tokens lifted verbatim from home.html (the brand source of truth) */
   :root{
     --ink:#22303a; --muted:#65757f; --line:#e4ebf0; --paper:#fbfcfd;
     --sky:#eaf4fb; --sky-2:#d7e8f3;
     --blue:#43748f; --blue-2:#5b91ad; --blue-deep:#365d73;
-    /* --gold is the original home's accent (#e8bc6c), not home-v2's #e0a63f.
+    /* --gold is home-og.html's accent (#e8bc6c), not home.html's #e0a63f.
        It matches the logo sun's own ring colour, sampled at #e8b66c. */
     --gold:#e8bc6c; --gold-rgb:232,188,108;
     --orange:#c8722f; --yellow:#ffdd60;
@@ -37,22 +37,26 @@
   }
   /* termina is the logo's face - display only, per the original site */
   h1,.us-404 .code{font-family:"termina","Inter",sans-serif;}
-  .us-404{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    text-align:center;padding:56px 24px 64px;}
-  .us-404 .logo{height:38px;width:auto;margin:0 0 40px;opacity:.95;}
+  /* min-height:100vh keeps the footer below the fold so it is scrolled to,
+     not landed on; flex:1 alone only pinned it to the viewport bottom */
+  .us-404{flex:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;text-align:center;padding:104px 24px 136px;}
+  /* source logo is only 273x44, so anything above ~22px is upscaled on retina.
+     Held at 28px as a compromise until a vector original is available. */
+  .us-404 .logo{height:28px;width:auto;margin:0 0 44px;opacity:.95;}
   .us-404 .code{
     font-weight:800;font-size:clamp(96px,21vw,196px);line-height:.9;color:var(--blue);
     letter-spacing:.02em;margin:0 0 6px;}
   .us-404 .code .sun{color:var(--gold);
     text-shadow:0 0 34px rgba(var(--gold-rgb),.55),0 0 8px rgba(var(--gold-rgb),.45);}
-  /* matches home-v2's .eyebrow */
+  /* matches home.html's .eyebrow */
   .us-404 .kicker{font-weight:700;text-transform:uppercase;letter-spacing:.2em;
     font-size:12px;color:var(--blue);margin:0 0 22px;}
   .us-404 h1{font-weight:800;color:var(--blue-deep);letter-spacing:-.01em;
     font-size:clamp(26px,3.4vw,38px);line-height:1.12;margin:0 0 16px;max-width:16ch;}
   .us-404 p.lead{font-size:clamp(16px,2.2vw,18px);line-height:1.6;color:var(--muted);
     max-width:46ch;margin:0 auto 34px;}
-  /* matches home-v2's .btn */
+  /* matches home.html's .btn */
   .us-404 .btn{display:inline-flex;align-items:center;gap:9px;background:var(--yellow);color:#1b2126;
     font-weight:800;text-decoration:none;text-transform:uppercase;letter-spacing:.06em;font-size:15px;
     padding:16px 30px;border-radius:6px;box-shadow:0 10px 26px rgba(34,48,58,.16);
@@ -63,10 +67,10 @@
   .us-site-footer .us-inner{max-width:1120px;margin:0 auto;padding:52px 26px 0;}
   .us-site-footer p{margin:0;}
   .us-site-footer a{color:#fff;text-decoration:none;}
-  .us-foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.25fr;gap:44px 40px;padding-bottom:44px;}
+  .us-foot-grid{display:grid;grid-template-columns:1.35fr .92fr .92fr 1.65fr;gap:44px 36px;padding-bottom:44px;}
 
   /* logo-reversed.png = wordmark knocked to white, sun left in its own colour */
-  .us-foot-logo{height:34px;width:auto;display:block;margin:0 0 20px;}
+  .us-foot-logo{height:26px;width:auto;display:block;margin:0 0 20px;}
   .us-foot-tag{color:rgba(255,255,255,.82);max-width:34ch;font-size:14.5px;margin:0;}
 
   /* margin-bottom on the tag would collapse into this, so own the gap here */
@@ -94,9 +98,10 @@
   .us-book-kicker{display:block;font-family:"termina","Inter",sans-serif;font-weight:700;
     text-transform:uppercase;letter-spacing:.2em;font-size:10px;color:var(--gold);margin:0 0 7px;}
   .us-book-title{display:block;font-family:"termina","Inter",sans-serif;font-weight:800;
-    font-size:17px;line-height:1.15;margin:0 0 7px;}
+    font-size:16.5px;line-height:1.15;margin:0 0 7px;white-space:nowrap;}
+  /* text-wrap:pretty stops "free." being orphaned on its own line */
   .us-book-sub{display:block;font-size:12.5px;line-height:1.45;color:rgba(255,255,255,.8);
-    margin:0 0 11px;}
+    margin:0 0 11px;text-wrap:pretty;}
   .us-book-cta{display:inline-block;font-weight:800;text-transform:uppercase;letter-spacing:.1em;
     font-size:11.5px;color:var(--yellow);white-space:nowrap;}
 
@@ -113,6 +118,7 @@
     .us-foot-brand{grid-column:1 / -1;}
   }
   @media (max-width:600px){
+    .us-404{padding:72px 22px 96px;}
     .us-site-footer .us-inner{padding:40px 22px 0;}
     .us-foot-grid{grid-template-columns:1fr;gap:32px;text-align:center;}
     .us-foot-logo,.us-foot-tag{margin-left:auto;margin-right:auto;}
@@ -175,7 +181,7 @@
           <a class="us-book-corner" href="https://secure.darrenhardy.com/checkout/unbreakable-sole" target="_blank" rel="noopener">
             <img class="us-book-cover" data-asset="assets/book-cover.webp" alt="Unbreakable Sole book cover">
             <span class="us-book-text">
-              <span class="us-book-kicker">The Book</span>
+              <span class="us-book-kicker">Read Her Story</span>
               <span class="us-book-title">Unbreakable Sole</span>
               <span class="us-book-sub">Every order includes the full audiobook, free.</span>
               <span class="us-book-cta">Get Your Copy &#8599;</span>
