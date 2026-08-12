@@ -5,56 +5,120 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Page Not Found — Unbreakable Sole</title>
 <meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" data-asset="assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" data-asset="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png" data-asset="assets/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" data-asset="assets/apple-touch-icon.png">
+<link rel="shortcut icon" href="assets/favicon.ico" data-asset="assets/favicon.ico">
+<meta name="theme-color" content="#43748f">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://use.typekit.net/vzy5fke.css">
 <style>
+  /* tokens lifted verbatim from home-v2.html (the brand source of truth) */
+  :root{
+    --ink:#22303a; --muted:#65757f; --line:#e4ebf0; --paper:#fbfcfd;
+    --sky:#eaf4fb; --sky-2:#d7e8f3;
+    --blue:#43748f; --blue-2:#5b91ad; --blue-deep:#365d73;
+    /* --gold is the original home's accent (#e8bc6c), not home-v2's #e0a63f.
+       It matches the logo sun's own ring colour, sampled at #e8b66c. */
+    --gold:#e8bc6c; --gold-rgb:232,188,108;
+    --orange:#c8722f; --yellow:#ffdd60;
+  }
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{height:100%;}
   body{
-    font-family:"proxima-nova","Source Sans Pro","Helvetica Neue",Arial,sans-serif;
-    color:#3c4a54;
-    background:linear-gradient(180deg,#eaf4fb 0%,#cfe3f1 52%,#eaf4fb 100%);
-    min-height:100%;display:flex;flex-direction:column;
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--ink);
+    background:linear-gradient(180deg,var(--sky) 0%,var(--sky-2) 52%,var(--sky) 100%);
+    min-height:100%;display:flex;flex-direction:column;line-height:1.6;
     -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
   }
+  /* termina is the logo's face - display only, per the original site */
+  h1,.us-404 .code{font-family:"termina","Inter",sans-serif;}
   .us-404{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
     text-align:center;padding:56px 24px 64px;}
   .us-404 .logo{height:38px;width:auto;margin:0 0 40px;opacity:.95;}
   .us-404 .code{
-    font-family:"termina","proxima-nova",sans-serif;font-weight:800;
-    font-size:clamp(96px,21vw,196px);line-height:.9;color:#43748f;
+    font-weight:800;font-size:clamp(96px,21vw,196px);line-height:.9;color:var(--blue);
     letter-spacing:.02em;margin:0 0 6px;}
-  .us-404 .code .sun{color:#e0a63f;text-shadow:0 0 34px rgba(240,183,96,.75),0 0 8px rgba(240,183,96,.6);}
-  .us-404 .kicker{font-family:"termina",sans-serif;font-weight:700;text-transform:uppercase;
-    letter-spacing:.22em;font-size:13px;color:#6c93a8;margin:0 0 22px;}
-  .us-404 h1{font-family:"proxima-nova",sans-serif;font-weight:800;color:#365d73;
-    font-size:clamp(24px,4.4vw,34px);line-height:1.2;margin:0 0 16px;max-width:16ch;}
-  .us-404 p.lead{font-size:clamp(16px,2.2vw,18px);line-height:1.6;color:#4a5b66;
+  .us-404 .code .sun{color:var(--gold);
+    text-shadow:0 0 34px rgba(var(--gold-rgb),.55),0 0 8px rgba(var(--gold-rgb),.45);}
+  /* matches home-v2's .eyebrow */
+  .us-404 .kicker{font-weight:700;text-transform:uppercase;letter-spacing:.2em;
+    font-size:12px;color:var(--blue);margin:0 0 22px;}
+  .us-404 h1{font-weight:800;color:var(--blue-deep);letter-spacing:-.01em;
+    font-size:clamp(26px,3.4vw,38px);line-height:1.12;margin:0 0 16px;max-width:16ch;}
+  .us-404 p.lead{font-size:clamp(16px,2.2vw,18px);line-height:1.6;color:var(--muted);
     max-width:46ch;margin:0 auto 34px;}
-  .us-404 .btn{display:inline-block;background:#ffdd60;color:#1b2126;font-weight:800;
-    text-decoration:none;text-transform:uppercase;letter-spacing:.12em;font-size:15px;
-    padding:16px 44px;border-radius:44px;box-shadow:0 8px 22px rgba(67,116,143,.28);
+  /* matches home-v2's .btn */
+  .us-404 .btn{display:inline-flex;align-items:center;gap:9px;background:var(--yellow);color:#1b2126;
+    font-weight:800;text-decoration:none;text-transform:uppercase;letter-spacing:.06em;font-size:15px;
+    padding:16px 30px;border-radius:6px;box-shadow:0 10px 26px rgba(34,48,58,.16);
     transition:transform .12s ease,box-shadow .12s ease,background .12s ease;}
-  .us-404 .btn:hover{background:#ffd63f;transform:translateY(-2px);box-shadow:0 12px 26px rgba(67,116,143,.34);}
-  .us-404 .links{margin:30px 0 0;font-size:14px;font-weight:600;letter-spacing:.02em;}
-  .us-404 .links a{color:#43748f;text-decoration:none;margin:0 12px;white-space:nowrap;}
-  .us-404 .links a:hover{text-decoration:underline;text-underline-offset:3px;}
-  .us-404 .links .sep{color:#a9c2d1;}
-  /* slim brand footer (matches the site) */
-  .us-site-footer{background:#43748f;color:#fff;border-top:2px solid #e8bc6c;font-size:13px;line-height:1.5;}
-  .us-site-footer .us-inner{max-width:1120px;margin:0 auto;padding:15px 26px;display:flex;flex-wrap:wrap;
-    align-items:center;justify-content:space-between;gap:6px 20px;}
+  .us-404 .btn:hover{background:#ffd63f;transform:translateY(-2px);box-shadow:0 14px 30px rgba(34,48,58,.22);}
+  /* full brand footer */
+  .us-site-footer{background:var(--blue);color:#fff;border-top:2px solid var(--gold);font-size:14px;line-height:1.6;}
+  .us-site-footer .us-inner{max-width:1120px;margin:0 auto;padding:52px 26px 0;}
   .us-site-footer p{margin:0;}
-  .us-site-footer .us-copy{opacity:.85;letter-spacing:.02em;}
-  .us-site-footer a{color:#fff;text-decoration:none;opacity:.92;}
-  .us-site-footer a:hover{opacity:1;text-decoration:underline;text-underline-offset:2px;}
-  .us-site-footer .us-legal a{margin-left:20px;}
-  .us-site-footer .us-legal a:first-child{margin-left:0;}
+  .us-site-footer a{color:#fff;text-decoration:none;}
+  .us-foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.25fr;gap:44px 40px;padding-bottom:44px;}
+
+  /* logo-reversed.png = wordmark knocked to white, sun left in its own colour */
+  .us-foot-logo{height:34px;width:auto;display:block;margin:0 0 20px;}
+  .us-foot-tag{color:rgba(255,255,255,.82);max-width:34ch;font-size:14.5px;margin:0;}
+
+  /* margin-bottom on the tag would collapse into this, so own the gap here */
+  .us-socials{display:flex;gap:18px;margin-top:34px;}
+  .us-socials a{display:inline-flex;align-items:center;justify-content:center;
+    transition:transform .14s ease;}
+  .us-socials svg{width:19px;height:19px;fill:rgba(255,255,255,.86);transition:fill .14s ease;}
+  .us-socials a:hover{transform:translateY(-2px);}
+  .us-socials a:hover svg{fill:var(--yellow);}
+
+  .us-foot-col h3{font-family:"termina","Inter",sans-serif;font-weight:700;text-transform:uppercase;
+    letter-spacing:.18em;font-size:12px;color:var(--gold);margin:0 0 16px;}
+  .us-foot-col ul{list-style:none;}
+  .us-foot-col li{margin:0 0 10px;}
+  .us-foot-col li a{color:rgba(255,255,255,.86);font-weight:600;}
+  .us-foot-col li a:hover{color:#fff;text-decoration:underline;text-underline-offset:3px;}
+
+  .us-book-corner{display:flex;align-items:center;gap:16px;background:rgba(255,255,255,.07);
+    border:1px solid rgba(var(--gold-rgb),.45);border-radius:12px;padding:18px;
+    transition:background .14s ease,border-color .14s ease,transform .14s ease;}
+  .us-book-corner:hover{background:rgba(255,255,255,.12);border-color:var(--gold);transform:translateY(-2px);}
+  .us-book-cover{width:72px;height:auto;flex:0 0 72px;display:block;
+    filter:drop-shadow(0 6px 16px rgba(34,48,58,.34));}
+  .us-book-text{display:block;min-width:0;}
+  .us-book-kicker{display:block;font-family:"termina","Inter",sans-serif;font-weight:700;
+    text-transform:uppercase;letter-spacing:.2em;font-size:10px;color:var(--gold);margin:0 0 7px;}
+  .us-book-title{display:block;font-family:"termina","Inter",sans-serif;font-weight:800;
+    font-size:17px;line-height:1.15;margin:0 0 7px;}
+  .us-book-sub{display:block;font-size:12.5px;line-height:1.45;color:rgba(255,255,255,.8);
+    margin:0 0 11px;}
+  .us-book-cta{display:inline-block;font-weight:800;text-transform:uppercase;letter-spacing:.1em;
+    font-size:11.5px;color:var(--yellow);white-space:nowrap;}
+
+  .us-foot-bottom{border-top:1px solid rgba(255,255,255,.18);padding:18px 0 20px;display:flex;flex-wrap:wrap;
+    align-items:center;justify-content:space-between;gap:6px 20px;font-size:13px;}
+  .us-foot-bottom .us-copy{opacity:.8;letter-spacing:.02em;}
+  .us-foot-bottom a{opacity:.9;}
+  .us-foot-bottom a:hover{opacity:1;text-decoration:underline;text-underline-offset:2px;}
+  .us-foot-bottom .us-legal a{margin-left:20px;}
+  .us-foot-bottom .us-legal a:first-child{margin-left:0;}
+
+  @media (max-width:900px){
+    .us-foot-grid{grid-template-columns:1fr 1fr;gap:36px 32px;}
+    .us-foot-brand{grid-column:1 / -1;}
+  }
   @media (max-width:600px){
-    .us-404 .links a{display:inline-block;margin:4px 10px;}
-    .us-site-footer .us-inner{flex-direction:column;text-align:center;gap:8px;}
-    .us-site-footer .us-legal a{margin:0 10px;}
+    .us-site-footer .us-inner{padding:40px 22px 0;}
+    .us-foot-grid{grid-template-columns:1fr;gap:32px;text-align:center;}
+    .us-foot-logo,.us-foot-tag{margin-left:auto;margin-right:auto;}
+    .us-socials{justify-content:center;}
+    .us-foot-bottom{flex-direction:column;text-align:center;gap:8px;}
+    .us-foot-bottom .us-legal a{margin:0 10px;}
   }
 </style>
 </head>
@@ -64,24 +128,70 @@
     <div class="code">4<span class="sun">0</span>4</div>
     <p class="kicker">Off the map</p>
     <h1>Looks like you&rsquo;ve hit an unexpected detour.</h1>
-    <p class="lead">This page wandered off the trail. But every tough mile leads somewhere &mdash; let&rsquo;s get you back on the path.</p>
+    <p class="lead">This page wandered off the trail. But every tough mile leads somewhere. Let&rsquo;s get you back on the path.</p>
     <a class="btn" id="home-btn" href="/unbreakable-sole/home.html">Return home</a>
-    <nav class="links" id="quick-links">
-      <a data-page="about.html">About</a>
-      <span class="sep">&middot;</span>
-      <a data-page="resources.html">Free Resources</a>
-      <span class="sep">&middot;</span>
-      <a data-page="connect.html">Connect</a>
-    </nav>
   </main>
 
   <footer class="us-site-footer">
     <div class="us-inner">
-      <p class="us-copy">&copy; 2026 Unbreakable Sole. All Rights Reserved.</p>
-      <p class="us-legal">
-        <a href="https://dh.darrenhardy.com/terms-of-service/" target="_blank" rel="noopener">Terms &amp; Conditions</a>
-        <a href="https://dh.darrenhardy.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>
-      </p>
+      <div class="us-foot-grid">
+
+        <div class="us-foot-brand">
+          <img class="us-foot-logo" data-asset="assets/logo-reversed.png" alt="Unbreakable Sole">
+          <p class="us-foot-tag">Missy Moss Wright is a marathoner, author, and encourager for anyone walking through life&rsquo;s toughest miles.</p>
+          <div class="us-socials">
+            <a href="https://www.instagram.com/missymosswright" title="Instagram" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/missymosswright" title="Facebook" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/in/missy-moss-wright-21620911b/" title="LinkedIn" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="us-foot-col">
+          <h3>Explore</h3>
+          <ul>
+            <li><a data-page="about.html">About Missy</a></li>
+            <li><a data-page="resources.html">Free Resources</a></li>
+            <li><a data-page="sole-wall.html">The Sole Wall</a></li>
+            <li><a data-page="sole-a-thon.html">Sole-A-Thon</a></li>
+          </ul>
+        </div>
+
+        <div class="us-foot-col">
+          <h3>Connect</h3>
+          <ul>
+            <li><a data-page="speaking.html">Speaking</a></li>
+            <li><a data-page="connect.html">Get in Touch</a></li>
+            <li><a href="https://senja.io/p/darrenhardy/r/Af7Ryt" target="_blank" rel="noopener">Leave a Review</a></li>
+          </ul>
+        </div>
+
+        <div class="us-foot-col">
+          <a class="us-book-corner" href="https://secure.darrenhardy.com/checkout/unbreakable-sole" target="_blank" rel="noopener">
+            <img class="us-book-cover" data-asset="assets/book-cover.webp" alt="Unbreakable Sole book cover">
+            <span class="us-book-text">
+              <span class="us-book-kicker">The Book</span>
+              <span class="us-book-title">Unbreakable Sole</span>
+              <span class="us-book-sub">Every order includes the full audiobook, free.</span>
+              <span class="us-book-cta">Get Your Copy &#8599;</span>
+            </span>
+          </a>
+        </div>
+
+      </div>
+
+      <div class="us-foot-bottom">
+        <p class="us-copy">&copy; Unbreakable Sole. All Rights Reserved.</p>
+        <p class="us-legal">
+          <a href="https://dh.darrenhardy.com/terms-of-service/" target="_blank" rel="noopener">Terms &amp; Conditions</a>
+          <a href="https://dh.darrenhardy.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>
+        </p>
+      </div>
     </div>
   </footer>
 
@@ -90,10 +200,16 @@
     // /unbreakable-sole/ project path (GitHub Pages), at any missing depth.
     (function(){
       var base = location.hostname.endsWith('github.io') ? '/unbreakable-sole/' : '/';
-      var logo = document.getElementById('logo');
-      logo.src = base + 'assets/7e74f503_Horizontal_20Logo_201.webp';
+      document.getElementById('logo').src = base + 'assets/7e74f503_Horizontal_20Logo_201.webp';
       document.getElementById('home-btn').href = base + 'home.html';
-      document.querySelectorAll('#quick-links a[data-page]').forEach(function(a){
+      document.querySelectorAll('img[data-asset]').forEach(function(img){
+        img.src = base + img.getAttribute('data-asset');
+      });
+      // 404s can be served at any depth, so re-anchor the icons too
+      document.querySelectorAll('link[data-asset]').forEach(function(l){
+        l.href = base + l.getAttribute('data-asset');
+      });
+      document.querySelectorAll('a[data-page]').forEach(function(a){
         a.href = base + a.getAttribute('data-page');
       });
     })();
