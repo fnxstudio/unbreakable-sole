@@ -62,6 +62,14 @@
     padding:16px 30px;border-radius:6px;box-shadow:0 10px 26px rgba(34,48,58,.16);
     transition:transform .12s ease,box-shadow .12s ease,background .12s ease;}
   .us-404 .btn:hover{background:#ffd63f;transform:translateY(-2px);box-shadow:0 14px 30px rgba(34,48,58,.22);}
+  /* button + secondary link row, ported from the darrenhardy.com 404 pattern */
+  .us-actions{display:flex;align-items:center;justify-content:center;gap:26px;flex-wrap:wrap;}
+  .us-404 .btn .arrow{transition:transform .2s ease;}
+  .us-404 .btn:hover .arrow{transform:translateX(4px);}
+  .us-secondary{font-weight:700;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--blue-deep);text-decoration:none;border-bottom:1px solid rgba(54,93,115,.35);
+    padding-bottom:4px;transition:color .2s ease,border-color .2s ease;}
+  .us-secondary:hover{color:var(--ink);border-color:var(--ink);}
   /* full brand footer */
   .us-site-footer{background:var(--blue);color:#fff;border-top:2px solid var(--gold);font-size:14px;line-height:1.6;}
   .us-site-footer .us-inner{max-width:1120px;margin:0 auto;padding:52px 26px 0;}
@@ -141,7 +149,10 @@
     <p class="kicker">Off the map</p>
     <h1>Looks like you&rsquo;ve hit an unexpected detour.</h1>
     <p class="lead">This page wandered off the trail. But every tough mile leads somewhere. Let&rsquo;s get you back on the path.</p>
-    <a class="btn" id="home-btn" href="/unbreakable-sole/home.html">Return home</a>
+    <div class="us-actions">
+      <a class="btn" href="https://secure.darrenhardy.com/checkout/unbreakable-sole" target="_blank" rel="noopener">Start My Journey <span class="arrow">&#8594;</span></a>
+      <a class="us-secondary" data-page="home.html">Return to Home</a>
+    </div>
   </main>
 
   <footer class="us-site-footer">
@@ -214,7 +225,6 @@
     (function(){
       var base = location.hostname.endsWith('github.io') ? '/unbreakable-sole/' : '/';
       document.getElementById('logo').src = base + 'assets/7e74f503_Horizontal_20Logo_201.webp';
-      document.getElementById('home-btn').href = base + 'home.html';
       document.querySelectorAll('img[data-asset]').forEach(function(img){
         img.src = base + img.getAttribute('data-asset');
       });
