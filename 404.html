@@ -5,11 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Page Not Found — Unbreakable Sole</title>
 <meta name="robots" content="noindex">
-<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" data-asset="assets/favicon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" data-asset="assets/favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png" data-asset="assets/favicon-16.png">
-<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" data-asset="assets/apple-touch-icon.png">
-<link rel="shortcut icon" href="assets/favicon.ico" data-asset="assets/favicon.ico">
 <meta name="theme-color" content="#43748f">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -227,10 +222,6 @@
       document.getElementById('logo').src = base + 'assets/7e74f503_Horizontal_20Logo_201.webp';
       document.querySelectorAll('img[data-asset]').forEach(function(img){
         img.src = base + img.getAttribute('data-asset');
-      });
-      // 404s can be served at any depth, so re-anchor the icons too
-      document.querySelectorAll('link[data-asset]').forEach(function(l){
-        l.href = base + l.getAttribute('data-asset');
       });
       document.querySelectorAll('a[data-page]').forEach(function(a){
         a.href = base + a.getAttribute('data-page');
