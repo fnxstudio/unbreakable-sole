@@ -8,15 +8,20 @@
 <meta name="theme-color" content="#43748f">
 <link rel="stylesheet" href="https://use.typekit.net/vzy5fke.css">
 <style>
-  /* tokens lifted verbatim from home.html (the brand source of truth) */
+  /* Official palette from Style Guide/Unbreakable Sole Brand Book.pdf p3.
+     --sky and --blue-2 are tints derived from Light/Medium Blue (the book
+     specifies six colours only). --yellow, --ink, --muted, --line and --paper
+     are not in the book and are carried over from home.html. */
   :root{
     --ink:#22303a; --muted:#65757f; --line:#e4ebf0; --paper:#fbfcfd;
-    --sky:#eaf4fb; --sky-2:#d7e8f3;
-    --blue:#43748f; --blue-2:#5b91ad; --blue-deep:#365d73;
-    /* --gold is home-og.html's accent (#e8bc6c), not home.html's #e0a63f.
-       It matches the logo sun's own ring colour, sampled at #e8b66c. */
-    --gold:#e8bc6c; --gold-rgb:232,188,108;
-    --orange:#c8722f; --yellow:#ffdd60;
+    --sky:#e8f5fd; --sky-2:#c0e7fa;          /* Light Blue #c0e7fa */
+    --blue:#337690;                          /* Medium Blue */
+    --blue-2:#5c94ab;                        /* tint of Medium Blue */
+    --blue-deep:#00325c;                     /* Dark Blue */
+    --gold:#d79f36; --gold-rgb:215,159,54;   /* Gold */
+    --orange:#b96531;                        /* Burnt Orange */
+    --clay:#e27c68;                          /* Red Clay, tertiary */
+    --yellow:#ffdd60;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{height:100%;}
