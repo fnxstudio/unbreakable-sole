@@ -34,9 +34,9 @@
      not landed on; flex:1 alone only pinned it to the viewport bottom */
   .us-404{flex:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;
     justify-content:center;text-align:center;padding:104px 24px 136px;}
-  /* source logo is only 273x44, so anything above ~22px is upscaled on retina.
-     Held at 28px as a compromise until a vector original is available. */
-  .us-404 .logo{height:28px;width:auto;margin:0 0 44px;opacity:.95;}
+  /* logo-hz.png is rebuilt from the brand book's vector artwork at 300dpi,
+     so it no longer has to be held small to hide upscaling */
+  .us-404 .logo{height:38px;width:auto;margin:0 0 44px;opacity:.95;}
   .us-404 .code{
     font-weight:900;font-size:clamp(96px,21vw,196px);line-height:.9;color:var(--blue);
     letter-spacing:.02em;margin:0 0 6px;}
@@ -70,8 +70,8 @@
   .us-site-footer a{color:#fff;text-decoration:none;}
   .us-foot-grid{display:grid;grid-template-columns:1.35fr .92fr .92fr 1.65fr;gap:44px 36px;padding-bottom:44px;}
 
-  /* logo-reversed.png = wordmark knocked to white, sun left in its own colour */
-  .us-foot-logo{height:26px;width:auto;display:block;margin:0 0 20px;}
+  /* letters knocked to white, the sun left in its own colour */
+  .us-foot-logo{height:34px;width:auto;display:block;margin:0 0 20px;}
   .us-foot-tag{color:rgba(255,255,255,.82);max-width:34ch;font-size:14.5px;margin:0;}
 
   /* margin-bottom on the tag would collapse into this, so own the gap here */
@@ -137,7 +137,7 @@
 </head>
 <body>
   <main class="us-404">
-    <img class="logo" id="logo" src="/unbreakable-sole/assets/7e74f503_Horizontal_20Logo_201.webp" alt="Unbreakable Sole">
+    <img class="logo" id="logo" src="assets/logo-hz.png" alt="Unbreakable Sole">
     <div class="code">4<span class="sun">0</span>4</div>
     <p class="kicker">Off the map</p>
     <h1>Looks like you&rsquo;ve hit an unexpected detour.</h1>
@@ -153,7 +153,7 @@
       <div class="us-foot-grid">
 
         <div class="us-foot-brand">
-          <img class="us-foot-logo" data-asset="assets/logo-reversed.png" alt="Unbreakable Sole">
+          <img class="us-foot-logo" data-asset="assets/logo-hz-white.png" alt="Unbreakable Sole">
           <p class="us-foot-tag">Unbreakable Sole is your guide through life&rsquo;s toughest miles. You don&rsquo;t need to be a runner. You just need to be human.</p>
           <div class="us-socials">
             <a href="https://www.instagram.com/missymosswright" title="Instagram" target="_blank" rel="noopener">
@@ -217,7 +217,7 @@
     // /unbreakable-sole/ project path (GitHub Pages), at any missing depth.
     (function(){
       var base = location.hostname.endsWith('github.io') ? '/unbreakable-sole/' : '/';
-      document.getElementById('logo').src = base + 'assets/7e74f503_Horizontal_20Logo_201.webp';
+      document.getElementById('logo').src = base + 'assets/logo-hz.png';
       document.querySelectorAll('img[data-asset]').forEach(function(img){
         img.src = base + img.getAttribute('data-asset');
       });
