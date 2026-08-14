@@ -75,8 +75,12 @@
   .us-site-footer a{color:#fff;text-decoration:none;}
   .us-foot-grid{display:grid;grid-template-columns:1.35fr .92fr .92fr 1.65fr;gap:44px 36px;padding-bottom:44px;}
 
-  /* letters knocked to white, the sun left in its own colour */
-  .us-foot-logo{height:34px;width:auto;display:block;margin:0 0 20px;}
+  /* The brand logo has a drop shadow and a soft-glow sun baked in, both drawn
+     for light backgrounds, and the brand book ships no reversed lockup. So the
+     full-colour logo sits on a light chip rather than being knocked out. */
+  .us-foot-logomark{display:inline-block;background:#fff;border-radius:10px;
+    padding:11px 16px;margin:0 0 20px;line-height:0;}
+  .us-foot-logo{height:30px;width:auto;display:block;}
   .us-foot-tag{color:rgba(255,255,255,.82);max-width:34ch;font-size:14.5px;margin:0;}
 
   /* margin-bottom on the tag would collapse into this, so own the gap here */
@@ -132,7 +136,7 @@
     .us-foot-grid{grid-template-columns:1fr;gap:32px;text-align:center;}
     /* scoped to out-specify .us-site-footer p{margin:0}, which is (0,1,1);
        a bare .us-foot-tag is (0,1,0) and loses no matter where it sits */
-    .us-site-footer .us-foot-logo,
+    .us-site-footer .us-foot-logomark,
     .us-site-footer .us-foot-tag{margin-left:auto;margin-right:auto;}
     .us-socials{justify-content:center;}
     .us-foot-bottom{flex-direction:column;text-align:center;gap:8px;}
@@ -158,7 +162,7 @@
       <div class="us-foot-grid">
 
         <div class="us-foot-brand">
-          <img class="us-foot-logo" data-asset="assets/logo-hz-white.png" alt="Unbreakable Sole">
+          <span class="us-foot-logomark"><img class="us-foot-logo" data-asset="assets/logo-hz.png" alt="Unbreakable Sole"></span>
           <p class="us-foot-tag">Unbreakable Sole is your guide through life&rsquo;s toughest miles. You don&rsquo;t need to be a runner. You just need to be human.</p>
           <div class="us-socials">
             <a href="https://www.instagram.com/missymosswright" title="Instagram" target="_blank" rel="noopener">
