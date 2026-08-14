@@ -75,13 +75,9 @@
   .us-site-footer a{color:#fff;text-decoration:none;}
   .us-foot-grid{display:grid;grid-template-columns:1.35fr .92fr .92fr 1.65fr;gap:44px 36px;padding-bottom:44px;}
 
-  /* The brand logo has a drop shadow and a soft-glow sun baked in, drawn for
-     light backgrounds, and no reversed lockup exists. So the footer sets the
-     wordmark as live text instead: Proxima Nova 900 with .06em tracking, which
-     matches the width of the Proxima Nova Wide cut the logo actually uses. */
-  .us-foot-wordmark{display:block;font-family:"proxima-nova",sans-serif;font-weight:900;
-    text-transform:uppercase;letter-spacing:.06em;font-size:21px;line-height:1;
-    color:#fff;margin:0 0 20px;}
+  /* supplied white lockup, trimmed to its ink; genuinely transparent so it
+     sits on the footer blue without the halo the light-background logo gave */
+  .us-foot-logo{height:19px;width:auto;max-width:100%;display:block;margin:0 0 20px;}
   .us-foot-tag{color:rgba(255,255,255,.82);max-width:34ch;font-size:14.5px;margin:0;}
 
   /* margin-bottom on the tag would collapse into this, so own the gap here */
@@ -137,7 +133,7 @@
     .us-foot-grid{grid-template-columns:1fr;gap:32px;text-align:center;}
     /* scoped to out-specify .us-site-footer p{margin:0}, which is (0,1,1);
        a bare .us-foot-tag is (0,1,0) and loses no matter where it sits */
-    .us-site-footer .us-foot-wordmark,
+    .us-site-footer .us-foot-logo,
     .us-site-footer .us-foot-tag{margin-left:auto;margin-right:auto;}
     .us-socials{justify-content:center;}
     .us-foot-bottom{flex-direction:column;text-align:center;gap:8px;}
@@ -163,7 +159,7 @@
       <div class="us-foot-grid">
 
         <div class="us-foot-brand">
-          <span class="us-foot-wordmark">Unbreakable Sole</span>
+          <img class="us-foot-logo" data-asset="assets/logo-white.png" alt="Unbreakable Sole">
           <p class="us-foot-tag">Unbreakable Sole is your guide through life&rsquo;s toughest miles. You don&rsquo;t need to be a runner. You just need to be human.</p>
           <div class="us-socials">
             <a href="https://www.instagram.com/missymosswright" title="Instagram" target="_blank" rel="noopener">
