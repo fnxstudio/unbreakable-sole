@@ -6,9 +6,6 @@
 <title>Page Not Found — Unbreakable Sole</title>
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#43748f">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://use.typekit.net/vzy5fke.css">
 <style>
   /* tokens lifted verbatim from home.html (the brand source of truth) */
@@ -23,15 +20,16 @@
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{height:100%;}
+  /* the book's own faces: Proxima Nova throughout. Its display face is
+     Bank Gothic (per the cover artwork's embedded fonts) but that is not in
+     the Typekit kit, so headings use Proxima Nova 900. */
   body{
-    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    font-family:"proxima-nova",-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
     color:var(--ink);
     background:linear-gradient(180deg,var(--sky) 0%,var(--sky-2) 52%,var(--sky) 100%);
     min-height:100%;display:flex;flex-direction:column;line-height:1.6;
     -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
   }
-  /* termina is the logo's face - display only, per the original site */
-  h1,.us-404 .code{font-family:"termina","Inter",sans-serif;}
   /* min-height:100vh keeps the footer below the fold so it is scrolled to,
      not landed on; flex:1 alone only pinned it to the viewport bottom */
   .us-404{flex:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;
@@ -40,14 +38,14 @@
      Held at 28px as a compromise until a vector original is available. */
   .us-404 .logo{height:28px;width:auto;margin:0 0 44px;opacity:.95;}
   .us-404 .code{
-    font-weight:800;font-size:clamp(96px,21vw,196px);line-height:.9;color:var(--blue);
+    font-weight:900;font-size:clamp(96px,21vw,196px);line-height:.9;color:var(--blue);
     letter-spacing:.02em;margin:0 0 6px;}
   .us-404 .code .sun{color:var(--gold);
     text-shadow:0 0 34px rgba(var(--gold-rgb),.55),0 0 8px rgba(var(--gold-rgb),.45);}
   /* matches home.html's .eyebrow */
   .us-404 .kicker{font-weight:700;text-transform:uppercase;letter-spacing:.2em;
     font-size:12px;color:var(--blue);margin:0 0 22px;}
-  .us-404 h1{font-weight:800;color:var(--blue-deep);letter-spacing:-.01em;
+  .us-404 h1{font-weight:900;color:var(--blue-deep);letter-spacing:-.01em;
     font-size:clamp(26px,3.4vw,38px);line-height:1.12;margin:0 0 16px;max-width:16ch;}
   .us-404 p.lead{font-size:clamp(16px,2.2vw,18px);line-height:1.6;color:var(--muted);
     max-width:46ch;margin:0 auto 34px;}
@@ -84,7 +82,7 @@
   .us-socials a:hover{transform:translateY(-2px);}
   .us-socials a:hover svg{fill:var(--yellow);}
 
-  .us-foot-col h3{font-family:"termina","Inter",sans-serif;font-weight:700;text-transform:uppercase;
+  .us-foot-col h3{font-family:"proxima-nova",sans-serif;font-weight:700;text-transform:uppercase;
     letter-spacing:.18em;font-size:12px;color:var(--gold);margin:0 0 16px;}
   .us-foot-col ul{list-style:none;}
   .us-foot-col li{margin:0 0 10px;}
@@ -100,10 +98,10 @@
   .us-book-text{display:block;min-width:0;}
   /* this eyebrow is meant to wrap; balance it so it reads "FOR YOUR /
      TOUGHEST MILES" rather than orphaning MILES on its own line */
-  .us-book-kicker{display:block;font-family:"termina","Inter",sans-serif;font-weight:700;
+  .us-book-kicker{display:block;font-family:"proxima-nova",sans-serif;font-weight:700;
     text-transform:uppercase;letter-spacing:.2em;font-size:10px;color:var(--gold);
     margin:0 0 7px;line-height:1.5;text-wrap:balance;}
-  .us-book-title{display:block;font-family:"termina","Inter",sans-serif;font-weight:800;
+  .us-book-title{display:block;font-family:"proxima-nova",sans-serif;font-weight:900;
     font-size:16.5px;line-height:1.15;margin:0 0 7px;white-space:nowrap;}
   /* text-wrap:pretty stops "free." being orphaned on its own line */
   .us-book-sub{display:block;font-size:12.5px;line-height:1.45;color:rgba(255,255,255,.8);
@@ -192,7 +190,7 @@
 
         <div class="us-foot-col">
           <a class="us-book-corner" href="https://secure.darrenhardy.com/checkout/unbreakable-sole" target="_blank" rel="noopener">
-            <img class="us-book-cover" data-asset="assets/book-cover.webp" alt="Unbreakable Sole book cover">
+            <img class="us-book-cover" data-asset="assets/book-cover-photo.webp" alt="Unbreakable Sole book cover">
             <span class="us-book-text">
               <span class="us-book-kicker">For Your Toughest Miles</span>
               <span class="us-book-title">Unbreakable Sole</span>
