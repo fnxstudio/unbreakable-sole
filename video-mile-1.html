@@ -54,7 +54,7 @@
      the section's own background, so it bleeds edge to edge at every size. */
   .us-video-hero{
     flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    text-align:center;padding:72px 24px 104px;position:relative;isolation:isolate;
+    text-align:center;padding:104px 24px 88px;position:relative;isolation:isolate;
     background-color:var(--sky);
     background-image:url('assets/bg-sole-a-thon.webp');
     background-size:cover;background-position:center center;background-repeat:no-repeat;
@@ -66,11 +66,19 @@
     background:linear-gradient(180deg,rgba(232,245,253,.30) 0%,rgba(232,245,253,0) 34%,rgba(192,231,250,.42) 100%);
   }
 
-  .us-logo{width:min(300px,64vw);height:auto;display:block;margin:0 auto 26px;}
-  /* eyebrow names the series; the h1 carries the leg. Same type scale as the
-     404 so a headline reads identically wherever it appears. */
-  .us-kicker{font-weight:700;text-transform:uppercase;letter-spacing:.2em;
-    font-size:12px;color:var(--blue);margin:0 0 10px;}
+  /* ---- nav ------------------------------------------------------------
+     Sits inside the hero so the sky photograph runs behind it, absolutely
+     positioned so it does not join the centred flex stack. Frees the ~160px
+     the inline logo used to cost and gives the page real site chrome. */
+  .us-nav{position:absolute;top:0;left:0;right:0;z-index:2;
+    background:rgba(255,255,255,.42);backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(255,255,255,.55);}
+  .us-nav-inner{max-width:1120px;margin:0 auto;padding:14px 26px;display:flex;align-items:center;}
+  .us-nav-logo-link{display:inline-block;line-height:0;}
+  .us-nav-logo{height:26px;width:auto;aspect-ratio:374/60;display:block;opacity:.95;}
+
+  /* same type scale as the 404 so a headline reads identically sitewide */
   .us-h1{font-weight:900;color:var(--blue-deep);letter-spacing:-.01em;
     font-size:clamp(26px,3.4vw,38px);line-height:1.12;margin:0 0 12px;}
   .us-lead{font-size:clamp(16px,2.2vw,18px);line-height:1.6;color:var(--blue);
@@ -131,6 +139,9 @@
     padding:16px 30px;border-radius:6px;box-shadow:0 10px 26px rgba(34,48,58,.16);
     transition:transform .12s ease,box-shadow .12s ease,background .12s ease;}
   .us-btn:hover{background:#ffd63f;transform:translateY(-2px);box-shadow:0 14px 30px rgba(34,48,58,.22);}
+  /* keeps the arrow tied to the final word so it can never orphan onto a
+     line of its own when the label wraps on a phone */
+  .us-nobr{white-space:nowrap;}
   .us-btn .arrow{transition:transform .2s ease;}
   .us-btn:hover .arrow{transform:translateX(4px);}
   .us-secondary{font-weight:700;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
@@ -186,9 +197,10 @@
     .us-foot-brand{grid-column:1 / -1;}
   }
   @media (max-width:600px){
-    .us-video-hero{padding:56px 20px 76px;}
-    .us-logo{margin-bottom:20px;}
-    .us-kicker{margin-bottom:22px;}
+    .us-video-hero{padding:88px 20px 64px;}
+    .us-nav-inner{padding:12px 20px;}
+    .us-nav-logo{height:22px;}
+    .us-lead{margin-bottom:26px;}
     .us-actions{gap:20px;margin-top:34px;}
     /* this label is long enough to wrap on a phone. As a flex row the arrow
        becomes its own centred item and drifts away from the last word, so
@@ -209,8 +221,14 @@
 <body>
 
   <main class="us-video-hero">
-    <img class="us-logo" data-asset="assets/logo-stack.webp" alt="Unbreakable Sole" width="892" height="400">
-    <p class="us-kicker">Sole-A-Thon</p>
+    <header class="us-nav">
+      <div class="us-nav-inner">
+        <a class="us-nav-logo-link" href="/" data-page="home.html" aria-label="Unbreakable Sole home">
+          <img class="us-nav-logo" data-asset="assets/logo-hz.png" alt="Unbreakable Sole">
+        </a>
+      </div>
+    </header>
+
     <h1 class="us-h1">Welcome to Mile 1</h1>
     <p class="us-lead">Don&rsquo;t just read Unbreakable Sole. Live it.</p>
 
@@ -225,7 +243,7 @@
     </div>
 
     <div class="us-actions">
-      <a class="us-btn" href="https://secure.darrenhardy.com/checkout/unbreakable-sole" target="_blank" rel="noopener">Get More Books And Audios To Share <span class="arrow">&#8594;</span></a>
+      <a class="us-btn" href="https://secure.darrenhardy.com/checkout/unbreakable-sole" target="_blank" rel="noopener">Get Books &amp; Audios To <span class="us-nobr">Share <span class="arrow">&#8594;</span></span></a>
       <a class="us-secondary" data-page="resources.html">Download Free Resources</a>
     </div>
   </main>
