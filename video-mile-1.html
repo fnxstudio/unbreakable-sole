@@ -116,19 +116,29 @@
     background:radial-gradient(circle at 50% 42%,#fffdf4 0%,#ffe9a8 24%,var(--gold) 62%,#bf8829 100%);
     box-shadow:0 0 0 10px rgba(255,255,255,.16),0 0 64px 14px rgba(var(--gold-rgb),.55),0 16px 36px rgba(20,42,58,.34);
     transition:transform .18s ease,box-shadow .18s ease;
-    animation:us-pulse 3.4s ease-in-out infinite;
+    animation:usBtnPulse 1.8s ease-in-out infinite;
   }
+  /* expanding ring, same two-part pulse used on the DarrenDaily pages
+     (ddBtnPulse + ddRingPulse), in gold instead of DD's accent */
+  .us-play::after{content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none;
+    box-shadow:0 0 0 0 rgba(var(--gold-rgb),.55);
+    animation:usRingPulse 1.8s cubic-bezier(.25,.6,.3,1) infinite;}
   .us-play svg{width:34%;height:34%;margin-left:8%;fill:var(--blue-deep);}
   .us-play:hover,.us-play:focus-visible{transform:translate(0,0) scale(1.07);
     box-shadow:0 0 0 12px rgba(255,255,255,.22),0 0 80px 18px rgba(var(--gold-rgb),.68),0 20px 42px rgba(20,42,58,.4);}
   .us-play:focus-visible{outline:3px solid var(--blue-deep);outline-offset:6px;}
   .us-player:hover .us-scrim{background:radial-gradient(circle at 50% 50%,rgba(13,27,36,.20) 0%,rgba(13,27,36,.38) 100%);}
-  @keyframes us-pulse{
-    0%,100%{box-shadow:0 0 0 10px rgba(255,255,255,.16),0 0 64px 14px rgba(var(--gold-rgb),.55),0 16px 36px rgba(20,42,58,.34);}
-    50%    {box-shadow:0 0 0 10px rgba(255,255,255,.16),0 0 84px 22px rgba(var(--gold-rgb),.72),0 16px 36px rgba(20,42,58,.34);}
+  @keyframes usBtnPulse{
+    0%,100%{transform:scale(1);}
+    50%    {transform:scale(1.06);}
+  }
+  @keyframes usRingPulse{
+    0%  {box-shadow:0 0 0 0 rgba(var(--gold-rgb),.5);}
+    70% {box-shadow:0 0 0 30px rgba(var(--gold-rgb),0);}
+    100%{box-shadow:0 0 0 0 rgba(var(--gold-rgb),0);}
   }
   @media (prefers-reduced-motion:reduce){
-    .us-play{animation:none;}
+    .us-play,.us-play::after{animation:none;}
     .us-play:hover,.us-play:focus-visible{transform:scale(1.03);}
   }
 
