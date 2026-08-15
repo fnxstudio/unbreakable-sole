@@ -67,8 +67,14 @@
   }
 
   .us-logo{width:min(300px,64vw);height:auto;display:block;margin:0 auto 26px;}
+  /* eyebrow names the series; the h1 carries the leg. Same type scale as the
+     404 so a headline reads identically wherever it appears. */
   .us-kicker{font-weight:700;text-transform:uppercase;letter-spacing:.2em;
-    font-size:12px;color:var(--blue);margin:0 0 30px;}
+    font-size:12px;color:var(--blue);margin:0 0 10px;}
+  .us-h1{font-weight:900;color:var(--blue-deep);letter-spacing:-.01em;
+    font-size:clamp(26px,3.4vw,38px);line-height:1.12;margin:0 0 12px;}
+  .us-lead{font-size:clamp(16px,2.2vw,18px);line-height:1.6;color:var(--blue);
+    max-width:46ch;margin:0 auto 34px;}
 
   /* ---- player ----------------------------------------------------------
      A soft sun-coloured bloom sits behind the frame, echoing the O in the
@@ -204,7 +210,9 @@
 
   <main class="us-video-hero">
     <img class="us-logo" data-asset="assets/logo-stack.webp" alt="Unbreakable Sole" width="892" height="400">
-    <p class="us-kicker">Mile 1</p>
+    <p class="us-kicker">Sole-A-Thon</p>
+    <h1 class="us-h1">Welcome to Mile 1</h1>
+    <p class="us-lead">Don&rsquo;t just read Unbreakable Sole. Live it.</p>
 
     <div class="us-player" data-video-id="203022707870" data-portal="2518645">
       <div class="us-frame">
