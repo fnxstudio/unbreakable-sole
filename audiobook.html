@@ -789,6 +789,9 @@
     };
   });
   var MS_ERR = null, MS_SETS = 0;
+  /* iOS renders only the FIRST artwork entry and the guidance conflicts on
+     which size it accepts, so #mediadebug can flip this to compare on-device. */
+  var ART_ORDER = "small";
   function setNowPlaying(c){
     if (!("mediaSession" in navigator)) { MS_ERR = "navigator.mediaSession missing"; return; }
     try {
@@ -797,7 +800,7 @@
         /* iOS shows artist OR album, never both, so artist carries the book name */
         artist: "Missy Moss Wright \u00b7 Unbreakable Sole",
         album:  "Unbreakable Sole",
-        artwork: ART
+        artwork: ART_ORDER === "large" ? ART.slice().reverse() : ART
       });
       MS_SETS++;
     } catch (e) { MS_ERR = (e && e.name ? e.name + ": " : "") + (e && e.message || String(e)); }
@@ -963,10 +966,28 @@
       "letter-spacing:.08em;cursor:pointer;");
     btn.addEventListener("click", function(){ play(0, 0); });
 
+    var swap = document.createElement("button");
+    swap.setAttribute("style",
+      "display:block;width:100%;margin:0 0 10px;padding:12px;border:1px solid rgba(255,255,255,.45);" +
+      "border-radius:8px;background:transparent;color:#fff;font:700 12px/1 -apple-system,sans-serif;" +
+      "letter-spacing:.06em;cursor:pointer;");
+    function swapLabel(){
+      swap.textContent = ART_ORDER === "small"
+        ? "ARTWORK: 96px FIRST  \u2192  tap to try 1024px"
+        : "ARTWORK: 1024px FIRST  \u2192  tap to try 96px";
+    }
+    swap.addEventListener("click", function(){
+      ART_ORDER = ART_ORDER === "small" ? "large" : "small";
+      swapLabel();
+      if (cur >= 0 && CH[cur]) setNowPlaying(CH[cur]);   /* re-send immediately */
+    });
+    swapLabel();
+
     var pre = document.createElement("div");
     pre.setAttribute("style", "white-space:pre-wrap;");
 
     box.appendChild(btn);
+    box.appendChild(swap);
     box.appendChild(pre);
     document.body.appendChild(box);
 
@@ -990,6 +1011,7 @@
         line("  artist", m ? m.artist : "-") +
         line("  artwork", m && m.artwork[0] ? m.artwork.length + " entries, first " + m.artwork[0].sizes : "-") +
         line("artwork fetch", artState) +
+        line("artwork order", ART_ORDER === "small" ? "96px first" : "1024px first") +
         line("times metadata set", MS_SETS) +
         line("last error", MS_ERR || "none") +
         line("playbackState", ms ? ms.playbackState : "-") +
