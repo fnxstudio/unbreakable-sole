@@ -151,14 +151,21 @@
   }
 
   /* ============ HERO ============ */
-  /* The shared hero sky, lifted verbatim from the staging site's .abt-hero /
-     .cn-hero2 / .sp2-hero / .cm2-hero: the same cloud plate under the same
-     three-stop wash. Asset is served from our own origin (9KB). */
+  /* The shared hero sky, lifted from the staging site's .abt-hero / .cn-hero2 /
+     .sp2-hero / .cm2-hero: the same cloud plate under the same three-stop wash.
+     Asset served from our own origin (9KB).
+     The extra top layer is ours: the site's wash ends IN sky tint, the same
+     colour as the listening band underneath, so the two ran together. This
+     dissolves the clouds into white down the page, which both keeps the sky at
+     the top and gives the band a clean edge to sit against. */
   .hero{background-color:var(--sky);
-    background-image:linear-gradient(#e8f5fd57 0%,#e8f5fd00 38%,#e8f5fd8c 100%),url("assets/bg-clouds.webp");
-    background-repeat:repeat,no-repeat;
-    background-size:auto,cover;
-    background-position:0 0,50%;
+    background-image:
+      linear-gradient(to bottom,#ffffff00 26%,#ffffffd9 72%,#ffffff 100%),
+      linear-gradient(#e8f5fd57 0%,#e8f5fd00 38%,#e8f5fd8c 100%),
+      url("assets/bg-clouds.webp");
+    background-repeat:no-repeat,repeat,no-repeat;
+    background-size:auto,auto,cover;
+    background-position:0 0,0 0,50%;
     padding:52px 0 62px;overflow:hidden;}
   .hero .wrap{display:grid;grid-template-columns:.86fr 1.14fr;gap:46px;align-items:center;}
   .hero-art{position:relative;}
