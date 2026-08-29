@@ -325,6 +325,9 @@
   .plat-steps{width:100%;margin:10px 0 0;padding:11px 13px;border-radius:10px;
     background:#fff;border:1px solid var(--sky-2);font-size:12.5px;line-height:1.55;color:var(--ink);}
   .plat-steps a{color:var(--blue-deep);font-weight:700;white-space:nowrap;}
+  .plat-steps .steps-go{display:inline-flex;align-items:center;gap:7px;margin-bottom:9px;padding:11px 16px;
+    border-radius:8px;background:var(--blue-deep);color:#fff;font-size:12.5px;letter-spacing:.04em;}
+  .plat-steps .steps-or{display:block;margin-bottom:8px;font-size:11.5px;color:var(--muted);}
   .plat-steps code{display:block;margin-top:9px;padding:9px 11px;border-radius:8px;background:var(--sky);
     font:11.5px/1.5 ui-monospace,Menlo,monospace;color:var(--blue-deep);word-break:break-all;
     -webkit-user-select:all;user-select:all;}
@@ -724,6 +727,7 @@
       n: "Overcast",
       on: ["ios"],
       manual: {
+        app: function(){ return "overcast://x-callback-url/add?url=" + encodeURIComponent(FEED_URL); },
         open: "https://overcast.fm/",
         openLabel: "Open Overcast",
         steps: "Your link is copied. In Overcast: tap + (top right) \u2192 Add URL \u2192 paste."
@@ -738,6 +742,7 @@
       n: "Pocket Casts",
       on: ["ios", "android", "desktop", "mac"],
       manual: {
+        app: function(){ return "pktc://subscribe/" + FEED_URL.replace(/^https?:\/\//, ""); },
         open: "https://play.pocketcasts.com/",
         openLabel: "Open Pocket Casts",
         steps: "Your link is copied. In Pocket Casts: Profile \u2192 + \u2192 Add URL \u2192 paste."
@@ -752,6 +757,7 @@
       n: "Castro",
       on: ["ios"],
       manual: {
+        app: function(){ return "castros://subscribe/" + FEED_URL.replace(/^https?:\/\//, ""); },
         open: "https://castro.fm/",
         openLabel: "Get Castro",
         steps: "Your link is copied. In Castro: tap Search and paste the URL."
@@ -766,6 +772,7 @@
       n: "Podcast Addict",
       on: ["android"],
       manual: {
+        app: function(){ return "podcastaddict://" + FEED_URL.replace(/^https?:\/\//, ""); },
         open: "https://play.google.com/store/apps/details?id=com.bambuna.podcastaddict",
         openLabel: "Get Podcast Addict",
         steps: "Your link is copied. In Podcast Addict: + \u2192 Add podcast \u2192 RSS feed \u2192 paste."
@@ -780,6 +787,7 @@
       n: "AntennaPod",
       on: ["android"],
       manual: {
+        app: function(){ return "antennapod-subscribe://" + FEED_URL.replace(/^https?:\/\//, ""); },
         open: "https://antennapod.org/",
         openLabel: "Get AntennaPod",
         steps: "Your link is copied. In AntennaPod: Add Podcast \u2192 Add by RSS address \u2192 paste."
@@ -959,12 +967,23 @@
     manual.forEach(function(m){
       var btn = box.querySelector('[data-manual="' + m.i + '"]');
       btn.addEventListener("click", function(){
-        var steps = $("platSteps"), inner = esc(m.app.manual.steps);
-        if (m.app.manual.open) {
-          inner += ' <a href="' + esc(m.app.manual.open) + '" target="_blank" rel="noopener">' +
-                   esc(m.app.manual.openLabel || ("Open " + m.app.n)) + ' &rarr;</a>';
+        var steps = $("platSteps"), man = m.app.manual, phone = (kind === "ios" || kind === "android"), inner = "";
+        /* On a phone, offer the app's own subscribe link first - one tap and it
+           is added, no pasting. It is a custom scheme, so it errors if the app
+           is not installed; there is no universal link we could use instead,
+           because every one these apps publish is keyed to an Apple Podcasts
+           ID and a private feed does not have one. Hence the plain-English
+           fallback sitting right underneath it. */
+        if (phone && man.app) {
+          inner += '<a class="steps-go" href="' + esc(man.app()) + '">Add to ' + esc(m.app.n) + ' &rarr;</a>' +
+                   '<span class="steps-or">Nothing happened? You don&rsquo;t have it yet.</span>';
         }
-        if (m.app.manual.showUrl) inner += '<code>' + esc(FEED_URL) + '</code>';
+        inner += esc(man.steps);
+        if (man.open) {
+          inner += ' <a href="' + esc(man.open) + '" target="_blank" rel="noopener">' +
+                   esc(phone && man.app ? ("Get " + m.app.n) : (man.openLabel || ("Open " + m.app.n))) + ' &rarr;</a>';
+        }
+        if (man.showUrl) inner += '<code>' + esc(FEED_URL) + '</code>';
         steps.innerHTML = inner;
         steps.hidden = false;
         if (navigator.clipboard) navigator.clipboard.writeText(FEED_URL).catch(function(){});
