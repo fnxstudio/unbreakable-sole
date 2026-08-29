@@ -804,12 +804,12 @@
        chips beside it already offer. */
     var copy = $("dlCopy"), acts = $("dlActs"), hint = $("dlHint");
     copy.textContent = kind === "desktop"
-      ? "Keep the chapters as ordinary MP3 files on this computer."
-      : "Save the chapters to this device so they play with no signal.";
+      ? "Download the chapters to keep them on this computer, or add the audiobook to a podcast app to sync it to your phone."
+      : "Download the chapters to keep them on this phone, or add the audiobook to a podcast app and it will download them for you.";
     acts.innerHTML = '<button class="plat" id="dlAll" type="button">Download all ' + CH.length + ' chapters</button>';
     hint.textContent = kind === "desktop"
-      ? "About 1 GB in total, saved one after another. Or use the arrow beside any chapter to grab just that one."
-      : "About 1 GB in total. Or tap the arrow beside any chapter to save just that one.";
+      ? "Downloading all chapters is about 1 GB and saves them one after another."
+      : "Downloading all chapters is about 1 GB. Or tap the arrow beside any chapter to save just that one.";
     var all = $("dlAll");
     if (all) all.addEventListener("click", function(){
       all.disabled = true;
