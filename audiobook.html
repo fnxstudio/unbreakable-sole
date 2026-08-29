@@ -1,11 +1,19 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Figtree:wght@400;500;700;800&display=swap">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- 400/700/800 only: the same three the Webflow site loads. 500 was being
+     downloaded and never used. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Figtree:wght@400;700;800&display=swap">
+<!-- the audio lives on these two hosts; warming them makes the first press of
+     play noticeably quicker -->
+<link rel="preconnect" href="https://podcasts.helloaudio.fm">
+<link rel="preconnect" href="https://episodes.helloaudio.fm">
+<link rel="preload" as="image" href="assets/audiobook-cover-512.jpg">
 <title>The Unbreakable Sole Audiobook</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="description" content="All 26.2 miles of Unbreakable Sole, read aloud by Missy Moss Wright. 33 chapters, 7 hours, free with every copy of the book.">
@@ -97,7 +105,6 @@
   em.hl{font-style:normal;color:var(--blue-deep);background:var(--yellow);border-radius:4px;
     padding:0 .14em;-webkit-box-decoration-break:clone;box-decoration-break:clone;}
   section{padding:72px 0;scroll-margin-top:24px;}   /* breathing room for jump links */
-  .center{text-align:center;}
 
   .btn{display:inline-flex;align-items:center;gap:9px;background:var(--yellow);color:#1b2126;font-weight:800;
     text-transform:uppercase;letter-spacing:.06em;font-size:15px;padding:16px 30px;border-radius:6px;border:0;
@@ -200,13 +207,13 @@
   /* card titles are brand-sans 700 dark-blue on this site, not display type (.res-item-h) */
   .pcard h2{font-family:var(--brand-sans);font-weight:700;font-size:20px;letter-spacing:0;
     line-height:1.25;color:var(--blue-deep);}
-  .pcard .meta{font-size:12.5px;color:var(--muted);margin-top:6px;font-weight:600;letter-spacing:.03em;}
+  .pcard .meta{font-size:12.5px;color:var(--muted);margin-top:6px;font-weight:700;letter-spacing:.03em;}
 
   .resume{display:none;align-items:center;gap:12px;flex-wrap:wrap;margin-top:14px;max-width:600px;
     background:var(--sky);border:1px solid var(--sky-2);border-radius:10px;padding:11px 15px;}
   .resume.show{display:flex;}
   .resume .lbl{font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);}
-  .resume .ttl{font-size:13.5px;font-weight:600;flex:1 1 180px;}
+  .resume .ttl{font-size:13.5px;font-weight:700;flex:1 1 180px;}
   .resume .go{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#1b2126;
     background:var(--yellow);padding:9px 15px;border-radius:5px;}
 
@@ -353,7 +360,7 @@
   .skb:hover{background:rgba(255,255,255,.13);color:#fff;}
   .skb:disabled{opacity:.3;cursor:default;} .skb:disabled:hover{background:none;color:rgba(255,255,255,.82);}
   .skb svg{width:19px;height:19px;}
-  .skb .sec{position:absolute;font-size:7.5px;font-weight:900;top:50%;left:50%;transform:translate(-50%,-36%);}
+  .skb .sec{position:absolute;font-size:7.5px;font-weight:800;top:50%;left:50%;transform:translate(-50%,-36%);}
   .skb.main{width:48px;height:48px;background:var(--yellow);color:#1b2126;}
   .skb.main:hover{background:#ffd63f;}
   .skb.main svg{width:20px;height:20px;margin-left:2px;}
@@ -422,7 +429,7 @@
   <div class="wrap">
 
     <div class="hero-art">
-      <img id="coverArt" class="cover" src="https://d32kcwy5dai345.cloudfront.net/c97c8584-0b94-49cc-95cc-fc29ed882798.jpg"
+      <img id="coverArt" class="cover" src="assets/audiobook-cover-512.jpg"
            alt="Unbreakable Sole, the audiobook, read by Missy Moss Wright" width="900" height="900" fetchpriority="high">
     </div>
 
@@ -528,7 +535,7 @@
 <div class="sticky" id="sticky" role="region" aria-label="Audiobook player">
   <div class="sk-prog" id="prog"><div class="fill" id="fill"></div></div>
   <div class="sk-body">
-    <img class="sk-art" id="skArt" src="https://d32kcwy5dai345.cloudfront.net/c97c8584-0b94-49cc-95cc-fc29ed882798.jpg" alt="">
+    <img class="sk-art" id="skArt" src="assets/audiobook-cover-128.jpg" alt="" width="52" height="52" decoding="async">
     <div class="sk-info">
       <div class="t" id="skTitle"></div>
       <div class="m" id="skMeta"></div>
@@ -984,8 +991,13 @@
         GROUPS[2].to = CH.length - 1;
         renderList();
       }
-      var art = doc.querySelector("channel > image > url");
-      if (art && art.textContent) { $("coverArt").src = $("skArt").src = art.textContent.trim(); }
+      /* The cover deliberately stays on our own copy rather than being
+         repointed at the feed's 1500px original: same picture resized, 27KB
+         instead of 137KB, and no third-party image request on every load.
+         NB audiobook-cover-* (the flat square feed artwork, used here) is a
+         different image from audiobook-art-* (the 3D book mockup used for the
+         lock screen). If Hello Audio's artwork changes, regenerate
+         assets/audiobook-cover-512.jpg and -128.jpg from it. */
     }).catch(function(){ /* baked list stands */ });
   }
 
