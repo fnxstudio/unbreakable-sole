@@ -67,6 +67,7 @@
     --sky:#e8f5fd;            /* --sky-tint */
     --sky-2:#c0e7fa;          /* --light-blue */
     --gold:#d79f36;           /* --gold */
+    --gold-rgb:215,159,54;    /* for the play-button pulse ring */
     --yellow:#ffdd60;         /* --cta-yellow */
     --orange:#b96531;         /* --burnt-orange - used sparingly, the site leads with the yellow highlight */
     --muted:#65757f;          /* --muted */
@@ -102,9 +103,12 @@
     text-transform:uppercase;letter-spacing:.06em;font-size:15px;padding:16px 30px;border-radius:6px;border:0;
     cursor:pointer;text-decoration:none;transition:transform .12s,box-shadow .12s,background .12s;box-shadow:0 10px 26px rgba(34,48,58,.16);}
   .btn:hover{background:#ffd63f;transform:translateY(-2px);box-shadow:0 14px 30px rgba(34,48,58,.22);}
-  .btn.outline{background:none;border:0;border-bottom:2px solid var(--yellow);border-radius:0;box-shadow:none;
-    color:var(--blue-deep);font-size:11.5px;letter-spacing:.18em;padding:0 2px 5px;}
-  .btn.outline:hover{background:none;border-bottom-color:var(--gold);transform:none;box-shadow:none;}
+  /* Deep blue rather than the commerce yellow: this is a player control, and it
+     should not compete with "Get The Book". Colour is held on hover; the button
+     lifts instead of darkening. */
+  .btn.play-all{background:var(--blue-deep);color:#fff;border:0;box-shadow:0 10px 26px rgba(0,50,92,.3);}
+  .btn.play-all:hover{background:var(--blue-deep);transform:translateY(-2px);box-shadow:0 15px 32px rgba(0,50,92,.38);}
+  .btn.play-all svg{width:15px;height:15px;flex:none;}
 
   /* top bar - matches home.html */
   /* ============ NAV - mirrors the site's "Site Nav - Links" component ============ */
@@ -113,7 +117,7 @@
     border-bottom:1px solid rgba(0,50,92,.09);}
   .site-nav-inner{max-width:var(--container-max);margin:0 auto;padding:14px var(--gutter);display:flex;align-items:center;}
   .nav-logo-link{line-height:0;display:inline-block;}
-  .nav-logo{height:26px;width:auto;opacity:.95;display:block;}
+  .nav-logo{height:26px;width:auto;aspect-ratio:374/60;opacity:.95;display:block;}
   .navl-links{display:flex;align-items:center;column-gap:34px;margin-left:auto;}
   .navl-link{color:var(--blue-deep);font-size:14px;font-weight:700;letter-spacing:.01em;
     text-decoration:none;padding:6px 0;transition:color .16s,border-color .16s;}
@@ -139,18 +143,13 @@
 
   /* ============ HERO ============ */
   .hero{background:linear-gradient(180deg,#eaf4fb 0%,#f2f9fc 60%,#fbfcfd 100%);padding:52px 0 62px;overflow:hidden;}
-  .hero .wrap{display:grid;grid-template-columns:.86fr 1.14fr;gap:46px;align-items:center;}
-  .hero-art{position:relative;}
+  .hero .wrap{display:grid;grid-template-columns:.86fr 1.14fr;gap:30px 46px;align-items:start;
+    grid-template-areas:"art copy" "aside copy";}
+  .hero-art{grid-area:art;position:relative;}
+  .txt{grid-area:copy;}
+  .hero-aside{grid-area:aside;}
+  .hero-aside .plats{margin-top:0;}   /* spacing under the cover comes from the grid row-gap */
   .hero-art img{width:100%;height:auto;border-radius:16px;box-shadow:0 30px 60px -22px rgba(34,48,58,.42);}
-  .art-chip{position:absolute;left:-22px;bottom:-20px;background:#fff;border:1px solid var(--sky-2);
-    border-radius:12px;padding:13px 18px;box-shadow:0 18px 40px -20px rgba(34,48,58,.45);}
-  .art-chip .n{font-family:var(--brand-display);font-weight:400;font-size:23px;letter-spacing:-.01em;line-height:1;color:var(--blue-deep);}
-  .art-chip .c{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:5px;}
-  .badges{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 8px;}
-  .badge{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--sky-2);border-radius:40px;
-    font-size:12px;font-weight:700;color:var(--blue-deep);padding:6px 13px;}
-  .badge .st{color:var(--gold);letter-spacing:1px;}
-  .dur-badge{display:none;}   /* stands in for .art-chip once the chip is dropped on small screens */
   .hero h1{font-size:clamp(31px,4.4vw,50px);margin:13px 0 15px;line-height:1.08em;}
   .hero p.lead{font-size:17.5px;color:#42525c;max-width:33em;margin:0 0 22px;}
 
@@ -162,10 +161,36 @@
     text-transform:uppercase;color:var(--blue);margin-bottom:14px;}
   .livedot{width:7px;height:7px;border-radius:50%;background:var(--gold);flex:none;}
   .pcard-body{display:flex;align-items:center;gap:18px;}
-  .bigplay{width:64px;height:64px;border-radius:50%;background:var(--blue-deep);color:#fff;flex:none;
-    display:flex;align-items:center;justify-content:center;transition:transform .2s var(--ease),background .2s;
-    box-shadow:0 12px 28px -10px rgba(0,50,92,.6);}
-  .bigplay:hover{transform:scale(1.06);background:var(--blue);}
+  /* Same two-part pulse as the Mile video pages (usBtnPulse + usRingPulse):
+     the orb breathes 1 -> 1.06 while a gold ring pushes out 30px and fades.
+     Timing, easing and ring colour are copied from video-mile-1.html so the
+     invitation to press play reads identically across the site. */
+  .bigplay{position:relative;width:64px;height:64px;border-radius:50%;background:var(--blue-deep);color:#fff;flex:none;
+    display:flex;align-items:center;justify-content:center;transition:background .2s,box-shadow .2s;
+    box-shadow:0 12px 28px -10px rgba(0,50,92,.6);
+    animation:usBtnPulse 1.8s ease-in-out infinite;}
+  .bigplay::after{content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none;
+    box-shadow:0 0 0 0 rgba(var(--gold-rgb),.55);
+    animation:usRingPulse 1.8s cubic-bezier(.25,.6,.3,1) infinite;}
+  /* dropping the animation on hover lets the hover transform actually apply -
+     a running animation outranks it otherwise */
+  .bigplay:hover{animation:none;transform:scale(1.08);background:var(--blue);
+    box-shadow:0 16px 34px -10px rgba(0,50,92,.7);}
+  /* once it is playing the button is a pause control, so it stops asking */
+  .bigplay.is-pause,.bigplay.is-pause::after{animation:none;}
+  @keyframes usBtnPulse{
+    0%,100%{transform:scale(1);}
+    50%    {transform:scale(1.06);}
+  }
+  @keyframes usRingPulse{
+    0%  {box-shadow:0 0 0 0 rgba(var(--gold-rgb),.5);}
+    70% {box-shadow:0 0 0 30px rgba(var(--gold-rgb),0);}
+    100%{box-shadow:0 0 0 0 rgba(var(--gold-rgb),0);}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .bigplay,.bigplay::after{animation:none;}
+    .bigplay:hover{transform:scale(1.04);}
+  }
   .bigplay svg{width:26px;height:26px;margin-left:3px;}
   .bigplay.is-pause svg{margin-left:0;}
   /* card titles are brand-sans 700 dark-blue on this site, not display type (.res-item-h) */
@@ -197,11 +222,8 @@
   .plat-note{width:100%;font-size:11.5px;color:var(--muted);margin-top:9px;}
 
   @media (max-width:900px){
-    .hero .wrap{grid-template-columns:1fr;gap:34px;}
-    .hero-art{max-width:330px;margin:0 auto;order:-1;}
-    /* the chip lands on top of Missy's name on the cover at this width - use the badge instead */
-    .art-chip{display:none;}
-    .dur-badge{display:inline-flex;}
+    .hero .wrap{grid-template-columns:1fr;gap:34px;grid-template-areas:"art" "copy" "aside";}
+    .hero-art{max-width:330px;margin:0 auto;}
   }
 
   /* ============ STATS BAND ============ */
@@ -210,7 +232,7 @@
   .band{background:var(--sky);color:var(--ink);padding:44px 0;}
   .band .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;text-align:center;}
   .band .n{font-family:var(--brand-display);font-size:34px;font-weight:400;letter-spacing:-.01em;
-    line-height:1;color:var(--blue-deep);}
+    line-height:1;color:var(--blue-deep);font-variant-numeric:tabular-nums;}
   .band .c{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
     color:var(--muted);margin-top:10px;line-height:1.5;}
   @media (max-width:720px){.band .wrap{grid-template-columns:repeat(2,1fr);gap:28px 14px;} .band .n{font-size:28px;}}
@@ -269,23 +291,16 @@
   /* ============ FOOTER - mirrors the site's "Site Footer" component ============ */
   .site-footer{background:var(--blue);color:var(--on-blue);border-top:2px solid var(--gold);
     font-family:var(--brand-sans);font-size:14px;line-height:1.6;}
-  .footer-inner{max-width:var(--container-max);margin:0 auto;padding:52px var(--gutter) 0;}
-  .footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:34px 40px;padding-bottom:34px;}
-  .footer-logo{height:30px;width:auto;margin-bottom:16px;}
-  .footer-tagline{max-width:34em;color:var(--on-blue);margin:0;}
-  .footer-heading{color:var(--gold);font-size:12px;font-weight:700;letter-spacing:.18em;
-    text-transform:uppercase;margin:0 0 16px;}
-  .footer-col a{display:block;color:var(--on-blue);text-decoration:none;padding:5px 0;transition:color .14s;}
-  .footer-col a:hover{color:#fff;text-decoration:underline;text-underline-offset:3px;}
+  /* the slim variant: bottom bar only on the blue band with the gold top rule */
+  .footer-inner{max-width:var(--container-max);margin:0 auto;padding:0 var(--gutter);}
   .footer-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;
-    gap:6px 20px;padding:18px 0 20px;border-top:1px solid rgba(255,255,255,.18);font-size:13px;}
+    gap:6px 20px;padding:18px 0 20px;font-size:13px;}
   .footer-copy{color:var(--on-blue-soft);margin:0;}
   .footer-legal{margin:0;}
   .footer-legal a{color:var(--on-blue-muted);margin-left:20px;text-decoration:none;}
   .footer-legal a:hover{color:#fff;text-decoration:underline;text-underline-offset:2px;}
   @media (max-width:767px){
-    .footer-grid{grid-template-columns:1fr;gap:28px;}
-    .footer-inner{padding:40px 22px 0;}
+    .footer-inner{padding:0 22px;}
     .footer-bottom{flex-direction:column;text-align:center;gap:8px;}
     .footer-legal a{margin:0 10px;}
   }
@@ -358,7 +373,7 @@
 <header class="site-nav">
   <div class="site-nav-inner">
     <a href="https://unbreakable-sole.webflow.io/" aria-label="Unbreakable Sole home" class="nav-logo-link">
-      <img src="assets/logo-hz-v2.png" alt="Unbreakable Sole" class="nav-logo">
+      <img src="assets/logo-hz.png" alt="Unbreakable Sole" class="nav-logo" width="820" height="132">
     </a>
     <nav class="navl-links" id="navLinks">
       <a href="https://unbreakable-sole.webflow.io/about" class="navl-link">About</a>
@@ -381,19 +396,9 @@
     <div class="hero-art">
       <img id="coverArt" src="https://d32kcwy5dai345.cloudfront.net/c97c8584-0b94-49cc-95cc-fc29ed882798.jpg"
            alt="Unbreakable Sole, the audiobook, read by Missy Moss Wright" width="900" height="900" fetchpriority="high">
-      <div class="art-chip">
-        <div class="n">7<span style="font-size:15px">h</span> 06<span style="font-size:15px">m</span></div>
-        <div class="c">In her<br>own voice</div>
-      </div>
     </div>
 
     <div class="txt">
-      <div class="badges">
-        <span class="badge">33 Chapters</span>
-        <span class="badge dur-badge">7 hrs 6 min</span>
-        <span class="badge">Read by Missy</span>
-        <span class="badge"><span class="st">★★★★★</span> Free With The Book</span>
-      </div>
       <div class="eyebrow">The Unbreakable Sole Audiobook</div>
       <h1>Every mile, in the voice of the woman who <em class="hl">ran it.</em></h1>
       <p class="lead">Some stories land differently when you hear them said out loud. Missy reads all 26.2 miles herself, so you can take the whole book on your run, your drive, or your hardest day.</p>
@@ -418,6 +423,11 @@
         <button class="go" id="resumeGo">Resume &rarr;</button>
       </div>
 
+    </div>
+
+    <!-- sits under the cover on desktop to balance the tall copy column,
+         and drops below the copy on phones (grid-template-areas, below) -->
+    <div class="hero-aside">
       <div class="plats" id="plats">
         <span class="lbl">Or listen on</span>
       </div>
@@ -436,10 +446,11 @@
 <!-- ============ STATS BAND ============ -->
 <section class="band">
   <div class="wrap">
-    <div><div class="n">33</div><div class="c">Chapters<br>Start To Finish</div></div>
-    <div><div class="n">7:06</div><div class="c">Hours Of<br>The Whole Story</div></div>
-    <div><div class="n">26.2</div><div class="c">Miles<br>One At A Time</div></div>
-    <div><div class="n">$0</div><div class="c">Included Free<br>With The Book</div></div>
+    <!-- the printed value is the real one; the counter only takes over if JS runs -->
+    <div><div class="n" data-count="33">33</div><div class="c">Chapters<br>Start To Finish</div></div>
+    <div><div class="n" data-count="426" data-fmt="time">7:06</div><div class="c">Hours Of<br>The Whole Story</div></div>
+    <div><div class="n" data-count="26.2" data-fmt="dec">26.2</div><div class="c">Miles<br>One At A Time</div></div>
+    <div><div class="n" data-count="0" data-fmt="money">$0</div><div class="c">Included Free<br>With The Book</div></div>
   </div>
 </section>
 
@@ -452,7 +463,10 @@
         <h2>Every chapter, <em class="hl">ready to play.</em></h2>
         <p>Start at mile one, or jump to the mile you need today. It remembers where you stopped and rolls straight into the next chapter.</p>
       </div>
-      <button class="btn outline" id="startTop">Play From The Beginning</button>
+      <button class="btn play-all" id="startTop">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        Play From The Beginning
+      </button>
     </div>
     <div id="list"></div>
   </div>
@@ -461,12 +475,12 @@
 <!-- ============ CTA ============ -->
 <section class="cta">
   <div class="wrap">
-    <div class="eyebrow">The Book</div>
+    <div class="eyebrow">Pass It On</div>
     <div class="rule"></div>
-    <h2>The audiobook comes <em class="hl">free</em> with every copy.</h2>
-    <p>Signed hardcover, free U.S. shipping, and the full seven hours to take with you anywhere.</p>
-    <a href="https://unbreakablesole.com" class="btn">Get The Book &rarr;</a>
-    <p class="fine">30-day happiness guarantee. Cancel-proof: the audiobook is yours to keep either way.</p>
+    <h2>Somebody you know is in their <em class="hl">hardest mile</em> right now.</h2>
+    <p>Every order is a signed hardcover with all seven hours of audio included. Read it, then put it in the hands of the person who needs it, or keep the audiobook for your own runs and give the book away. Nobody should have to run the hard miles without somebody handing them the map.</p>
+    <a href="https://unbreakablesole.com" class="btn">Get A Copy To Share &rarr;</a>
+    <p class="fine">Free U.S. shipping. 30-day happiness guarantee. The audiobook is yours to keep either way.</p>
   </div>
 </section>
 
@@ -474,27 +488,8 @@
 
 <footer class="site-footer">
   <div class="footer-inner">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <img src="assets/logo-white.png" alt="Unbreakable Sole" class="footer-logo" loading="lazy">
-        <p class="footer-tagline">Unbreakable Sole is your guide through life&rsquo;s toughest miles. You don&rsquo;t need to be a runner. You just need to be human.</p>
-      </div>
-      <div class="footer-col">
-        <p class="footer-heading">Explore</p>
-        <a href="https://unbreakable-sole.webflow.io/about">About Missy</a>
-        <a href="https://unbreakable-sole.webflow.io/speaking">Speaking</a>
-        <a href="https://unbreakable-sole.webflow.io/community">Community</a>
-        <a href="https://unbreakable-sole.webflow.io/resources">Free Resources</a>
-      </div>
-      <div class="footer-col">
-        <p class="footer-heading">The Book</p>
-        <a href="https://secure.darrenhardy.com/checkout/unbreakable-sole">Book + Audio</a>
-        <a href="#listen">Listen To The Audiobook</a>
-        <a href="https://unbreakable-sole.webflow.io/connect">Connect</a>
-      </div>
-    </div>
     <div class="footer-bottom">
-      <p class="footer-copy">© 2026 Unbreakable Sole. All Rights Reserved.</p>
+      <p class="footer-copy">© Unbreakable Sole. All Rights Reserved.</p>
       <p class="footer-legal">
         <a href="https://dh.darrenhardy.com/terms-of-service/" target="_blank" rel="noopener">Terms &amp; Conditions</a>
         <a href="https://dh.darrenhardy.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>
@@ -991,6 +986,69 @@
     }
     render();
     setInterval(render, 1000);
+  })();
+
+
+  /* ---- stats band: numbers roll up the first time the band is scrolled into
+     view. Progressive enhancement - the real figures are printed in the HTML,
+     so with no JS, no IntersectionObserver or reduced motion the band just
+     shows them. Because the counter zeroes the numbers to animate them, it
+     also carries a guard: if the observer never fires (it does not, for one,
+     while a tab is not being composited) the true values are written back
+     rather than leaving a row of zeros on screen. */
+  (function(){
+    var band = document.querySelector(".band");
+    if (!band) return;
+    var nums = [].slice.call(band.querySelectorAll(".n[data-count]"));
+    if (!nums.length) return;
+    var reduced = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced || !("IntersectionObserver" in window) || !window.requestAnimationFrame) return;
+
+    function fmt(el, v){
+      switch (el.getAttribute("data-fmt")) {
+        case "time":  var m = Math.round(v); return Math.floor(m/60) + ":" + String(m%60).padStart(2,"0");
+        case "dec":   return v.toFixed(1);
+        case "money": return "$" + Math.round(v);
+        default:      return String(Math.round(v));
+      }
+    }
+    var done = [];
+    function claim(el){ if (done.indexOf(el) > -1) return false; done.push(el); return true; }
+    function settle(el){ if (claim(el)) el.textContent = fmt(el, parseFloat(el.getAttribute("data-count"))); }
+    function run(el){
+      if (!claim(el)) return;
+      var to = parseFloat(el.getAttribute("data-count")), t0 = null, DUR = 1100;
+      if (!to) { el.textContent = fmt(el, to); return; }        /* $0 has nowhere to travel */
+      requestAnimationFrame(function step(ts){
+        if (t0 === null) t0 = ts;
+        var p = Math.min(1, (ts - t0) / DUR);
+        el.textContent = fmt(el, to * (1 - Math.pow(1 - p, 3)));  /* easeOutCubic */
+        if (p < 1) requestAnimationFrame(step);
+        else el.textContent = fmt(el, to);                        /* land exactly on the value */
+      });
+    }
+
+    nums.forEach(function(el){ el.textContent = fmt(el, 0); });
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting) { io.unobserve(en.target); run(en.target); }
+      });
+    }, { threshold: 0.5 });
+    nums.forEach(function(el){ io.observe(el); });
+
+    /* guard: catch anything the observer misses, and never leave zeros up */
+    var ticks = 0;
+    var guard = setInterval(function(){
+      ticks++;
+      var left = nums.filter(function(el){ return done.indexOf(el) === -1; });
+      if (!left.length) { clearInterval(guard); return; }
+      left.forEach(function(el){
+        var b = el.getBoundingClientRect();
+        if (ticks >= 24) settle(el);                                  /* ~12s: give up, show the truth */
+        else if (b.top < innerHeight && b.bottom > 0) run(el);
+      });
+      if (ticks >= 24) { clearInterval(guard); io.disconnect(); }
+    }, 500);
   })();
 
   /* mobile nav toggle - the staging site carries the same behaviour in site code */
