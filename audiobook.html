@@ -319,8 +319,8 @@
     transition:border-color .18s,transform .18s var(--ease),box-shadow .18s;}
   .plat:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 14px 30px rgba(20,42,58,.10);}
   .plat svg{width:16px;height:16px;flex:none;}
-  .plat-go{background:var(--blue-deep);color:#fff;border-color:var(--blue-deep);}
-  .plat-go:hover{background:var(--blue-deep);border-color:var(--blue-deep);}
+  .plat svg{width:20px;height:20px;border-radius:4px;}   /* app marks are square, not glyphs */
+  .plat-more{color:var(--muted);}
   .plat .soon{font-size:8.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#8a6420;
     background:#fdf3dd;border-radius:20px;padding:2px 6px;margin-left:1px;}
   .plat.pending{cursor:default;opacity:.9;}
@@ -677,9 +677,9 @@
      ONE CATCH, worth knowing before anyone writes support copy: that page
      is single-use. Once a listener has added the feed somewhere it stops
      offering the chooser and says "contact the feed creator to reset your
-     link". The raw feed URL keeps working in any app for ever, which is why
-     Copy feed link sits beside it and is the better answer for a second
-     device.
+     link". The raw feed URL itself keeps working in any app for ever, so a
+     buyer wanting a second device needs either that link or a reset - the
+     page no longer offers to copy it, by design, to keep this simple.
 
      Apps Hello Audio supports (help.helloaudio.fm/en/articles/12454926):
        any device : Spotify, YouTube Music, Pocket Casts, Player FM, Castbox,
@@ -692,6 +692,28 @@
   function subscribeUrl(){
     return "https://podcasts.helloaudio.fm/subscribe/" + FEED_ID + "/" + FEED_KEY;
   }
+
+  /* One chip per app, added one at a time as each is confirmed working on a
+     real device. `on` limits it to the platforms the app actually exists on,
+     so nobody is offered a button that cannot do anything.
+     NEXT UP: Spotify, then YouTube Music. Spotify cannot be a plain link -
+     the feed uses Spotify Open Access (see the note above), so its entry
+     will need the account-link URL from Hello Audio's own player list. */
+  var APPS = [
+    {
+      n: "Apple Podcasts",
+      on: ["ios", "desktop"],          /* no Apple Podcasts on Android */
+      u: function(){ return "podcast://" + FEED_URL.replace(/^https?:\/\//, ""); },
+      svg: '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+             '<defs><linearGradient id="apg" x1="0" y1="0" x2="0" y2="1">' +
+               '<stop offset="0" stop-color="#F452FF"/><stop offset="1" stop-color="#832BC1"/>' +
+             '</linearGradient></defs>' +
+             '<rect width="24" height="24" rx="5.4" fill="url(#apg)"/>' +
+             '<g transform="translate(3.6,3.6) scale(.7)" fill="#fff">' +
+               '<path d="M12 2a10 10 0 0 0-3.6 19.3c.2-.6 0-1.3-.2-1.9A8 8 0 1 1 20 12a8 8 0 0 1-4.2 7c-.2.7-.4 1.4-.2 2A10 10 0 0 0 12 2zm0 4.6a5.4 5.4 0 0 0-2.6 10.1c.3-.5.4-1.2.3-1.8a3.4 3.4 0 1 1 4.6 0c-.1.6 0 1.3.3 1.8A5.4 5.4 0 0 0 12 6.6zm0 4a1.9 1.9 0 0 0-1.9 2.1c.1.6.5 1 .6 1.6l.5 3.6c.1.7.3 1.3.8 1.3s.7-.6.8-1.3l.5-3.6c.1-.6.5-1 .6-1.6A1.9 1.9 0 0 0 12 10.6z"/>' +
+             '</g></svg>'
+    }
+  ];
 
 
   /* ─── CHAPTERS (baked from the feed, refreshed live on load) ── */
@@ -781,15 +803,13 @@
        to repeat "open in Apple Podcasts" and "copy the link", which the
        chips beside it already offer. */
     var copy = $("dlCopy"), acts = $("dlActs"), hint = $("dlHint");
-    if (kind === "desktop") {
-      copy.textContent = "Keep the chapters on this computer as ordinary MP3 files.";
-      acts.innerHTML = '<button class="plat" id="dlAll" type="button">Download all 33 chapters</button>';
-      hint.textContent = "About 1 GB in total, saved one after another. To listen on your phone instead, subscribe in a podcast app using the link beside this.";
-    } else {
-      copy.textContent = "Save chapters to this device so they play with no signal.";
-      acts.innerHTML = "";
-      hint.textContent = "Tap the arrow beside any chapter to save that file. For the whole book offline, subscribe in a podcast app above and let it download.";
-    }
+    copy.textContent = kind === "desktop"
+      ? "Keep the chapters as ordinary MP3 files on this computer."
+      : "Save the chapters to this device so they play with no signal.";
+    acts.innerHTML = '<button class="plat" id="dlAll" type="button">Download all ' + CH.length + ' chapters</button>';
+    hint.textContent = kind === "desktop"
+      ? "About 1 GB in total, saved one after another. Or use the arrow beside any chapter to grab just that one."
+      : "About 1 GB in total. Or tap the arrow beside any chapter to save just that one.";
     var all = $("dlAll");
     if (all) all.addEventListener("click", function(){
       all.disabled = true;
@@ -807,24 +827,14 @@
 
   function renderPlats(){
     var box = $("plats");
-    box.insertAdjacentHTML("beforeend",
-      '<a class="plat plat-go" href="' + esc(subscribeUrl()) + '" target="_blank" rel="noopener">' +
-        '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">' +
-          '<path d="M12 3a9 9 0 1 0 9 9 9 9 0 0 0-9-9zm1 13h-2v-5h2zm0-7h-2V7h2z"/></svg>' +
-        'Choose your podcast app</a>' +
-      '<button class="plat" id="platCopy" type="button">Copy feed link</button>' +
-      '<p class="plat-note">The first opens Missy&rsquo;s player list &mdash; Apple Podcasts, ' +
-      'Spotify, Overcast, Pocket Casts, YouTube Music. Already added it once? Use the link ' +
-      'instead: paste it into any app&rsquo;s &ldquo;add by URL&rdquo; option. It&rsquo;s ' +
-      'yours alone, so please don&rsquo;t pass it on.</p>');
-
-    var cp = $("platCopy");
-    if (cp) cp.addEventListener("click", function(){
-      var done = function(){ cp.textContent = "Copied"; setTimeout(function(){
-        cp.textContent = "Copy feed link"; }, 1800); };
-      if (navigator.clipboard) navigator.clipboard.writeText(FEED_URL).then(done, done);
-      else { window.prompt("Copy your private feed link:", FEED_URL); }
+    var kind = deviceKind(), html = "";
+    APPS.filter(function(a){ return a.on.indexOf(kind) > -1; }).forEach(function(a){
+      html += '<a class="plat" href="' + esc(a.u()) + '">' + a.svg + esc(a.n) + '</a>';
     });
+    /* everything else still lives on Hello Audio's own player list */
+    html += '<a class="plat plat-more" href="' + esc(subscribeUrl()) + '" target="_blank" rel="noopener">More apps</a>';
+    html += '<p class="plat-note">Your own private feed. Please don&rsquo;t pass the link on.</p>';
+    box.insertAdjacentHTML("beforeend", html);
   }
 
   /* ─── CHAPTER LIST ─────────────────────────────────────────── */
