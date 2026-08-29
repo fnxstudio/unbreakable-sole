@@ -30,13 +30,30 @@
 
 <!-- ACCESS GATE. Every buyer gets their own Hello Audio listener key, emailed
      from HubSpot on purchase, as ...audiobook.html?k=THEIRKEY
-     No key at all means there is nothing to show, so bounce before first paint.
      A key that LOOKS valid is let through here and then checked for real
      against Hello Audio in refresh() below - they are the only authority on
      whether a listener is still active, and a 404 from them revokes access
-     with no deploy on our side. -->
+     with no deploy on our side.
+
+     ┌──────────────────────────────────────────────────────────────┐
+     │  THE GATE IS CURRENTLY OFF  ·  REQUIRE_KEY = false           │
+     │                                                              │
+     │  While the page is being reviewed, opening it with no ?k=    │
+     │  falls back to TEST_KEY below and just works, so a plain     │
+     │  link can be shared with Missy and the team.                 │
+     │                                                              │
+     │  That means the page is OPEN: TEST_KEY is committed to a     │
+     │  public repo, so anyone who finds the URL has the whole      │
+     │  audiobook. Fine for review, not for customers.              │
+     │                                                              │
+     │  TO GO LIVE: set REQUIRE_KEY = true and delete TEST_KEY.     │
+     │  Nothing else changes - ?k= links already work either way.   │
+     └──────────────────────────────────────────────────────────────┘ -->
 <script>
 (function(){
+  var REQUIRE_KEY = false;             /* ← flip to true for launch */
+  var TEST_KEY    = "N288mn9Ua3";      /* ← and delete this line */
+
   var k = null;
   try { k = new URLSearchParams(location.search).get("k"); } catch (e) {}
   if (k) { k = k.trim(); }
@@ -48,8 +65,10 @@
   /* remember it, so a buyer can reload or bookmark without the query string */
   if (k) { try { localStorage.setItem("us_ab_key", k); } catch (e) {} }
   else   { try { k = localStorage.getItem("us_ab_key"); } catch (e) {} }
+  if (!k && !REQUIRE_KEY) { k = TEST_KEY; }
   if (!k) { location.replace("404.html"); return; }
   window.__US_KEY = k;
+  window.__US_REQUIRE_KEY = REQUIRE_KEY;
 })();
 </script>
 
@@ -1020,7 +1039,9 @@
            later visit to the bare URL renders the page and only then
            bounces; clearing it makes the head gate catch them cleanly. */
         try { localStorage.removeItem("us_ab_key"); } catch (e) {}
-        location.replace("404.html");
+        /* with the gate off, a dead key is not grounds for throwing a
+           reviewer out - just keep the baked chapter list */
+        if (window.__US_REQUIRE_KEY) { location.replace("404.html"); }
         throw 0;
       }
       if (!r.ok) throw 0;
