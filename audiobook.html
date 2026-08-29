@@ -14,6 +14,7 @@
 <link rel="preconnect" href="https://podcasts.helloaudio.fm">
 <link rel="preconnect" href="https://episodes.helloaudio.fm">
 <link rel="preload" as="image" href="assets/audiobook-cover-512.jpg">
+<link rel="preload" as="image" href="assets/bg-clouds.webp">
 <title>The Unbreakable Sole Audiobook</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="description" content="All 26.2 miles of Unbreakable Sole, read aloud by Missy Moss Wright. 33 chapters, 7 hours, free with every copy of the book.">
@@ -150,7 +151,15 @@
   }
 
   /* ============ HERO ============ */
-  .hero{background:linear-gradient(180deg,#eaf4fb 0%,#f2f9fc 60%,#fbfcfd 100%);padding:52px 0 62px;overflow:hidden;}
+  /* The shared hero sky, lifted verbatim from the staging site's .abt-hero /
+     .cn-hero2 / .sp2-hero / .cm2-hero: the same cloud plate under the same
+     three-stop wash. Asset is served from our own origin (9KB). */
+  .hero{background-color:var(--sky);
+    background-image:linear-gradient(#e8f5fd57 0%,#e8f5fd00 38%,#e8f5fd8c 100%),url("assets/bg-clouds.webp");
+    background-repeat:repeat,no-repeat;
+    background-size:auto,cover;
+    background-position:0 0,50%;
+    padding:52px 0 62px;overflow:hidden;}
   .hero .wrap{display:grid;grid-template-columns:.86fr 1.14fr;gap:46px;align-items:center;}
   .hero-art{position:relative;}
   .hero-art .cover{width:100%;height:auto;border-radius:16px;box-shadow:0 30px 60px -22px rgba(34,48,58,.42);}
