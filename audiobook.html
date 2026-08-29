@@ -28,6 +28,25 @@
 <link rel="apple-touch-icon" sizes="180x180"      href="assets/favicon/us-favicon-blue-180.png">
 <meta name="theme-color" content="#c0e7fa">
 
+<!-- ACCESS GATE. Every buyer gets their own Hello Audio listener key, emailed
+     from HubSpot on purchase, as ...audiobook.html?k=THEIRKEY
+     No key at all means there is nothing to show, so bounce before first paint.
+     A key that LOOKS valid is let through here and then checked for real
+     against Hello Audio in refresh() below - they are the only authority on
+     whether a listener is still active, and a 404 from them revokes access
+     with no deploy on our side. -->
+<script>
+(function(){
+  var k = null;
+  try { k = new URLSearchParams(location.search).get("k"); } catch (e) {}
+  /* remember it, so a buyer can reload or bookmark without the query string */
+  if (k) { try { localStorage.setItem("us_ab_key", k); } catch (e) {} }
+  else   { try { k = localStorage.getItem("us_ab_key"); } catch (e) {} }
+  if (!k) { location.replace("404.html"); return; }
+  window.__US_KEY = k;
+})();
+</script>
+
 <!-- ─────────────────────────────────────────────────────────────
      UNBREAKABLE SOLE - AUDIOBOOK PLAYER   ·   PROTOTYPE
 
@@ -44,15 +63,20 @@
        episodes.helloaudio.fm and serves HTTP 206 byte ranges, so
        scrubbing and seeking work properly.
 
-     ⚠️  FEED_KEY BELOW IS A PERSONAL LISTENER KEY  ⚠️
-       Hello Audio issues one key per listener; it appears in both the
-       feed URL and every episode URL. The user okayed using theirs for
-       this prototype. It must NOT ship to a public page - anyone who
-       loads the page gets the whole audiobook free, which is the exact
-       thing the checkout is selling (see assets/checkout-v2.js).
-       For production: buyer purchases -> Hello Audio creates their
-       listener -> their own key is what this page loads. Swap the one
-       constant and everything else works unchanged.
+     ACCESS
+       The page carries no key of its own. Each buyer gets a Hello Audio
+       listener key and is emailed ...audiobook.html?k=THEIRKEY on
+       purchase. The gate in <head> bounces anyone without one; refresh()
+       then asks Hello Audio whether the key is still live and bounces on
+       404/401. Hello Audio is the allowlist - deleting a listener there
+       revokes access on their next load, with no deploy here.
+
+       What this does and does not buy: it stops casual link sharing and
+       makes every link traceable and revocable. It is NOT airtight. A
+       buyer who plays the book has resolved 33 episodes.helloaudio.fm
+       URLs, and those serve to anyone with no key at all (verified) and
+       cannot be revoked. Closing that would mean proxying the audio
+       through something like a Cloudflare Worker.
 
      PLATFORM LINKS (Apple / Spotify / Amazon / iHeart)
        Not live yet. Marked "soon" so the design is visible without
@@ -583,10 +607,11 @@
   "use strict";
 
   /* ─── HELLO AUDIO ────────────────────────────────────────────
-     ⚠️ PERSONAL LISTENER KEY - PROTOTYPE ONLY. See header note.
-     Swap this one constant for the buyer's own key in production. */
+     The key is the buyer's own, taken from ?k= by the gate in <head>.
+     Nothing is hardcoded here: the repo is public, so a key committed to it
+     would be a key handed to everybody. */
   var FEED_ID  = "205608be-bf90-4834-89d4-226ab4f1e981";
-  var FEED_KEY = "N288mn9Ua3";
+  var FEED_KEY = window.__US_KEY || "";
   var FEED_URL = "https://podcasts.helloaudio.fm/podcast/" + FEED_ID + "/" + FEED_KEY;
   var mp3 = function(uid){ return "https://podcasts.helloaudio.fm/download/" + FEED_KEY + "/" + uid + ".mp3"; };
 
@@ -671,10 +696,7 @@
 
   /* ─── PLATFORM ROW ─────────────────────────────────────────── */
   /* ---- Offline / download options, chosen by device ---------------------- */
-  function feedUrl(){
-    var k = new URLSearchParams(location.search).get("k");
-    return "https://podcasts.helloaudio.fm/podcast/" + FEED_ID + "/" + (k || FEED_KEY);
-  }
+  function feedUrl(){ return FEED_URL; }   /* one key, one source of truth */
   function deviceKind(){
     var ua = navigator.userAgent || "";
     var iOS = /iPad|iPhone|iPod/.test(ua) ||
@@ -983,7 +1005,20 @@
      GitHub Pages and will work from the Webflow domain too. */
   function refresh(){
     fetch(FEED_URL, {cache:"no-store"}).then(function(r){
-      if (!r.ok) throw 0; return r.text();
+      /* Hello Audio is the allowlist. 404 = no such listener, 401 = not
+         entitled; either way the key is dead and the page has nothing to
+         play, so bounce. Any other failure is treated as a network blip and
+         the baked chapter list stands. */
+      if (r.status === 404 || r.status === 401) {
+        /* forget it on the way out. Leaving a dead key stored means every
+           later visit to the bare URL renders the page and only then
+           bounces; clearing it makes the head gate catch them cleanly. */
+        try { localStorage.removeItem("us_ab_key"); } catch (e) {}
+        location.replace("404.html");
+        throw 0;
+      }
+      if (!r.ok) throw 0;
+      return r.text();
     }).then(function(xml){
       var doc = new DOMParser().parseFromString(xml, "application/xml");
       if (doc.querySelector("parsererror")) throw 0;

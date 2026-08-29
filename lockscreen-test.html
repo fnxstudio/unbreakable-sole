@@ -82,7 +82,9 @@ re-sets the metadata, so you can try all three in one sitting.</div>
   "use strict";
   var au = document.getElementById("au"), out = document.getElementById("out");
   var LOCAL  = "assets/lockscreen-test-tone.m4a";
-  var REMOTE = "https://podcasts.helloaudio.fm/download/N288mn9Ua3/4ca3f6c4-d63f-4aec-8e57-a092b26f82fe.mp3";
+  /* no key committed here either - pass ?k=YOURKEY to test variant B */
+  var KEY = (new URLSearchParams(location.search).get("k")) || "";
+  var REMOTE = "https://podcasts.helloaudio.fm/download/" + KEY + "/4ca3f6c4-d63f-4aec-8e57-a092b26f82fe.mp3";
   var mode = "-", err = "none", sets = 0, lock = "not tested - lock the phone while it plays", hid = null;
 
   var ART = [96,192,512].map(function(n){
