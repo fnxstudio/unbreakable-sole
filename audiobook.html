@@ -39,6 +39,12 @@
 (function(){
   var k = null;
   try { k = new URLSearchParams(location.search).get("k"); } catch (e) {}
+  if (k) { k = k.trim(); }
+  /* Shape check before anything else. A merge field that never rendered
+     ("{{contact.hello_audio_key}}"), an empty property, or a stray space all
+     arrive here looking like a key; without this they would render the page
+     and only bounce once Hello Audio rejected them. */
+  if (k && !/^[A-Za-z0-9_-]{6,64}$/.test(k)) { k = null; }
   /* remember it, so a buyer can reload or bookmark without the query string */
   if (k) { try { localStorage.setItem("us_ab_key", k); } catch (e) {} }
   else   { try { k = localStorage.getItem("us_ab_key"); } catch (e) {} }
