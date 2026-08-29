@@ -723,7 +723,11 @@
     {
       n: "Overcast",
       on: ["ios"],
-      manual: { steps: "Your link is copied. In Overcast: tap + (top right) \u2192 Add URL \u2192 paste." },
+      manual: {
+        open: "https://overcast.fm/",
+        openLabel: "Open Overcast",
+        steps: "Your link is copied. In Overcast: tap + (top right) \u2192 Add URL \u2192 paste."
+      },
       svg: '<svg viewBox="0 0 24 24" aria-hidden="true">' +
              '<rect width="24" height="24" rx="5.4" fill="#FC7E0F"/>' +
              '<g fill="#fff" transform="translate(5,5) scale(.62)">' +
@@ -733,7 +737,11 @@
     {
       n: "Pocket Casts",
       on: ["ios", "android", "desktop", "mac"],
-      manual: { steps: "Your link is copied. In Pocket Casts: Profile \u2192 + \u2192 Add URL \u2192 paste." },
+      manual: {
+        open: "https://play.pocketcasts.com/",
+        openLabel: "Open Pocket Casts",
+        steps: "Your link is copied. In Pocket Casts: Profile \u2192 + \u2192 Add URL \u2192 paste."
+      },
       svg: '<svg viewBox="0 0 24 24" aria-hidden="true">' +
              '<rect width="24" height="24" rx="5.4" fill="#F43E37"/>' +
              '<g fill="#fff" transform="translate(5,5) scale(.62)">' +
@@ -743,7 +751,11 @@
     {
       n: "Castro",
       on: ["ios"],
-      manual: { steps: "Your link is copied. In Castro: tap Search and paste the URL." },
+      manual: {
+        open: "https://castro.fm/",
+        openLabel: "Get Castro",
+        steps: "Your link is copied. In Castro: tap Search and paste the URL."
+      },
       svg: '<svg viewBox="0 0 24 24" aria-hidden="true">' +
              '<rect width="24" height="24" rx="5.4" fill="#00B265"/>' +
              '<g fill="#fff" transform="translate(5,5) scale(.62)">' +
@@ -753,7 +765,11 @@
     {
       n: "Podcast Addict",
       on: ["android"],
-      manual: { steps: "Your link is copied. In Podcast Addict: + \u2192 Add podcast \u2192 RSS feed \u2192 paste." },
+      manual: {
+        open: "https://play.google.com/store/apps/details?id=com.bambuna.podcastaddict",
+        openLabel: "Get Podcast Addict",
+        steps: "Your link is copied. In Podcast Addict: + \u2192 Add podcast \u2192 RSS feed \u2192 paste."
+      },
       svg: '<svg viewBox="0 0 24 24" aria-hidden="true">' +
              '<rect width="24" height="24" rx="5.4" fill="#F1592A"/>' +
              '<g fill="#fff" transform="translate(5,5) scale(.62)">' +
@@ -763,7 +779,11 @@
     {
       n: "AntennaPod",
       on: ["android"],
-      manual: { steps: "Your link is copied. In AntennaPod: Add Podcast \u2192 Add by RSS address \u2192 paste." },
+      manual: {
+        open: "https://antennapod.org/",
+        openLabel: "Get AntennaPod",
+        steps: "Your link is copied. In AntennaPod: Add Podcast \u2192 Add by RSS address \u2192 paste."
+      },
       svg: '<svg viewBox="0 0 24 24" aria-hidden="true">' +
              '<rect width="24" height="24" rx="5.4" fill="#3B7BBF"/>' +
              '<g fill="#fff" transform="translate(5,5) scale(.62)">' +
@@ -941,8 +961,8 @@
       btn.addEventListener("click", function(){
         var steps = $("platSteps"), inner = esc(m.app.manual.steps);
         if (m.app.manual.open) {
-          inner += ' <a href="' + esc(m.app.manual.open) + '" target="_blank" rel="noopener">Open ' +
-                   esc(m.app.n) + ' &rarr;</a>';
+          inner += ' <a href="' + esc(m.app.manual.open) + '" target="_blank" rel="noopener">' +
+                   esc(m.app.manual.openLabel || ("Open " + m.app.n)) + ' &rarr;</a>';
         }
         if (m.app.manual.showUrl) inner += '<code>' + esc(FEED_URL) + '</code>';
         steps.innerHTML = inner;
