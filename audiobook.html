@@ -1,6 +1,9 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Figtree:wght@400;500;700;800&display=swap">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Unbreakable Sole Audiobook</title>
@@ -12,7 +15,7 @@
 
      PURPOSE: a working prototype to look at before this gets rebuilt
      natively in Webflow. Brand system is lifted verbatim from home.html
-     (proxima-nova, the Style Guide palette, 6px radius, yellow CTA).
+     (Archivo Black + Figtree, the Webflow palette, 6px radius, yellow CTA).
      Structure and player behaviour are ported from the DarrenDaily
      On-Demand page so the two feel like the same family.
 
@@ -43,8 +46,6 @@
        instantly, then the live feed is fetched on load and quietly
        replaces them if anything has changed upstream.
      ───────────────────────────────────────────────────────────── -->
-
-<link rel="stylesheet" href="https://use.typekit.net/vzy5fke.css">
 <style>
   /* Palette: Style Guide/Unbreakable Sole Brand Book.pdf p3 - same tokens as home.html */
   :root{
@@ -52,10 +53,11 @@
     --sky:#e8f5fd; --sky-2:#c0e7fa; --paper:#fbfcfd; --gold:#d79f36; --orange:#b96531;
     --clay:#e27c68; --yellow:#ffdd60; --muted:#65757f; --line:#e4ebf0;
     --ease:cubic-bezier(.16,1,.3,1); --player-h:82px;
+    --brand-display:"Archivo Black",sans-serif; --brand-sans:Figtree,sans-serif;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   html{scroll-behavior:smooth;}
-  body{font-family:"proxima-nova",-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--ink);
+  body{font-family:Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);
     background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
   img{max-width:100%;height:auto;display:block;}   /* height:auto matters: the hero art carries width/height attrs */
   button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;}
@@ -94,7 +96,7 @@
     font-size:12px;font-weight:700;color:var(--blue-deep);padding:6px 13px;}
   .badge .st{color:var(--gold);letter-spacing:1px;}
   .dur-badge{display:none;}   /* stands in for .art-chip once the chip is dropped on small screens */
-  .hero h1{font-size:clamp(31px,4.4vw,50px);font-weight:900;margin:13px 0 15px;color:var(--ink);}
+  .hero h1{font-family:var(--brand-display);font-weight:400;letter-spacing:-.015em;font-size:clamp(31px,4.4vw,50px);margin:13px 0 15px;color:var(--ink);}
   .hero h1 em{font-style:normal;color:var(--orange);}
   .hero p.lead{font-size:17.5px;color:#42525c;max-width:33em;margin:0 0 22px;}
 
@@ -153,7 +155,7 @@
   /* ============ STATS BAND ============ */
   .band{background:var(--blue-deep);color:#fff;border-top:2px solid var(--gold);padding:38px 0;}
   .band .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;text-align:center;}
-  .band .n{font-size:34px;font-weight:900;letter-spacing:-.035em;line-height:1;color:var(--yellow);}
+  .band .n{font-size:34px;font-weight:800;letter-spacing:-.035em;line-height:1;color:var(--yellow);}
   .band .c{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
     color:rgba(255,255,255,.72);margin-top:9px;line-height:1.5;}
   @media (max-width:720px){.band .wrap{grid-template-columns:repeat(2,1fr);gap:28px 14px;} .band .n{font-size:28px;}}
@@ -189,6 +191,16 @@
   .row .done{color:var(--blue);flex:none;display:none;}
   .row.finished .done{display:block;}
   .row.finished .ttl{color:var(--muted);}
+  .row .dl{width:32px;height:32px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
+    color:var(--muted);text-decoration:none;transition:background .16s,color .16s;}
+  .row .dl:hover{background:var(--sky);color:var(--blue-deep);}
+  .row .dl svg{width:15px;height:15px;}
+  .dlbox{margin-top:26px;padding:20px 22px;border:1px solid var(--line);border-radius:8px;background:var(--paper);}
+  .dlbox .lbl{font-size:10.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
+    margin-bottom:10px;}
+  .dlbox p{margin:0 0 14px;font-size:13.5px;line-height:1.6;color:var(--ink);}
+  .dlbox .acts{display:flex;gap:9px;flex-wrap:wrap;}
+  .dlbox .hint{margin:12px 0 0;font-size:11.5px;color:var(--muted);}
   .row .bar{position:absolute;left:0;bottom:0;height:2px;background:var(--gold);width:0;transition:width .2s linear;}
 
   /* ============ CTA ============ */
@@ -262,8 +274,8 @@
 <!-- TOP BAR -->
 <header class="topbar">
   <div class="wrap">
-    <a href="home.html"><img src="assets/07f8927f_Horizontal_20Logo_201.webp" alt="Unbreakable Sole"></a>
-    <a href="home.html#offer" class="btn">Get The Book</a>
+    <a href="https://unbreakablesole.com"><img src="assets/07f8927f_Horizontal_20Logo_201.webp" alt="Unbreakable Sole"></a>
+    <a href="https://unbreakablesole.com" class="btn">Get The Book</a>
   </div>
 </header>
 
@@ -316,6 +328,13 @@
       <div class="plats" id="plats">
         <span class="lbl">Or listen on</span>
       </div>
+
+      <div class="dlbox" id="dlbox">
+        <div class="lbl">Listen offline</div>
+        <p id="dlCopy"></p>
+        <div class="acts" id="dlActs"></div>
+        <p class="hint" id="dlHint"></p>
+      </div>
     </div>
 
   </div>
@@ -352,7 +371,7 @@
     <div class="eyebrow" style="justify-content:center">The Book</div>
     <h2>The audiobook comes <em>free</em> with every copy.</h2>
     <p>Signed hardcover, free U.S. shipping, and the full seven hours to take with you anywhere.</p>
-    <a href="home.html#offer" class="btn">Get The Book &rarr;</a>
+    <a href="https://unbreakablesole.com" class="btn">Get The Book &rarr;</a>
     <p class="fine">30-day happiness guarantee. Cancel-proof: the audiobook is yours to keep either way.</p>
   </div>
 </section>
@@ -477,6 +496,10 @@
   function esc(s){ return String(s).replace(/[&<>"]/g, function(c){
     return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
 
+  var DL_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 20h16"/></svg>';
+  function fileName(c,i){
+    return "Unbreakable Sole " + String(i+1).padStart(2,"0") + " - " + titlecase(c.t).replace(/[\\/:*?"<>|]/g,"") + ".mp3";
+  }
   function hms(n){
     n = Math.max(0, Math.floor(n || 0));
     var h = Math.floor(n/3600), m = Math.floor(n%3600/60), s = n%60;
@@ -488,6 +511,61 @@
   }
 
   /* ─── PLATFORM ROW ─────────────────────────────────────────── */
+  /* ---- Offline / download options, chosen by device ---------------------- */
+  function feedUrl(){
+    var k = new URLSearchParams(location.search).get("k");
+    return "https://podcasts.helloaudio.fm/podcast/" + FEED_ID + "/" + (k || FEED_KEY);
+  }
+  function deviceKind(){
+    var ua = navigator.userAgent || "";
+    var iOS = /iPad|iPhone|iPod/.test(ua) ||
+              (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    if (iOS) return "ios";
+    if (/Android/i.test(ua)) return "android";
+    return "desktop";
+  }
+  function renderOffline(){
+    var kind = deviceKind(), feed = feedUrl(), pod = feed.replace(/^https?:/, "podcast:");
+    var copy = $("dlCopy"), acts = $("dlActs"), hint = $("dlHint");
+    if (kind === "ios") {
+      copy.textContent = "Add the audiobook to Apple Podcasts and it will download every chapter for you, so the whole book plays with no signal.";
+      acts.innerHTML =
+        '<a class="plat" href="' + pod + '">Open in Apple Podcasts</a>' +
+        '<button class="plat" id="dlCopyLink" type="button">Copy the link</button>';
+      hint.textContent = "You can also tap the arrow beside any chapter to save that one file to your Files app.";
+    } else if (kind === "android") {
+      copy.textContent = "Add the audiobook to your podcast app and it will download the chapters for offline listening.";
+      acts.innerHTML =
+        '<a class="plat" href="' + pod + '">Open in your podcast app</a>' +
+        '<button class="plat" id="dlCopyLink" type="button">Copy the link</button>';
+      hint.textContent = "Or tap the arrow beside any chapter to download that file straight to your device.";
+    } else {
+      copy.textContent = "Download the chapters to keep them on this computer, or add the audiobook to a podcast app to sync it to your phone.";
+      acts.innerHTML =
+        '<button class="plat" id="dlAll" type="button">Download all 33 chapters</button>' +
+        '<button class="plat" id="dlCopyLink" type="button">Copy the podcast link</button>';
+      hint.textContent = "Downloading all chapters is about 1 GB and saves them one after another.";
+    }
+    var cp = $("dlCopyLink");
+    if (cp) cp.addEventListener("click", function(){
+      var done = function(){ cp.textContent = "Link copied"; setTimeout(function(){ cp.textContent = kind === "desktop" ? "Copy the podcast link" : "Copy the link"; }, 2200); };
+      if (navigator.clipboard) navigator.clipboard.writeText(feed).then(done, done); else done();
+    });
+    var all = $("dlAll");
+    if (all) all.addEventListener("click", function(){
+      all.disabled = true;
+      CH.forEach(function(c, i){
+        setTimeout(function(){
+          var a = document.createElement("a");
+          a.href = mp3(c.uid); a.download = fileName(c, i);
+          document.body.appendChild(a); a.click(); a.remove();
+          if (i === CH.length - 1) { all.disabled = false; all.textContent = "Download all 33 chapters"; }
+          else all.textContent = "Downloading " + (i + 1) + " of " + CH.length + "...";
+        }, i * 900);
+      });
+    });
+  }
+
   function renderPlats(){
     var box = $("plats"), html = "";
     PLATFORMS.forEach(function(p){
@@ -520,6 +598,8 @@
             '<span class="ttl">' + esc(titlecase(c.t)) + '</span>' +
             '<span class="done" aria-label="Finished">' + TICK_SVG + '</span>' +
             '<span class="dur">' + hms(c.s) + '</span>' +
+            '<a class="dl" href="' + mp3(c.uid) + '" download="' + esc(fileName(c,i)) + '" ' +
+              'title="Download this chapter" aria-label="Download ' + esc(titlecase(c.t)) + '">' + DL_SVG + '</a>' +
             '<span class="bar"></span>' +
           '</div>';
       }
@@ -738,7 +818,7 @@
     }).catch(function(){ /* baked list stands */ });
   }
 
-  renderPlats();
+  renderPlats(); renderOffline();
   renderList();
   initResume();
   refresh();
