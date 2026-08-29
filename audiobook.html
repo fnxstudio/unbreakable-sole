@@ -720,6 +720,57 @@
              '</g></svg>'
     },
     {
+      n: "Overcast",
+      on: ["ios"],
+      /* the one scheme that keeps https:// on the feed, and encoded */
+      u: function(){ return "overcast://x-callback-url/add?url=" + encodeURIComponent(FEED_URL); },
+      svg: '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+             '<rect width="24" height="24" rx="5.4" fill="#FC7E0F"/>' +
+             '<g fill="#fff" transform="translate(5,5) scale(.62)">' +
+               '<circle cx="12" cy="15.5" r="2"/><path d="M12 12.6a2.9 2.9 0 0 0-2.9 2.9H7.4a4.6 4.6 0 0 1 9.2 0h-1.7a2.9 2.9 0 0 0-2.9-2.9z" opacity=".85"/><path d="M12 8.6a6.9 6.9 0 0 0-6.9 6.9H3.4a8.6 8.6 0 0 1 17.2 0h-1.7A6.9 6.9 0 0 0 12 8.6z" opacity=".6"/>' +
+             '</g></svg>'
+    },
+    {
+      n: "Pocket Casts",
+      on: ["ios", "android", "desktop"],
+      u: function(){ return "pktc://subscribe/" + FEED_URL.replace(/^https?:\/\//, ""); },
+      svg: '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+             '<rect width="24" height="24" rx="5.4" fill="#F43E37"/>' +
+             '<g fill="#fff" transform="translate(5,5) scale(.62)">' +
+               '<path d="M12 3.4a8.6 8.6 0 1 0 8.6 8.6h-2.6A6 6 0 1 1 12 6z"/><path d="M12 8.2a3.8 3.8 0 1 0 3.8 3.8h-2.3a1.5 1.5 0 1 1-1.5-1.5z"/>' +
+             '</g></svg>'
+    },
+    {
+      n: "Castro",
+      on: ["ios"],
+      u: function(){ return "castros://subscribe/" + FEED_URL.replace(/^https?:\/\//, ""); },
+      svg: '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+             '<rect width="24" height="24" rx="5.4" fill="#00B265"/>' +
+             '<g fill="#fff" transform="translate(5,5) scale(.62)">' +
+               '<circle cx="12" cy="12" r="8.6" fill="none" stroke="#fff" stroke-width="2.6"/><circle cx="12" cy="12" r="3.2"/>' +
+             '</g></svg>'
+    },
+    {
+      n: "Podcast Addict",
+      on: ["android"],
+      u: function(){ return "podcastaddict://" + FEED_URL.replace(/^https?:\/\//, ""); },
+      svg: '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+             '<rect width="24" height="24" rx="5.4" fill="#F1592A"/>' +
+             '<g fill="#fff" transform="translate(5,5) scale(.62)">' +
+               '<circle cx="12" cy="15.5" r="2"/><path d="M12 12.6a2.9 2.9 0 0 0-2.9 2.9H7.4a4.6 4.6 0 0 1 9.2 0h-1.7a2.9 2.9 0 0 0-2.9-2.9z" opacity=".85"/><path d="M12 8.6a6.9 6.9 0 0 0-6.9 6.9H3.4a8.6 8.6 0 0 1 17.2 0h-1.7A6.9 6.9 0 0 0 12 8.6z" opacity=".6"/>' +
+             '</g></svg>'
+    },
+    {
+      n: "AntennaPod",
+      on: ["android"],
+      u: function(){ return "antennapod-subscribe://" + FEED_URL.replace(/^https?:\/\//, ""); },
+      svg: '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+             '<rect width="24" height="24" rx="5.4" fill="#3B7BBF"/>' +
+             '<g fill="#fff" transform="translate(5,5) scale(.62)">' +
+               '<circle cx="12" cy="15.5" r="2"/><path d="M12 12.6a2.9 2.9 0 0 0-2.9 2.9H7.4a4.6 4.6 0 0 1 9.2 0h-1.7a2.9 2.9 0 0 0-2.9-2.9z" opacity=".85"/><path d="M12 8.6a6.9 6.9 0 0 0-6.9 6.9H3.4a8.6 8.6 0 0 1 17.2 0h-1.7A6.9 6.9 0 0 0 12 8.6z" opacity=".6"/>' +
+             '</g></svg>'
+    },
+    {
       n: "YouTube Music",
       on: ["ios", "android", "desktop"],
       /* No one-click subscribe exists for a private feed here - YouTube Music
