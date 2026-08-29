@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Unbreakable Sole Audiobook</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="All 26.2 miles of Unbreakable Sole, read aloud by Missy Moss Wright. 33 chapters, 7 hours, free with every copy of the book.">
+
+<!-- ─────────────────────────────────────────────────────────────
+     UNBREAKABLE SOLE - AUDIOBOOK PLAYER   ·   PROTOTYPE
+
+     PURPOSE: a working prototype to look at before this gets rebuilt
+     natively in Webflow. Brand system is lifted verbatim from home.html
+     (proxima-nova, the Style Guide palette, 6px radius, yellow CTA).
+     Structure and player behaviour are ported from the DarrenDaily
+     On-Demand page so the two feel like the same family.
+
+     WHERE THE AUDIO COMES FROM
+       Hello Audio, streamed directly from their CDN. Nothing is stored
+       in this repo - the <audio> src points at
+       podcasts.helloaudio.fm/download/<KEY>/<uuid>.mp3, which 302s to
+       episodes.helloaudio.fm and serves HTTP 206 byte ranges, so
+       scrubbing and seeking work properly.
+
+     ⚠️  FEED_KEY BELOW IS A PERSONAL LISTENER KEY  ⚠️
+       Hello Audio issues one key per listener; it appears in both the
+       feed URL and every episode URL. The user okayed using theirs for
+       this prototype. It must NOT ship to a public page - anyone who
+       loads the page gets the whole audiobook free, which is the exact
+       thing the checkout is selling (see assets/checkout-v2.js).
+       For production: buyer purchases -> Hello Audio creates their
+       listener -> their own key is what this page loads. Swap the one
+       constant and everything else works unchanged.
+
+     PLATFORM LINKS (Apple / Spotify / Amazon / iHeart)
+       Not live yet. Marked "soon" so the design is visible without
+       shipping dead links. When the Libsyn feed is set up, drop the
+       real URL into PLATFORMS below and delete the `soon: true` flag -
+       nothing else needs to change.
+
+     DATA: all 33 chapters are baked in below so the page paints
+       instantly, then the live feed is fetched on load and quietly
+       replaces them if anything has changed upstream.
+     ───────────────────────────────────────────────────────────── -->
+
+<link rel="stylesheet" href="https://use.typekit.net/vzy5fke.css">
+<style>
+  /* Palette: Style Guide/Unbreakable Sole Brand Book.pdf p3 - same tokens as home.html */
+  :root{
+    --ink:#22303a; --blue:#337690; --blue-2:#5c94ab; --blue-deep:#00325c;
+    --sky:#e8f5fd; --sky-2:#c0e7fa; --paper:#fbfcfd; --gold:#d79f36; --orange:#b96531;
+    --clay:#e27c68; --yellow:#ffdd60; --muted:#65757f; --line:#e4ebf0;
+    --ease:cubic-bezier(.16,1,.3,1); --player-h:82px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:"proxima-nova",-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--ink);
+    background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  img{max-width:100%;height:auto;display:block;}   /* height:auto matters: the hero art carries width/height attrs */
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;}
+  a{color:inherit;}
+  :focus-visible{outline:3px solid var(--blue);outline-offset:3px;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
+  h1,h2,h3{line-height:1.08;letter-spacing:-.02em;font-weight:800;}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);}
+  section{padding:72px 0;}
+  .center{text-align:center;}
+
+  .btn{display:inline-flex;align-items:center;gap:9px;background:var(--yellow);color:#1b2126;font-weight:800;
+    text-transform:uppercase;letter-spacing:.06em;font-size:15px;padding:16px 30px;border-radius:6px;border:0;
+    cursor:pointer;text-decoration:none;transition:transform .12s,box-shadow .12s,background .12s;box-shadow:0 10px 26px rgba(34,48,58,.16);}
+  .btn:hover{background:#ffd63f;transform:translateY(-2px);box-shadow:0 14px 30px rgba(34,48,58,.22);}
+  .btn.outline{background:none;border:1.5px solid var(--blue);color:var(--blue-deep);box-shadow:none;}
+  .btn.outline:hover{background:var(--sky);transform:none;}
+
+  /* top bar - matches home.html */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(251,252,253,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:66px;}
+  .topbar img{height:30px;}
+  .topbar .btn{padding:11px 22px;font-size:13px;box-shadow:none;}
+
+  /* ============ HERO ============ */
+  .hero{background:linear-gradient(180deg,#eaf4fb 0%,#f2f9fc 60%,#fbfcfd 100%);padding:52px 0 62px;overflow:hidden;}
+  .hero .wrap{display:grid;grid-template-columns:.86fr 1.14fr;gap:46px;align-items:center;}
+  .hero-art{position:relative;}
+  .hero-art img{width:100%;height:auto;border-radius:10px;box-shadow:0 30px 60px -22px rgba(34,48,58,.42);}
+  .art-chip{position:absolute;left:-22px;bottom:-20px;background:#fff;border:1px solid var(--sky-2);
+    border-radius:8px;padding:13px 18px;box-shadow:0 18px 40px -20px rgba(34,48,58,.45);}
+  .art-chip .n{font-weight:900;font-size:24px;letter-spacing:-.03em;line-height:1;color:var(--blue-deep);}
+  .art-chip .c{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:5px;}
+  .badges{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 8px;}
+  .badge{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--sky-2);border-radius:40px;
+    font-size:12px;font-weight:700;color:var(--blue-deep);padding:6px 13px;}
+  .badge .st{color:var(--gold);letter-spacing:1px;}
+  .dur-badge{display:none;}   /* stands in for .art-chip once the chip is dropped on small screens */
+  .hero h1{font-size:clamp(31px,4.4vw,50px);font-weight:900;margin:13px 0 15px;color:var(--ink);}
+  .hero h1 em{font-style:normal;color:var(--orange);}
+  .hero p.lead{font-size:17.5px;color:#42525c;max-width:33em;margin:0 0 22px;}
+
+  /* hero play card */
+  .pcard{background:#fff;border:1px solid var(--sky-2);border-radius:10px;padding:20px 22px;
+    box-shadow:0 12px 34px rgba(67,116,143,.13);max-width:600px;}
+  .pcard-head{display:flex;align-items:center;gap:9px;font-size:10.5px;font-weight:800;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--blue);margin-bottom:14px;}
+  .livedot{width:7px;height:7px;border-radius:50%;background:var(--orange);flex:none;}
+  .pcard-body{display:flex;align-items:center;gap:18px;}
+  .bigplay{width:64px;height:64px;border-radius:50%;background:var(--blue-deep);color:#fff;flex:none;
+    display:flex;align-items:center;justify-content:center;transition:transform .2s var(--ease),background .2s;
+    box-shadow:0 12px 28px -10px rgba(0,50,92,.6);}
+  .bigplay:hover{transform:scale(1.06);background:var(--blue);}
+  .bigplay svg{width:26px;height:26px;margin-left:3px;}
+  .bigplay.is-pause svg{margin-left:0;}
+  .pcard h2{font-size:20px;font-weight:800;letter-spacing:-.02em;line-height:1.2;}
+  .pcard .meta{font-size:12.5px;color:var(--muted);margin-top:6px;font-weight:600;letter-spacing:.03em;}
+
+  .resume{display:none;align-items:center;gap:12px;flex-wrap:wrap;margin-top:14px;max-width:600px;
+    background:var(--sky);border:1px solid var(--sky-2);border-radius:6px;padding:11px 15px;}
+  .resume.show{display:flex;}
+  .resume .lbl{font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);}
+  .resume .ttl{font-size:13.5px;font-weight:600;flex:1 1 180px;}
+  .resume .go{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#1b2126;
+    background:var(--yellow);padding:9px 15px;border-radius:5px;}
+
+  /* platform row */
+  .plats{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:24px;}
+  .plats .lbl{width:100%;margin-bottom:2px;font-size:10.5px;font-weight:800;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--muted);}
+  .plat{display:inline-flex;align-items:center;gap:8px;text-decoration:none;background:#fff;
+    border:1px solid var(--line);border-radius:6px;padding:9px 13px;font-size:12px;font-weight:700;color:var(--ink);
+    transition:border-color .18s,transform .18s var(--ease),box-shadow .18s;}
+  .plat:hover{border-color:var(--blue);transform:translateY(-2px);box-shadow:0 12px 24px -14px rgba(34,48,58,.5);}
+  .plat svg{width:16px;height:16px;flex:none;}
+  .plat .soon{font-size:8.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);
+    background:#fdf0ea;border-radius:20px;padding:2px 6px;margin-left:1px;}
+  .plat.pending{cursor:default;opacity:.9;}
+  .plat.pending:hover{border-color:var(--sky-2);transform:none;box-shadow:none;}
+  .plat-note{width:100%;font-size:11.5px;color:var(--muted);margin-top:9px;}
+
+  @media (max-width:900px){
+    .hero .wrap{grid-template-columns:1fr;gap:34px;}
+    .hero-art{max-width:330px;margin:0 auto;order:-1;}
+    /* the chip lands on top of Missy's name on the cover at this width - use the badge instead */
+    .art-chip{display:none;}
+    .dur-badge{display:inline-flex;}
+  }
+  @media (max-width:560px){
+    .topbar .wrap{height:58px;}
+    .topbar img{height:22px;}
+    .topbar .btn{padding:9px 15px;font-size:11px;letter-spacing:.05em;white-space:nowrap;flex:none;}
+  }
+
+  /* ============ STATS BAND ============ */
+  .band{background:var(--blue-deep);color:#fff;border-top:2px solid var(--gold);padding:38px 0;}
+  .band .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;text-align:center;}
+  .band .n{font-size:34px;font-weight:900;letter-spacing:-.035em;line-height:1;color:var(--yellow);}
+  .band .c{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    color:rgba(255,255,255,.72);margin-top:9px;line-height:1.5;}
+  @media (max-width:720px){.band .wrap{grid-template-columns:repeat(2,1fr);gap:28px 14px;} .band .n{font-size:28px;}}
+
+  /* ============ CHAPTERS ============ */
+  .chapters{background:var(--paper);}
+  .shead{max-width:640px;margin-bottom:8px;}
+  .shead h2{font-size:clamp(26px,3.4vw,38px);margin:12px 0 12px;}
+  .shead h2 em{font-style:normal;color:var(--orange);}
+  .shead p{font-size:16.5px;color:#4a5962;}
+  .feed-top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:30px;}
+
+  .grp{font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);
+    display:flex;align-items:center;gap:14px;margin:34px 0 12px;}
+  .grp:first-of-type{margin-top:0;}
+  .grp::after{content:"";flex:1;height:1px;background:var(--line);}
+
+  .row{display:flex;align-items:center;gap:16px;padding:13px 16px;border:1px solid var(--line);
+    border-radius:6px;background:#fff;margin-bottom:7px;transition:border-color .16s,box-shadow .16s,transform .16s var(--ease);
+    position:relative;overflow:hidden;}
+  .row:hover{border-color:var(--sky-2);box-shadow:0 10px 24px -16px rgba(34,48,58,.5);transform:translateY(-1px);}
+  .row.active{border-color:var(--blue);background:var(--sky);}
+  .row .pbtn{width:40px;height:40px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
+    background:var(--sky);color:var(--blue-deep);transition:background .16s,color .16s;}
+  .row:hover .pbtn,.row.active .pbtn{background:var(--blue-deep);color:#fff;}
+  .row .pbtn svg{width:16px;height:16px;margin-left:2px;}
+  .row .pbtn.is-pause svg{margin-left:0;}
+  .row .num{font-size:11.5px;font-weight:800;color:var(--muted);width:26px;flex:none;
+    font-variant-numeric:tabular-nums;letter-spacing:.02em;}
+  .row .ttl{flex:1;min-width:0;font-size:15px;font-weight:700;letter-spacing:-.01em;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .row .dur{font-size:12.5px;font-weight:700;color:var(--muted);flex:none;font-variant-numeric:tabular-nums;}
+  .row .done{color:var(--blue);flex:none;display:none;}
+  .row.finished .done{display:block;}
+  .row.finished .ttl{color:var(--muted);}
+  .row .bar{position:absolute;left:0;bottom:0;height:2px;background:var(--gold);width:0;transition:width .2s linear;}
+
+  /* ============ CTA ============ */
+  .cta{background:linear-gradient(180deg,#f2f9fc,#eaf4fb);border-top:1px solid var(--line);}
+  .cta .wrap{max-width:760px;text-align:center;}
+  .cta h2{font-size:clamp(25px,3.2vw,35px);margin:12px 0 14px;}
+  .cta h2 em{font-style:normal;color:var(--orange);}
+  .cta p{font-size:17px;color:#42525c;margin-bottom:26px;}
+  .cta .fine{font-size:12.5px;color:var(--muted);margin:16px 0 0;}
+
+  /* ============ FOOTER ============ */
+  .ft{background:var(--blue);color:#fff;border-top:2px solid var(--gold);font-size:13px;padding:0;}
+  .ft .wrap{display:flex;align-items:center;justify-content:space-between;gap:8px 20px;flex-wrap:wrap;padding:16px 24px;}
+  .ft a{color:#fff;text-decoration:none;opacity:.92;} .ft a:hover{text-decoration:underline;}
+  .ft .legal a{margin-left:20px;}
+
+  /* ============ STICKY PLAYER ============ */
+  .sticky{position:fixed;left:0;right:0;bottom:0;z-index:95;background:rgba(0,50,92,.97);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid rgba(255,255,255,.14);
+    color:#fff;transform:translateY(110%);transition:transform .38s var(--ease);
+    box-shadow:0 -18px 46px -22px rgba(0,0,0,.7);}
+  .sticky.up{transform:translateY(0);}
+  body.playing{padding-bottom:var(--player-h);}
+  .sk-prog{height:4px;background:rgba(255,255,255,.16);cursor:pointer;position:relative;}
+  .sk-prog .fill{height:100%;background:var(--yellow);width:0;position:relative;transition:width .12s linear;}
+  .sk-prog .fill::after{content:"";position:absolute;right:-5px;top:50%;transform:translateY(-50%) scale(0);
+    width:11px;height:11px;border-radius:50%;background:#fff;transition:transform .18s var(--ease);}
+  .sk-prog:hover .fill::after{transform:translateY(-50%) scale(1);}
+  .sk-body{display:flex;align-items:center;gap:16px;padding:13px 28px;max-width:1440px;margin:0 auto;}
+  .sk-art{width:52px;height:52px;object-fit:cover;border-radius:4px;flex:none;}
+  .sk-info{min-width:0;flex:1;}
+  .sk-info .t{font-size:14px;font-weight:700;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .sk-info .m{font-size:11.5px;color:rgba(255,255,255,.62);margin-top:4px;font-variant-numeric:tabular-nums;letter-spacing:.04em;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}   /* must not wrap - it would outgrow --player-h */
+  .sk-ctrls{display:flex;align-items:center;gap:6px;flex:none;}
+  .skb{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    color:rgba(255,255,255,.82);transition:background .18s,color .18s;position:relative;}
+  .skb:hover{background:rgba(255,255,255,.13);color:#fff;}
+  .skb:disabled{opacity:.3;cursor:default;} .skb:disabled:hover{background:none;color:rgba(255,255,255,.82);}
+  .skb svg{width:19px;height:19px;}
+  .skb .sec{position:absolute;font-size:7.5px;font-weight:900;top:50%;left:50%;transform:translate(-50%,-36%);}
+  .skb.main{width:48px;height:48px;background:var(--yellow);color:#1b2126;}
+  .skb.main:hover{background:#ffd63f;}
+  .skb.main svg{width:20px;height:20px;margin-left:2px;}
+  .skb.main.is-pause svg{margin-left:0;}
+  .sk-rate{font-size:11.5px;font-weight:800;letter-spacing:.05em;color:rgba(255,255,255,.75);
+    border:1.5px solid rgba(255,255,255,.26);border-radius:5px;padding:7px 10px;min-width:48px;text-align:center;
+    transition:border-color .18s,color .18s;}
+  .sk-rate:hover{border-color:#fff;color:#fff;}
+  .sk-close{color:rgba(255,255,255,.45);} .sk-close:hover{color:#fff;}
+  @media (max-width:860px){
+    :root{--player-h:74px;}
+    .sk-body{padding:11px 15px;gap:11px;}
+    .sk-art{width:42px;height:42px;}
+    .sk-rate,.sk-close,.skb.back,.skb.prev{display:none;}
+    .skb.main{width:42px;height:42px;} .skb.main svg{width:17px;height:17px;}
+    .skb{width:36px;height:36px;} .skb svg{width:17px;height:17px;}
+    .sk-info .t{font-size:13px;} .sk-info .m{font-size:11px;margin-top:2px;}
+    .sk-info .m .ct{display:none;}   /* "Chapter 14 of 33" - no room for it next to the times */
+  }
+  @media (max-width:640px){
+    .row .num{display:none;}
+    .feed-top{margin-bottom:22px;}
+    section{padding:54px 0;}
+    .ft .wrap{flex-direction:column;text-align:center;} .ft .legal a{margin:0 10px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="wrap">
+    <a href="home.html"><img src="assets/07f8927f_Horizontal_20Logo_201.webp" alt="Unbreakable Sole"></a>
+    <a href="home.html#offer" class="btn">Get The Book</a>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="listen">
+  <div class="wrap">
+
+    <div class="hero-art">
+      <img id="coverArt" src="https://d32kcwy5dai345.cloudfront.net/c97c8584-0b94-49cc-95cc-fc29ed882798.jpg"
+           alt="Unbreakable Sole, the audiobook, read by Missy Moss Wright" width="900" height="900" fetchpriority="high">
+      <div class="art-chip">
+        <div class="n">7<span style="font-size:15px">h</span> 06<span style="font-size:15px">m</span></div>
+        <div class="c">In her<br>own voice</div>
+      </div>
+    </div>
+
+    <div class="txt">
+      <div class="badges">
+        <span class="badge">33 Chapters</span>
+        <span class="badge dur-badge">7 hrs 6 min</span>
+        <span class="badge">Read by Missy</span>
+        <span class="badge"><span class="st">★★★★★</span> Free With The Book</span>
+      </div>
+      <div class="eyebrow">The Unbreakable Sole Audiobook</div>
+      <h1>Every mile, in the voice of the woman who <em>ran it.</em></h1>
+      <p class="lead">Some stories land differently when you hear them said out loud. Missy reads all 26.2 miles herself, so you can take the whole book on your run, your drive, or your hardest day.</p>
+
+      <!-- HERO PLAYER: first chapter loaded, one tap -->
+      <div class="pcard">
+        <div class="pcard-head"><span class="livedot"></span><span id="heroLabel">Start at the start line</span></div>
+        <div class="pcard-body">
+          <button class="bigplay" id="heroPlay" aria-label="Play the audiobook">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <div style="min-width:0">
+            <h2 id="heroTitle">Book Intro</h2>
+            <div class="meta" id="heroMeta">Chapter 1 of 33 &middot; 0:42</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="resume" id="resume">
+        <span class="lbl">Pick up where you stopped</span>
+        <span class="ttl" id="resumeTitle"></span>
+        <button class="go" id="resumeGo">Resume &rarr;</button>
+      </div>
+
+      <div class="plats" id="plats">
+        <span class="lbl">Or listen on</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ STATS BAND ============ -->
+<section class="band">
+  <div class="wrap">
+    <div><div class="n">33</div><div class="c">Chapters<br>Start To Finish</div></div>
+    <div><div class="n">7:06</div><div class="c">Hours Of<br>The Whole Story</div></div>
+    <div><div class="n">26.2</div><div class="c">Miles<br>One At A Time</div></div>
+    <div><div class="n">$0</div><div class="c">Included Free<br>With The Book</div></div>
+  </div>
+</section>
+
+<!-- ============ CHAPTERS ============ -->
+<section class="chapters" id="chapters">
+  <div class="wrap">
+    <div class="feed-top">
+      <div class="shead">
+        <div class="eyebrow">The Full Run</div>
+        <h2>Every chapter, <em>ready to play.</em></h2>
+        <p>Start at mile one, or jump to the mile you need today. It remembers where you stopped and rolls straight into the next chapter.</p>
+      </div>
+      <button class="btn outline" id="startTop">Play From The Beginning</button>
+    </div>
+    <div id="list"></div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="cta">
+  <div class="wrap">
+    <div class="eyebrow" style="justify-content:center">The Book</div>
+    <h2>The audiobook comes <em>free</em> with every copy.</h2>
+    <p>Signed hardcover, free U.S. shipping, and the full seven hours to take with you anywhere.</p>
+    <a href="home.html#offer" class="btn">Get The Book &rarr;</a>
+    <p class="fine">30-day happiness guarantee. Cancel-proof: the audiobook is yours to keep either way.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="ft">
+  <div class="wrap">
+    <p>© 2026 Unbreakable Sole. All Rights Reserved.</p>
+    <p class="legal">
+      <a href="https://dh.darrenhardy.com/terms-of-service/" target="_blank" rel="noopener">Terms &amp; Conditions</a>
+      <a href="https://dh.darrenhardy.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>
+    </p>
+  </div>
+</footer>
+
+<!-- ============ STICKY PLAYER ============ -->
+<div class="sticky" id="sticky" role="region" aria-label="Audiobook player">
+  <div class="sk-prog" id="prog"><div class="fill" id="fill"></div></div>
+  <div class="sk-body">
+    <img class="sk-art" id="skArt" src="https://d32kcwy5dai345.cloudfront.net/c97c8584-0b94-49cc-95cc-fc29ed882798.jpg" alt="">
+    <div class="sk-info">
+      <div class="t" id="skTitle"></div>
+      <div class="m" id="skMeta"></div>
+    </div>
+    <div class="sk-ctrls">
+      <button class="skb prev" id="skPrev" aria-label="Previous chapter">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg></button>
+      <button class="skb back" id="skBack" aria-label="Back 15 seconds">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5V2L6 6l5 4V7a6 6 0 1 1-6 6"/></svg>
+        <span class="sec">15</span></button>
+      <button class="skb main" id="skPlay" aria-label="Play or pause">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+      <button class="skb fwd" id="skFwd" aria-label="Forward 30 seconds">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 5V2l5 4-5 4V7a6 6 0 1 0 6 6"/></svg>
+        <span class="sec">30</span></button>
+      <button class="skb next" id="skNext" aria-label="Next chapter">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM6 18l8.5-6L6 6z"/></svg></button>
+      <button class="sk-rate" id="skRate">1&times;</button>
+      <button class="skb sk-close" id="skClose" aria-label="Close the player">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<audio id="au" preload="none"></audio>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ─── HELLO AUDIO ────────────────────────────────────────────
+     ⚠️ PERSONAL LISTENER KEY - PROTOTYPE ONLY. See header note.
+     Swap this one constant for the buyer's own key in production. */
+  var FEED_ID  = "205608be-bf90-4834-89d4-226ab4f1e981";
+  var FEED_KEY = "N288mn9Ua3";
+  var FEED_URL = "https://podcasts.helloaudio.fm/podcast/" + FEED_ID + "/" + FEED_KEY;
+  var mp3 = function(uid){ return "https://podcasts.helloaudio.fm/download/" + FEED_KEY + "/" + uid + ".mp3"; };
+
+  /* ─── PLATFORM LINKS ─────────────────────────────────────────
+     Set `soon:false` and paste the real url once Libsyn is live. */
+  var PLATFORMS = [
+    {n:"Apple Podcasts", u:"", soon:true, d:"M12 2a10 10 0 0 0-3.6 19.3c.2-.6 0-1.3-.2-1.9A8 8 0 1 1 20 12a8 8 0 0 1-4.2 7c-.2.7-.4 1.4-.2 2A10 10 0 0 0 12 2zm0 4.6a5.4 5.4 0 0 0-2.6 10.1c.3-.5.4-1.2.3-1.8a3.4 3.4 0 1 1 4.6 0c-.1.6 0 1.3.3 1.8A5.4 5.4 0 0 0 12 6.6zm0 4a1.9 1.9 0 0 0-1.9 2.1c.1.6.5 1 .6 1.6l.5 3.6c.1.7.3 1.3.8 1.3s.7-.6.8-1.3l.5-3.6c.1-.6.5-1 .6-1.6A1.9 1.9 0 0 0 12 10.6z"},
+    {n:"Spotify", u:"", soon:true, d:"M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm4.6 14.4a.8.8 0 0 1-1.1.3c-2.9-1.8-6.6-2.2-11-1.2a.8.8 0 1 1-.3-1.5c4.7-1.1 8.8-.6 12.1 1.4.4.2.5.7.3 1zm1.2-2.8a1 1 0 0 1-1.3.3c-3.3-2-8.3-2.6-12.2-1.4a1 1 0 1 1-.6-1.9c4.4-1.3 10-.7 13.8 1.6.5.3.6.9.3 1.4zm.1-2.9C14.1 8.4 7.9 8.2 4.2 9.3a1.2 1.2 0 0 1-.7-2.3c4.3-1.3 11.1-1 15.5 1.6a1.2 1.2 0 1 1-1.2 2z"},
+    {n:"Amazon Music", u:"", soon:true, d:"M20 3.5v11a3.3 3.3 0 1 1-2-3V7.3l-7 1.5v8a3.3 3.3 0 1 1-2-3V5.9l11-2.4z"},
+    {n:"iHeart", u:"", soon:true, d:"M12 21s-7.8-4.9-9.7-9.4A5.4 5.4 0 0 1 12 6.2a5.4 5.4 0 0 1 9.7 5.4C19.8 16.1 12 21 12 21z"},
+    {n:"Audible", u:"", soon:true, d:"M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 3.4a6.6 6.6 0 0 1 5.9 3.6l-1.3.8A5.1 5.1 0 0 0 12 7a5.1 5.1 0 0 0-4.6 2.8l-1.3-.8A6.6 6.6 0 0 1 12 5.4zm0 3.5c1.6 0 3 .8 3.8 2.1l-1.4.8A2.8 2.8 0 0 0 12 10.4c-1 0-1.9.5-2.4 1.4l-1.4-.8A4.5 4.5 0 0 1 12 8.9zM4 13.6l1.1-.7c1.4 2.3 3.9 3.7 6.9 3.7s5.5-1.4 6.9-3.7l1.1.7c-1.6 2.7-4.6 4.4-8 4.4s-6.4-1.7-8-4.4z"}
+  ];
+
+  /* ─── CHAPTERS (baked from the feed, refreshed live on load) ── */
+  var CH = [
+    ["BOOK INTRO","78e840ba-7c43-4726-94c2-571856ceb7db",42],
+    ["DEDICATION","5a39776d-4870-4b48-95ab-cc61533e9d8e",65],
+    ["INTRODUCTION","9677cb4c-2ea5-4c55-a2fd-1b5ffad6fd71",542],
+    ["MILE 1: THE BEGINNING","4ca3f6c4-d63f-4aec-8e57-a092b26f82fe",1215],
+    ["MILE 2: ONE MILE AT A TIME","e10a7f61-f351-4613-9ef9-278bd62cdd12",1287],
+    ["MILE 3: SILVER BALLOONS","728f0843-9c38-49e6-aa68-229be72681f6",537],
+    ["MILE 4: BELIEFS","d27feaf1-4ceb-437a-b666-59ac2e39d334",771],
+    ["MILE 5: PACE RUNNER","3f435454-c7c5-4291-b24a-e4d5404ca5e2",716],
+    ["MILE 6: WOW","1d56c2e0-d648-4235-a3c9-be13917963ff",567],
+    ["MILE 7: VEYO HILL","439b1bdf-bc88-43c8-893b-23e27651c9b4",1286],
+    ["MILE 8.: ANGELS","793e44b7-f52e-417e-8dc2-613b3a86f2d4",931],
+    ["MILE 9: IMPACT","68c28dcf-663d-4bc1-988d-4ecd06f59744",549],
+    ["MILE 10: STARDUST","359e0fec-6489-4927-ab6f-def1aafb54af",838],
+    ["MILE 11: HEART","8ceddce2-325e-4509-a565-dea72019300b",1900],
+    ["MILE 12: YOUNIQUE","ce00f4ff-7006-482f-b3c8-57f6afabe057",1090],
+    ["MILE 13: PERSPECTIVE","6e42dead-bcb0-4cc4-9660-4364b14c93c0",1020],
+    ["MILE 14: SICK WAGON","0f40609f-3ec4-4160-8de8-83675b5aefd8",1494],
+    ["MILE 15: SOLITUDE","87e1fe6c-ccf6-4f41-b17f-e5497c95e647",1023],
+    ["MILE 16: COMMUNITY","26fbba63-75fa-4a39-84e8-f3e00c4b1015",928],
+    ["MILE 17: HEADWIND","8fa117c6-9a31-4068-b195-c38a8ba28551",1265],
+    ["MILE 18: THE WALL","6c09fe47-cfeb-4e1e-bb4f-35b15039a146",1002],
+    ["MILE 19: WARRIOR PAINT","926bdee0-f77e-45bb-bed4-3cd286bf143a",848],
+    ["MILE 20: THUNDERSTRUCK","73360419-3668-4318-806b-70325d2e76f9",994],
+    ["MILE 21: REBEL","83e38044-75d0-4898-bb36-3c7790ee3f45",544],
+    ["MILE 22: LOADED","3a5f6d94-a16e-401a-aa9e-e6077d4d0fdd",1092],
+    ["MILE 23: TOUCHSTONES","9ca37056-3fff-490f-8c4a-f7b692941027",699],
+    ["MILE 24: CURVEBALLS","7e309446-e42a-431d-85ae-b4cda6325ee7",486],
+    ["MILE 25: BLINDSPOTS","5ac4f47f-d42c-4d7c-b96b-84712d2a578f",547],
+    ["MILE 26: PERSONAL BEST","74884d37-066a-4eb1-ac54-c47d1f2b76af",768],
+    ["MILE .2: LAST STRETCH","48a61407-493d-43b7-a71e-140bb3404450",734],
+    ["THE EXTRA MILE","16f3a806-9110-46eb-9dd4-a6ff6cca6ba0",1098],
+    ["ACKNOWLEDGEMENTS","a8829236-0112-4dc1-9c92-42da0c0c9f28",589],
+    ["BOOK OUTRO","fd568702-a7cc-4535-95da-444bcc98946c",69]
+  ].map(function(r){ return {t:r[0], uid:r[1], s:r[2]}; });
+
+  /* Reading-order groups: before the race, the 26.2, after the finish */
+  var GROUPS = [
+    {label:"Before The Start Line", from:0,  to:2},
+    {label:"The 26.2",              from:3,  to:29},
+    {label:"After The Finish",      from:30, to:32}
+  ];
+
+  var $  = function(id){ return document.getElementById(id); };
+  var au = $("au"), cur = -1, rate = 1, rates = [1, 1.25, 1.5, 1.75, 2];
+  var POS_KEY = "us_ab_pos", LAST_KEY = "us_ab_last";
+
+  function store(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+  function load(k, f){ try{ var v = localStorage.getItem(k); return v ? JSON.parse(v) : f; }catch(e){ return f; } }
+  var pos = load(POS_KEY, {});
+
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+
+  function hms(n){
+    n = Math.max(0, Math.floor(n || 0));
+    var h = Math.floor(n/3600), m = Math.floor(n%3600/60), s = n%60;
+    return (h ? h + ":" + String(m).padStart(2,"0") : m) + ":" + String(s).padStart(2,"0");
+  }
+  /* "MILE 1: THE BEGINNING" reads better as "Mile 1: The Beginning" */
+  function titlecase(s){
+    return s.toLowerCase().replace(/(^|[\s:.\-])([a-z])/g, function(_,a,b){ return a + b.toUpperCase(); });
+  }
+
+  /* ─── PLATFORM ROW ─────────────────────────────────────────── */
+  function renderPlats(){
+    var box = $("plats"), html = "";
+    PLATFORMS.forEach(function(p){
+      var icon = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="' + p.d + '"/></svg>';
+      if (p.soon || !p.u) {
+        html += '<span class="plat pending">' + icon + esc(p.n) + '<span class="soon">Soon</span></span>';
+      } else {
+        html += '<a class="plat" href="' + esc(p.u) + '" target="_blank" rel="noopener">' + icon + esc(p.n) + '</a>';
+      }
+    });
+    html += '<p class="plat-note">Coming to the podcast apps shortly. Everything is playable right here in the meantime.</p>';
+    box.insertAdjacentHTML("beforeend", html);
+  }
+
+  /* ─── CHAPTER LIST ─────────────────────────────────────────── */
+  var PLAY_SVG  = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+  var PAUSE_SVG = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zm6 0h4v14h-4z"/></svg>';
+  var TICK_SVG  = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
+
+  function renderList(){
+    var html = "";
+    GROUPS.forEach(function(g){
+      html += '<div class="grp"><span>' + esc(g.label) + '</span></div>';
+      for (var i = g.from; i <= g.to && i < CH.length; i++) {
+        var c = CH[i];
+        html +=
+          '<div class="row" data-i="' + i + '">' +
+            '<button class="pbtn" aria-label="Play ' + esc(titlecase(c.t)) + '">' + PLAY_SVG + '</button>' +
+            '<span class="num">' + String(i+1).padStart(2,"0") + '</span>' +
+            '<span class="ttl">' + esc(titlecase(c.t)) + '</span>' +
+            '<span class="done" aria-label="Finished">' + TICK_SVG + '</span>' +
+            '<span class="dur">' + hms(c.s) + '</span>' +
+            '<span class="bar"></span>' +
+          '</div>';
+      }
+    });
+    $("list").innerHTML = html;
+    paintProgress();
+  }
+
+  /* Played-progress hairline + finished ticks, from localStorage */
+  function paintProgress(){
+    document.querySelectorAll(".row").forEach(function(row){
+      var i = +row.dataset.i, c = CH[i], p = pos[c.uid] || 0;
+      var pct = c.s ? Math.min(100, p / c.s * 100) : 0;
+      row.querySelector(".bar").style.width = pct + "%";
+      row.classList.toggle("finished", pct > 97);
+    });
+  }
+
+  /* ─── PLAYBACK ─────────────────────────────────────────────── */
+  function setPlayIcons(playing){
+    var hp = $("heroPlay"), mp = $("skPlay");
+    hp.innerHTML = playing && cur === 0 ? PAUSE_SVG : PLAY_SVG;
+    hp.classList.toggle("is-pause", playing && cur === 0);
+    mp.innerHTML = playing ? PAUSE_SVG : PLAY_SVG;
+    mp.classList.toggle("is-pause", playing);
+    document.querySelectorAll(".row").forEach(function(row){
+      var on = +row.dataset.i === cur;
+      row.classList.toggle("active", on);
+      var b = row.querySelector(".pbtn");
+      b.innerHTML = on && playing ? PAUSE_SVG : PLAY_SVG;
+      b.classList.toggle("is-pause", on && playing);
+    });
+  }
+
+  function play(i, seek){
+    if (i < 0 || i >= CH.length) return;
+    var c = CH[i];
+    if (i !== cur) {
+      cur = i;
+      au.src = mp3(c.uid);
+      au.playbackRate = rate;
+      var at = seek != null ? seek : (pos[c.uid] || 0);
+      if (at > 2 && at < c.s - 5) {
+        au.addEventListener("loadedmetadata", function once(){
+          au.currentTime = at; au.removeEventListener("loadedmetadata", once);
+        });
+      }
+      $("skTitle").textContent = titlecase(c.t);
+      $("heroLabel").textContent = "Now playing";
+      $("heroTitle").textContent = titlecase(c.t);
+    } else if (seek != null) {
+      au.currentTime = seek;
+    }
+    au.play().catch(function(){ /* autoplay blocked - the button press will retry */ });
+    $("sticky").classList.add("up");
+    document.body.classList.add("playing");
+    $("skPrev").disabled = cur === 0;
+    $("skNext").disabled = cur === CH.length - 1;
+    store(LAST_KEY, {i: cur, t: c.t});
+  }
+
+  function toggle(i){
+    if (i === cur && !au.paused) { au.pause(); return; }
+    if (i === cur && au.paused)  { au.play(); return; }
+    play(i);
+  }
+
+  au.addEventListener("play",  function(){ setPlayIcons(true);  });
+  au.addEventListener("pause", function(){ setPlayIcons(false); });
+
+  au.addEventListener("timeupdate", function(){
+    if (cur < 0 || !au.duration) return;
+    var c = CH[cur];
+    $("fill").style.width = (au.currentTime / au.duration * 100) + "%";
+    $("skMeta").innerHTML = '<span class="ct">Chapter ' + (cur+1) + " of " + CH.length + "  ·  </span>" +
+                            hms(au.currentTime) + " / " + hms(au.duration);
+    $("heroMeta").textContent = "Chapter " + (cur+1) + " of " + CH.length + " · " + hms(c.s);
+    if (Math.floor(au.currentTime) % 5 === 0) {
+      pos[c.uid] = au.currentTime; store(POS_KEY, pos); paintProgress();
+    }
+  });
+
+  /* Roll straight into the next chapter - it's a book, not a playlist */
+  au.addEventListener("ended", function(){
+    pos[CH[cur].uid] = CH[cur].s; store(POS_KEY, pos); paintProgress();
+    if (cur < CH.length - 1) play(cur + 1, 0);
+  });
+
+  /* ─── CONTROLS ─────────────────────────────────────────────── */
+  $("list").addEventListener("click", function(e){
+    var row = e.target.closest(".row"); if (row) toggle(+row.dataset.i);
+  });
+  $("heroPlay").addEventListener("click", function(){ toggle(cur < 0 ? 0 : cur); });
+  $("startTop").addEventListener("click", function(){ play(0, 0); });
+  $("skPlay").addEventListener("click",  function(){ toggle(cur < 0 ? 0 : cur); });
+  $("skPrev").addEventListener("click",  function(){ play(cur - 1, 0); });
+  $("skNext").addEventListener("click",  function(){ play(cur + 1, 0); });
+  $("skBack").addEventListener("click",  function(){ au.currentTime = Math.max(0, au.currentTime - 15); });
+  $("skFwd").addEventListener("click",   function(){ au.currentTime = Math.min(au.duration || 0, au.currentTime + 30); });
+  $("skClose").addEventListener("click", function(){
+    au.pause(); $("sticky").classList.remove("up"); document.body.classList.remove("playing");
+  });
+  $("skRate").addEventListener("click", function(){
+    rate = rates[(rates.indexOf(rate) + 1) % rates.length];
+    au.playbackRate = rate;
+    this.innerHTML = (rate % 1 ? rate : rate) + "&times;";
+  });
+  $("prog").addEventListener("click", function(e){
+    if (!au.duration) return;
+    var r = this.getBoundingClientRect();
+    au.currentTime = (e.clientX - r.left) / r.width * au.duration;
+  });
+
+  document.addEventListener("keydown", function(e){
+    if (/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+    if (e.code === "Space" && cur >= 0) { e.preventDefault(); toggle(cur); }
+    if (e.key === "ArrowRight" && cur >= 0) au.currentTime = Math.min(au.duration || 0, au.currentTime + 30);
+    if (e.key === "ArrowLeft"  && cur >= 0) au.currentTime = Math.max(0, au.currentTime - 15);
+  });
+
+  /* ─── RESUME ───────────────────────────────────────────────── */
+  function initResume(){
+    var last = load(LAST_KEY, null);
+    if (!last || last.i == null || !CH[last.i]) return;
+    var c = CH[last.i], p = pos[c.uid] || 0;
+    if (p < 20 || p > c.s - 10) return;
+    $("resumeTitle").textContent = titlecase(c.t) + " · " + hms(p) + " in";
+    $("resume").classList.add("show");
+    $("resumeGo").addEventListener("click", function(){
+      play(last.i);
+      document.getElementById("chapters").scrollIntoView({behavior:"smooth"});
+    });
+  }
+
+  /* ─── LIVE FEED REFRESH ────────────────────────────────────────
+     The baked list paints instantly; this quietly reconciles it with
+     Hello Audio in case chapters are re-cut or re-ordered upstream.
+     Feed sends access-control-allow-origin:*, so this works from
+     GitHub Pages and will work from the Webflow domain too. */
+  function refresh(){
+    fetch(FEED_URL, {cache:"no-store"}).then(function(r){
+      if (!r.ok) throw 0; return r.text();
+    }).then(function(xml){
+      var doc = new DOMParser().parseFromString(xml, "application/xml");
+      if (doc.querySelector("parsererror")) throw 0;
+      var items = [].slice.call(doc.querySelectorAll("item")).map(function(it){
+        var enc = it.querySelector("enclosure");
+        var d = (it.getElementsByTagNameNS("http://www.itunes.com/dtds/podcast-1.0.dtd","duration")[0]||{}).textContent || "0:00";
+        var p = d.split(":").map(Number);
+        var secs = p.length === 3 ? p[0]*3600 + p[1]*60 + p[2] : p[0]*60 + p[1];
+        return {
+          t: (it.querySelector("title") || {}).textContent || "",
+          uid: (enc.getAttribute("url") || "").split("/").pop().replace(".mp3",""),
+          s: secs
+        };
+      }).filter(function(c){ return c.uid; });
+      if (!items.length) return;
+      /* feed order is already listening order (newest pubDate = BOOK INTRO) */
+      if (items.length !== CH.length || items.some(function(c,i){ return c.uid !== CH[i].uid; })) {
+        CH = items;
+        GROUPS[1].to = CH.length - 4;
+        GROUPS[2].from = CH.length - 3;
+        GROUPS[2].to = CH.length - 1;
+        renderList();
+      }
+      var art = doc.querySelector("channel > image > url");
+      if (art && art.textContent) { $("coverArt").src = $("skArt").src = art.textContent.trim(); }
+    }).catch(function(){ /* baked list stands */ });
+  }
+
+  renderPlats();
+  renderList();
+  initResume();
+  refresh();
+})();
+</script>
+</body>
+</html>

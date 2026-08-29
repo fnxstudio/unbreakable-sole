@@ -1,0 +1,429 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Unbreakable Sole — home draft</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="https://cdn.prod.website-files.com/6a7cb5226941c3869a8b1f52/css/unbreakable-sole.webflow.shared.39d9d2da8.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Figtree:wght@400;700;800&display=swap">
+<style>
+body{margin:0;background:#fff}
+.hm-draftbar{background:#00325c;color:#fff;font:600 13px/1.5 Figtree,sans-serif;padding:9px 22px;letter-spacing:.02em}
+/* ---------- hero ---------- */
+.hm-hero{background-color:var(--sky-tint);padding:44px 26px 84px;font-family:var(--brand-sans);overflow:hidden}
+.hm-acc{position:relative;overflow:hidden;margin:0 -26px 54px;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.hm-acc-track{display:flex;gap:0;width:max-content;animation:hm-roll 68s linear infinite}
+@keyframes hm-roll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.hm-acc-i{display:inline-flex;align-items:center;gap:8px;padding:0 30px;white-space:nowrap;
+  font-size:14.5px;color:var(--medium-blue);border-right:1px solid #00325c1f}
+.hm-acc-i b{color:var(--dark-blue);font-weight:800}
+@media (prefers-reduced-motion:reduce){.hm-acc-track{animation:none}}
+.hm-hero-grid{max-width:var(--container-max);margin:0 auto;display:grid;
+  grid-template-columns:1.08fr .92fr;column-gap:64px;align-items:center}
+.hm-eyebrow{color:var(--gold);letter-spacing:.2em;text-transform:uppercase;font-size:12px;font-weight:700;margin-bottom:14px}
+.hm-h1{font-family:var(--brand-display);color:var(--dark-blue);font-weight:400;line-height:1.08em;
+  letter-spacing:-.015em;text-wrap:balance;margin:0 0 18px;font-size:clamp(34px,5vw,60px)}
+.hm-lede{color:var(--ink);font-size:18.5px;line-height:1.66;max-width:54ch;margin:0 0 14px;text-wrap:pretty}
+.hm-free{color:var(--dark-blue);font-weight:700;font-size:16.5px;margin:0 0 26px}
+.hm-free span{color:var(--burnt-orange)}
+.hm-cta-row{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.hm-fine{color:var(--muted);font-size:13.5px;margin:16px 0 0}
+.hm-book{width:100%;height:auto;display:block}
+/* ---------- generic section ---------- */
+.hm-s{padding:92px 26px;font-family:var(--brand-sans)}
+.hm-s.tint{background:var(--sky-tint)}
+.hm-in{max-width:var(--container-max);margin:0 auto}
+.hm-kick{color:var(--medium-blue);letter-spacing:.2em;text-transform:uppercase;font-size:12px;font-weight:700;margin-bottom:14px}
+.hm-h2{font-family:var(--brand-display);color:var(--dark-blue);font-weight:400;line-height:1.12em;
+  letter-spacing:-.015em;text-wrap:balance;margin:0 0 16px;font-size:clamp(28px,3.6vw,46px)}
+.hm-p{color:var(--ink);font-size:17.5px;line-height:1.68;max-width:62ch;margin:0 0 44px;text-wrap:pretty}
+/* ---------- video ---------- */
+.hm-vid{position:relative;border-radius:4px;overflow:hidden;box-shadow:0 1px 2px #00325c0f,0 18px 44px #00325c26;background:#00325c}
+.hm-vid video{width:100%;height:auto;display:block}
+.hm-vid-btn{position:absolute;inset:0;display:grid;place-items:center;border:0;background:#00325c40;cursor:pointer}
+.hm-play{width:82px;height:82px;border-radius:50%;background:#fff;display:grid;place-items:center;
+  box-shadow:0 10px 30px #00325c4d}
+.hm-play::after{content:"";border-left:22px solid var(--dark-blue);border-top:14px solid transparent;
+  border-bottom:14px solid transparent;margin-left:6px}
+/* ---------- miles ---------- */
+.hm-miles{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:30px 40px;margin-top:6px}
+.hm-mile{border-left:3px solid var(--gold);padding-left:20px}
+.hm-mile-n{color:var(--medium-blue);letter-spacing:.14em;text-transform:uppercase;font-size:12px;font-weight:700;margin-bottom:8px}
+.hm-mile-h{color:var(--dark-blue);font-size:20px;font-weight:800;line-height:1.3;margin-bottom:8px}
+.hm-mile-p{color:var(--ink);font-size:16.5px;line-height:1.65;margin:0}
+/* ---------- rolling endorsers ---------- */
+.hm-roll{position:relative;height:620px;overflow:hidden;
+  -webkit-mask-image:linear-gradient(180deg,transparent,#000 9%,#000 91%,transparent);
+  mask-image:linear-gradient(180deg,transparent,#000 9%,#000 91%,transparent)}
+.hm-roll .rq-track{animation:hm-up 120s linear infinite}
+@keyframes hm-up{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+@media (prefers-reduced-motion:reduce){.hm-roll .rq-track{animation:none}}
+.rq-role{color:var(--muted);font-size:12.5px}
+.hm-roll-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px 52px}
+/* ---------- featured quotes ---------- */
+.hm-feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:26px;margin-top:8px}
+.hm-fq{background:#fff;border-radius:4px;padding:28px 30px 26px;box-shadow:0 1px 2px #00325c0a,0 10px 28px #00325c12;
+  display:flex;flex-direction:column;gap:14px}
+.hm-fq-q{color:var(--ink);font-size:17px;line-height:1.68;margin:0}
+.hm-fq-n{color:var(--dark-blue);font-weight:800;font-size:14.5px}
+.hm-fq-r{color:var(--muted);font-size:13px;margin-top:-10px}
+.hm-fq.big{grid-column:1/-1;background:var(--dark-blue)}
+.hm-fq.big .hm-fq-q{color:#fff;font-size:clamp(20px,2.4vw,30px);line-height:1.5;font-family:var(--brand-display)}
+.hm-fq.big .hm-fq-n{color:var(--cta-yellow)} .hm-fq.big .hm-fq-r{color:var(--on-blue-text)}
+/* ---------- two-up cards ---------- */
+.hm-two{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:8px}
+.hm-card{background:#fff;border-radius:4px;overflow:hidden;box-shadow:0 1px 2px #00325c0a,0 10px 28px #00325c12;
+  display:flex;flex-direction:column}
+.hm-card img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
+.hm-card-b{padding:26px 28px 30px;display:flex;flex-direction:column;gap:10px;flex:1}
+.hm-card-h{color:var(--dark-blue);font-size:21px;font-weight:800;line-height:1.3}
+.hm-card-p{color:var(--ink);font-size:16.5px;line-height:1.65;margin:0;flex:1}
+/* ---------- responsive ---------- */
+@media (max-width:991px){
+ .hm-hero-grid{grid-template-columns:1fr;row-gap:38px}
+ .hm-roll-grid{grid-template-columns:1fr} .hm-roll{height:520px}
+ .hm-two{grid-template-columns:1fr}
+}
+@media (max-width:767px){
+ .hm-hero{padding:32px 22px 62px} .hm-s{padding:64px 22px}
+ .rq-face{width:76px;height:95px}
+}
+</style>
+</head><body><div class="hm-draftbar">DRAFT — home page for review. Not published. Styling pulled live from the Webflow site stylesheet.</div>
+
+<!-- ============ HERO ============ -->
+<section class="hm-hero">
+ <div class="hm-acc"><div class="hm-acc-track"><span class="hm-acc-i"><b>&ldquo;Soul hydration.&rdquo;</b> Jessica Fairbanks</span><span class="hm-acc-i"><b>&ldquo;Raw, real, and unfiltered.&rdquo;</b> Dave Koepsell</span><span class="hm-acc-i"><b>&ldquo;A sacred mirror.&rdquo;</b> Dr. Kristi Lopez</span><span class="hm-acc-i"><b>&ldquo;Grit and grace.&rdquo;</b> Dr. Jack Ward</span><span class="hm-acc-i"><b>&ldquo;This book changed me.&rdquo;</b> David I. Green</span><span class="hm-acc-i"><b>&ldquo;A pilgrimage of the heart.&rdquo;</b> Elo Jones</span><span class="hm-acc-i"><b>&ldquo;Heartwarming and heartwrenching.&rdquo;</b> George Contos</span><span class="hm-acc-i"><b>&ldquo;Beautifully raw.&rdquo;</b> Gini Williams</span><span class="hm-acc-i"><b>&ldquo;A definite must-read.&rdquo;</b> Michael Fife</span><span class="hm-acc-i"><b>&ldquo;Sacred teachers.&rdquo;</b> Tara Lawallan</span><span class="hm-acc-i"><b>&ldquo;Soul hydration.&rdquo;</b> Jessica Fairbanks</span><span class="hm-acc-i"><b>&ldquo;Raw, real, and unfiltered.&rdquo;</b> Dave Koepsell</span><span class="hm-acc-i"><b>&ldquo;A sacred mirror.&rdquo;</b> Dr. Kristi Lopez</span><span class="hm-acc-i"><b>&ldquo;Grit and grace.&rdquo;</b> Dr. Jack Ward</span><span class="hm-acc-i"><b>&ldquo;This book changed me.&rdquo;</b> David I. Green</span><span class="hm-acc-i"><b>&ldquo;A pilgrimage of the heart.&rdquo;</b> Elo Jones</span><span class="hm-acc-i"><b>&ldquo;Heartwarming and heartwrenching.&rdquo;</b> George Contos</span><span class="hm-acc-i"><b>&ldquo;Beautifully raw.&rdquo;</b> Gini Williams</span><span class="hm-acc-i"><b>&ldquo;A definite must-read.&rdquo;</b> Michael Fife</span><span class="hm-acc-i"><b>&ldquo;Sacred teachers.&rdquo;</b> Tara Lawallan</span></div></div>
+ <div class="hm-hero-grid">
+  <div>
+   <div class="hm-eyebrow">By Missy Moss Wright</div>
+   <h1 class="hm-h1">Life will break you open. This is how you come back unbreakable.</h1>
+   <p class="hm-lede">26.2 principles for navigating whatever life throws at you, with strength, hope,
+    and heart. One chapter for every mile of the marathon that changed everything.</p>
+   <p class="hm-free">Every hardcover includes the complete audiobook, <span>free</span>.</p>
+   <div class="hm-cta-row">
+    <a class="vid-btn" href="https://secure.darrenhardy.com/checkout/unbreakable-sole">Get the book and audiobook &rarr;</a>
+    <a class="vid-secondary" href="#the-book">See what is inside</a>
+   </div>
+   <p class="hm-fine">Free U.S. shipping. The audiobook is yours the moment you order, so you can
+    start listening before the hardcover lands.</p>
+  </div>
+  <div><img class="hm-book" src="https://cdn.prod.website-files.com/6a7cb5226941c3869a8b1f52/6a84ea7678518ed4dc932562_book-phone-real.webp"
+    alt="Unbreakable Sole hardcover beside the audiobook playing on a phone" fetchpriority="high"></div>
+ </div>
+</section>
+
+<!-- ============ VIDEO ============ -->
+<section class="hm-s">
+ <div class="hm-in" style="max-width:900px">
+  <div class="hm-kick" style="text-align:center">Ninety seconds</div>
+  <h2 class="hm-h2" style="text-align:center">Sometimes it is hard to see where the road is taking you.</h2>
+  <p class="hm-p" style="margin:0 auto 34px;text-align:center">Missy tells it better than a page can.</p>
+  <div class="hm-vid" id="hmvid">
+   <video preload="none" playsinline controls poster="assets/us_website_video_poster.webp">
+    <source src="assets/us_website_video.mp4" type="video/mp4">
+   </video>
+   <button class="hm-vid-btn" aria-label="Play the story"><span class="hm-play"></span></button>
+  </div>
+ </div>
+</section>
+
+<!-- ============ THE BOOK / MILES ============ -->
+<section class="hm-s tint" id="the-book">
+ <div class="hm-in">
+  <div class="hm-kick">The book</div>
+  <h2 class="hm-h2">Built like the marathon that changed her life.</h2>
+  <p class="hm-p">26.2 chapters, one for every mile. Each one hands you something to carry when the
+   road gets steep. You do not need to be a runner. You just need to be human.</p>
+  <div class="hm-miles">
+   <div class="hm-mile"><div class="hm-mile-n">Miles 1 to 9</div>
+    <div class="hm-mile-h">Find your footing</div>
+    <p class="hm-mile-p">Name what is really weighing on you, then take the first honest step forward.</p></div>
+   <div class="hm-mile"><div class="hm-mile-n">Miles 10 to 20</div>
+    <div class="hm-mile-h">Push through the wall</div>
+    <p class="hm-mile-p">What keeps you going when it stops being exciting and starts being hard.</p></div>
+   <div class="hm-mile"><div class="hm-mile-n">Miles 21 to 26.2</div>
+    <div class="hm-mile-h">Finish stronger</div>
+    <p class="hm-mile-p">Cross into the joy, purpose, and steadiness waiting on the other side.</p></div>
+  </div>
+ </div>
+</section>
+
+<!-- ============ MISSY BAND + QUOTE ============ -->
+<section class="res-band" style="padding-top:0">
+ <div class="res-band-inner">
+  <div><img class="res-band-photo" src="https://cdn.prod.website-files.com/6a7cb5226941c3869a8b1f52/6a80b6e76dcaab11627f6701_missy-band-opt.webp"
+    alt="Missy Moss Wright" loading="lazy" decoding="async"></div>
+  <div style="padding:68px 0 78px">
+   <div class="hm-kick">Why she wrote it</div>
+   <p class="res-band-quote">&ldquo;The hard miles don&rsquo;t break you. They build you. I didn&rsquo;t
+    learn that on a good day. I learned it mile after mile, when quitting felt easier than continuing,
+    and I kept going anyway.&rdquo;</p>
+   <img src="https://cdn.prod.website-files.com/6a7cb5226941c3869a8b1f52/6a826e1ed12232f65d499e35_missy-signature-2x.webp" alt="Missy"
+    style="width:170px;height:auto;display:block;margin-top:26px" loading="lazy">
+  </div>
+ </div>
+</section>
+
+<!-- ============ FEATURED ENDORSEMENTS ============ -->
+<section class="hm-s tint">
+ <div class="hm-in">
+  <div class="hm-kick">What readers found in the miles</div>
+  <h2 class="hm-h2">Twenty people read it before you could.</h2>
+  <p class="hm-p">Coaches, physicians, founders, and parents. They finished it and then wrote down
+   what it did to them.</p>
+  <div class="hm-feat">
+   <div class="hm-fq big">
+    <p class="hm-fq-q">&ldquo;This book transforms your toughest challenges into proof that you&rsquo;re
+     not just resilient. You&rsquo;re truly unbreakable, no matter what life throws at you.&rdquo;</p>
+    <div class="hm-fq-n">Darren Hardy</div>
+    <div class="hm-fq-r">Former publisher of SUCCESS Magazine</div>
+   </div>
+   <div class="hm-fq"><p class="hm-fq-q">&ldquo;Missy&rsquo;s story takes you from the basement to the
+    rooftop&mdash;raw, real, and unfiltered. This isn&rsquo;t just a book you read, it&rsquo;s a journey
+    you take.&rdquo;</p><div class="hm-fq-n">Dave Koepsell</div><div class="hm-fq-r">Franchise Owner of Chick-fil-A</div></div>
+   <div class="hm-fq"><p class="hm-fq-q">&ldquo;From the first chapter, I was captivated. Missy&rsquo;s
+    words reached places in me I didn&rsquo;t know needed healing. This book is a sacred mirror and a
+    ministry of hope.&rdquo;</p><div class="hm-fq-n">Dr. Kristi Lopez</div><div class="hm-fq-r">Gastroenterologist</div></div>
+   <div class="hm-fq"><p class="hm-fq-q">&ldquo;Missy masterfully weaves life lessons into each mile,
+    meeting readers at the intersection of grit and grace.&rdquo;</p>
+    <div class="hm-fq-n">Dr. Jack Ward</div><div class="hm-fq-r">Lifestyle Medicine Physician</div></div>
+  </div>
+ </div>
+</section>
+
+<!-- ============ ROLLING ENDORSERS (all 20) ============ -->
+<section class="hm-s">
+ <div class="hm-in">
+  <div class="hm-kick">Every one of them finished it</div>
+  <h2 class="hm-h2">Twenty endorsements, in their own words.</h2>
+  <div class="hm-roll"><div class="rq-track"><div class="rq-card">
+ <img class="rq-face" src="assets/560714c7_a1478f5133463889ac54c18bc09bb71a04bcf5e4.webp" alt="Jessica Fairbanks" loading="lazy" decoding="async">
+ <div class="rq-body">
+  <p class="rq-quote">“This book felt like soul hydration, sacred water for those who’ve walked the wilderness. Missy’s raw truth, redemptive hope, and marathon metaphor stirred something deep in inside me.”</p>
+  <div class="rq-name">Jessica Fairbanks</div>
+  <div class="rq-role">Transformational Coach</div>
+ </div>
+</div>
+<div class="rq-card">
+ <img class="rq-face" src="assets/3c149665_7fe50b64d126d592c4b8e87eb1f53f8a7e6cbbc9.webp" alt="Thomas Petersen" loading="lazy" decoding="async">
+ <div class="rq-body">
+  <p class="rq-quote">“Missy’s storytelling draws you in and reminds you of what you’ve overcome. It brought to life parts of my journey I’d forgotten and made me more grateful.”</p>
+  <div class="rq-name">Thomas Petersen</div>
+  <div class="rq-role">CEO of SportProsUSA</div>
+ </div>
+</div>
+<div class="rq-card">
+ <img class="rq-face" src="assets/ddff237d_f1789c09bbb811264c4661e578dd6401f66eab7d.webp" alt="Michael Fife" loading="lazy" decoding="async">
+ <div class="rq-body">
+  <p class="rq-quote">“This book pushes all the buttons— joy, gratitude, and hope. It’s a powerful reminder that every journey is unique, and even the most unlikely among us can do the impossible. A definite must-read.”</p>
+  <div class="rq-name">Michael Fife</div>
+  <div class="rq-role">Managing Partner at Blue Terra</div>
+ </div>
+</div>
+<div class="rq-card">
+ <img class="rq-face" src="assets/9723de50_94ea232a6046b5defc91570ca4414c6af84c5c34.webp" alt="Cindy Santos-Mendoza" loading="lazy" decoding="async">
+ <div class="rq-body">
+  <p class="rq-quote">“This is a deeply personal kind of story. It stirs buried wounds, invites soul-searching, and gently asks—how do I heal, forgive, and grow? This book is a conversation with the parts of us we often silence.”</p>
+  <div class="rq-name">Cindy Santos-Mendoza</div>
+  <div class="rq-role">Insurance Solutions CEO</div>
+ </div>
+</div>
+<div class="rq-card">
+ <img class="rq-face" src="assets/f1778b9d_a7cb6cd94085093026909792eb7997dd6f391307.webp" alt="Del Bankston" loading="lazy" decoding="async">
+ <div class="rq-body">
+  <p class="rq-quote">“This book helped me realize how many people have quietly supported me along the way, and how much I’ve tried to control everything out of fear. This book gave me space to reflect, release, and finally trust.”</p>
+  <div class="rq-name">Del Bankston</div>
+  <div class="rq-role">Senior Architectural Consultant</div>
+ </div>
+</div>
+<div class="rq-card">
+ <img class="rq-face" src="assets/b5a47b42_8b6dc8ce07fd8fcc28e45426343308045b6df297.webp" alt="Pamela Nelson" loading="lazy" decoding="async">
+ <div class="rq-body">
+  <p class="rq-quote">“The challenges Missy’s family has faced could’ve broken them—but through faith, strong relationships, and resilience, she delivers a powerful story of hope and endurance.”</p>
+  <div class="rq-name">Pamela Nelson</div>
+  <div class="rq-role">Financial Advisor</div>
+ </div>
+</div>
+<div class="rq-card">
+ <img class="rq-face" src="assets/a9f50ed4_205f30396af685593dfa509fc4930d2a61e069aa.webp" alt="Holly Nye" loading="lazy" decoding="async">
+ <div class="rq-body">
+  <p class="rq-quote">“This book is amazing! Missy shows how to face life’s hardships with a beauty and grace I’ve never seen before. Each chapter brings new surprises and guidance—and the audiobook is just as powerful.”</p>
+  <div class="rq-name">Holly Nye</div>
+  <div class="rq-role">Entrepreneur</div>
+ </div>
+</div>
+<div class="rq-card">
+ <img class="rq-face" src="assets/03838b31_c61a49f6d17017b00a19828554718e6022dc5ce3.webp" alt="Dr. Jack Ward" loading="lazy" decoding="async">
+ <div class="rq-body">
+  <p class="rq-quote">“Missy masterfully weaves life lessons into each mile, meeting readers at the intersection of grit and grace. Her honesty inspired me to heal parts of myself while reigniting my purpose to help others thrive as well.”</p>
+  <div class="rq-name">Dr. Jack Ward</div>
+  <div class="rq-role">Lifestyle Medicine Physician</div>
+ </div>
+</div>
+<div class="rq-card">
+ <img class="rq-face" src="assets/de97a26b_aee096679aff4d6de37b837ce66dc6e6cc53d7f6.webp" alt="Ray Koopman" loading="lazy" decoding="async">
+ <div class="rq-body">
+  <p class="rq-quote">“Missy’s heartfelt and heartbreaking stories gave me powerful perspective on my own. We often hide our struggles, but this book reminds us that adversity shapes us more than success ever will.”</p>
+  <div class="rq-name">Ray Koopman</div>
+  <div class="rq-role">Senior Consulting Advisor</div>
+ </div>
+</div>
+<div class="rq-card">
+ <img class="rq-face" src="assets/7344228b_b142f3f074d9eac42f17cc08d97eec0af875606d.webp" alt="Dave Koepsell" loading="lazy" decoding="async">
+ <div class="rq-body">
+  <p class="rq-quote">“Missy’s story takes you from the basement to the rooftop—raw, real, and unfiltered. This isn’t just a book you read, it’s a journey you take, one that helps you see your own story in every page.”</p>
+  <div class="rq-name">Dave Koepsell</div>
+  <div class="rq-role">Franchise Owner of Chick-fil-A</div>
+ </div>
+</div>
+<div class="rq-card">
+ <img class="rq-face" src="assets/602ab4a3_3ed1bfb49a97f6727b43ac661d53edd6ab68e859.webp" alt="Dr.Kristi Lopez" loading="lazy" decoding="async">
+ <div class="rq-body">
+  <p class="rq-quote">“From the first chapter, I was captivated. Missy’s words reached places in me I didn’t know needed healing. This book is a sacred mirror and a ministry of hope for anyone carrying hidden pain.”</p>
+  <div class="rq-name">Dr.Kristi Lopez</div>
+  <div class="rq-role">Gastroenterologist</div>
+ </div>
+</div>
+<div class="rq-card">
+ <img class="rq-face" src="assets/24178fbd_b3a5a22cad142400723ef1ac487b0a349cca5a52.webp" alt="Dinorah Livingston" loading="lazy" decoding="async">
+ <div class="rq-body">
+  <p class="rq-quote">“Unbreakable Sole captures your heart and calls you to reflect on how far you’ve come. This book challenges you to take your own stories off the shelf—not just to heal, but to help others rise too.”</p>
+  <div class="rq-name">Dinorah Livingston</div>
+  <div class="rq-role">Financial Coach</div>
+ </div>
+</div>
+<div class="rq-card">
+ <img class="rq-face" src="assets/1c3ccbba_1806d1bcaba9b6ca57dc40dd7b2368add17014be.webp" alt="Chris Rosendahl" loading="lazy" decoding="async">
+ <div class="rq-body">
+  <p class="rq-quote">“We’ve all heard “walk a mile in someone else’s shoes”. Missy lets you walk 26 of hers. I laughed, cried, and saw myself in so many of her stories. I can’t wait to share it with my family.”</p>
+  <div class="rq-name">Chris Rosendahl</div>
+  <div class="rq-role">Financial Business Consultant</div>
+ </div>
+</div>
+<div class="rq-card">
+ <img class="rq-face" src="assets/e034613b_7043badd31c3f09a3dfd7223cabff75e40b7ad69.webp" alt="Gini Williams" loading="lazy" decoding="async">
+ <div class="rq-body">
+  <p class="rq-quote">“A beautifully raw and inspiring read. Unbreakable Sole moved me to reflect, cry, and hope. It reminded me of the power of resilience, gratitude, and the unbreakable human spirit. It was so good, I read each chapter twice.”</p>
+  <div class="rq-name">Gini Williams</div>
+  <div class="rq-role">Property Manager</div>
+ </div>
+</div>
+<div class="rq-card">
+ <img class="rq-face" src="assets/9c468bcc_918f0e98cafdc02bd776e844fb64374209ad165f.webp" alt="Elo Jones" loading="lazy" decoding="async">
+ <div class="rq-body">
+  <p class="rq-quote">“This book is a pilgrimage of the heart—rich with faith, resilience, and raw emotion. Missy walks you through life’s sacred miles, and reveals the beauty that rises from them. Lace up, you’re in for something incredible.”</p>
+  <div class="rq-name">Elo Jones</div>
+  <div class="rq-role">Business Owner and Investor</div>
+ </div>
+</div>
+<div class="rq-card">
+ <img class="rq-face" src="assets/4a86a85d_2ef9eca9c03ae437dde13cd15dff5a86b16d3e3a.webp" alt="Maureen Holland" loading="lazy" decoding="async">
+ <div class="rq-body">
+  <p class="rq-quote">“Each chapter struck a deep chord, reminding me that while our paths differ, our struggles often echo. Missy’s honesty made me feel seen, and inspired me to face my own challenges with greater strength.”</p>
+  <div class="rq-name">Maureen Holland</div>
+  <div class="rq-role">Project Manager</div>
+ </div>
+</div>
+<div class="rq-card">
+ <img class="rq-face" src="assets/40741ef7_f3cd3bfb96c2ae43ecbd89ee7bf447c6d6dfab44.webp" alt="Evelyn Opony" loading="lazy" decoding="async">
+ <div class="rq-body">
+  <p class="rq-quote">“This book takes you on a powerful journey that reminds you—your story, your scars, your dreams—they’re what make you, you. Wear them with pride. It’s an inspiring, heartfelt read you won’t forget.”</p>
+  <div class="rq-name">Evelyn Opony</div>
+  <div class="rq-role">Certified Field Trainer</div>
+ </div>
+</div>
+<div class="rq-card">
+ <img class="rq-face" src="assets/6b76b406_5edcb6910b76615f0ba1615ad5e877a679a301fc.webp" alt="George Contos" loading="lazy" decoding="async">
+ <div class="rq-body">
+  <p class="rq-quote">“Missy captures all of life’s twists, heartaches, and triumphs with stories that are heartwarming and heartwrenching in the same breath. Share this book with everyone you love!”</p>
+  <div class="rq-name">George Contos</div>
+  <div class="rq-role">CEO of World Wide Metric</div>
+ </div>
+</div>
+<div class="rq-card">
+ <img class="rq-face" src="assets/db4b816d_69bd2c89dec5b6f584ce95c07d98dd974642fd2c.webp" alt="David I. Green" loading="lazy" decoding="async">
+ <div class="rq-body">
+  <p class="rq-quote">“This book changed me. Mile by mile, something in me softened, opened, and let go. Missy’s honesty gave me permission to face emotions I hadn’t named and release things I’d carried for years.”</p>
+  <div class="rq-name">David I. Green</div>
+  <div class="rq-role">Chief Growth Officer</div>
+ </div>
+</div>
+<div class="rq-card">
+ <img class="rq-face" src="assets/f3c84707_d07085fe26edf9fa28a7fdd051855faf32bee2cc.webp" alt="Tara Lawallan" loading="lazy" decoding="async">
+ <div class="rq-body">
+  <p class="rq-quote">“Through each mile, Missy reminds us that struggles aren’t setbacks, but sacred teachers, guided by God’s hand. This inspiring read is a powerful call to become the unbreakable souls we were created to be.”</p>
+  <div class="rq-name">Tara Lawallan</div>
+  <div class="rq-role">Wellness Advocate and Practitioner</div>
+ </div>
+</div></div></div>
+ </div>
+</section>
+
+<!-- ============ PODCASTS & PRESS ============ -->
+<section class="hm-s tint" id="press">
+ <div class="hm-in">
+  <div class="hm-kick">Podcasts &amp; press</div>
+  <h2 class="hm-h2">She meets them where they are already listening.</h2>
+  <p class="hm-p">Missy is an easy guest who tells the truth, and you will never have to coax your way
+   to the real part. Here is where she has been, and how to have her on your show or stage.</p>
+  <div class="hm-two">
+   <div class="hm-card">
+    <img src="https://cdn.prod.website-files.com/6a7cb5226941c3869a8b1f52/6a908d56a4de26d53d37cf64_missy-podcast-twoshot.jpg" alt="Missy in a podcast interview" loading="lazy">
+    <div class="hm-card-b">
+     <div class="hm-card-h">On the podcast circuit</div>
+     <p class="hm-card-p">Conversations about grief, endurance, faith, and the miles nobody chooses.
+      Remote or in studio.</p>
+     <a class="vid-secondary" href="/press">See where she has been &rarr;</a>
+    </div>
+   </div>
+   <div class="hm-card">
+    <img src="https://cdn.prod.website-files.com/6a7cb5226941c3869a8b1f52/6a8fbc3499e2ccefda593c90_sp-cta-hug.webp" alt="Two runners embracing at a race" loading="lazy">
+    <div class="hm-card-b">
+     <div class="hm-card-h">Speaking</div>
+     <p class="hm-card-p">Keynotes, workshops, chapels and classrooms. Built around your people, so
+      they leave lighter than they came.</p>
+     <a class="vid-secondary" href="/speaking">Learn about speaking &rarr;</a>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- ============ COMMUNITY ============ -->
+<section class="hm-s">
+ <div class="hm-in">
+  <div class="hm-two" style="align-items:center">
+   <div>
+    <div class="hm-kick">Community</div>
+    <h2 class="hm-h2">You weren&rsquo;t designed to run your miles alone.</h2>
+    <p class="hm-p" style="margin-bottom:26px">A place to land when you are in the middle of something
+     hard, with people walking the same miles you are. Some are a few ahead of you. Some are right where
+     you are standing.</p>
+    <a class="vid-btn" href="/community">Find your people &rarr;</a>
+   </div>
+   <div><img src="https://cdn.prod.website-files.com/6a7cb5226941c3869a8b1f52/6a8f667bf7d7aaeb454de9b3_comm-05-virtual-v2.webp"
+     alt="Unbreakable Sole readers together on a community video call" loading="lazy"
+     style="width:100%;border-radius:4px;display:block;box-shadow:0 1px 2px #00325c0f,0 14px 34px #00325c24"></div>
+  </div>
+ </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="hm-s tint">
+ <div class="hm-in" style="max-width:780px;text-align:center">
+  <div class="hm-kick">Your story is about to begin</div>
+  <h2 class="hm-h2">Start at Mile 1 today.</h2>
+  <p class="hm-p" style="margin:0 auto 30px">The hardcover ships free, and the complete audiobook is
+   yours the moment you order, so you can start listening on the drive home.</p>
+  <a class="vid-btn" href="https://secure.darrenhardy.com/checkout/unbreakable-sole">Get the book and audiobook &rarr;</a>
+ </div>
+</section>
+
+<script>
+(function(){
+ var w=document.getElementById('hmvid'); if(!w) return;
+ var v=w.querySelector('video'), b=w.querySelector('.hm-vid-btn');
+ b.addEventListener('click',function(){ b.style.display='none'; v.play(); });
+})();
+</script>
+</body></html>
