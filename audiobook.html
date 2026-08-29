@@ -233,18 +233,12 @@
   .plat-note{width:100%;font-size:11.5px;color:var(--muted);margin-top:10px;}
 
   @media (max-width:900px){
-    .hero{padding:30px 0 48px;}
-    .hero .wrap{grid-template-columns:1fr;gap:22px;}
-    .hero-art{max-width:248px;margin:0 auto;order:-1;}
-    /* On a phone the player is what the page is for, so it comes straight
-       after the cover and the pitch reads underneath it. Reordering (rather
-       than moving markup) keeps the desktop source order intact. */
-    .txt{display:flex;flex-direction:column;}
-    .pcard{order:1;} .resume{order:2;}
-    .txt .eyebrow{order:3;margin-top:6px;}
-    .txt h1{order:4;} .txt .lead{order:5;}
-    .jump{order:6;align-self:flex-start;}
-    .hero h1{font-size:clamp(27px,7.4vw,34px);margin:10px 0 12px;}
+    .hero{padding:22px 0 44px;}
+    .hero .wrap{grid-template-columns:1fr;gap:18px;}
+    /* Reading order is unchanged from desktop; the cover is simply scaled
+       back so the play card still lands in the first screen on a phone. */
+    .hero-art{max-width:164px;margin:0 auto;order:-1;}
+    .hero h1{font-size:clamp(26px,7vw,32px);margin:10px 0 12px;}
     .hero p.lead{font-size:16px;}
     .hero-face{width:84px;right:-8px;top:-26px;border-width:3px;border-radius:13px;}
   }
