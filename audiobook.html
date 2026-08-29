@@ -228,7 +228,7 @@
   /* Flat --sky-tint, matching the site's .res-band. Two columns so the whole
      strip stays about one screen-inch tall instead of a long stack. */
   .listen{background:var(--sky);padding:38px 0;}
-  .listen .wrap{display:grid;grid-template-columns:1.3fr 1fr;gap:26px 54px;align-items:start;}
+  .listen .wrap{display:grid;grid-template-columns:1.3fr 1fr;gap:26px 44px;align-items:start;}
   .listen .lbl{font-size:10.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
     color:var(--blue);margin-bottom:11px;}
   @media (max-width:860px){
@@ -271,7 +271,10 @@
     color:var(--muted);text-decoration:none;transition:background .16s,color .16s;}
   .row .dl:hover{background:var(--sky);color:var(--blue-deep);}
   .row .dl svg{width:15px;height:15px;}
-  /* no border or fill: a box inside a tinted band reads as a box in a box */
+  /* a gentle panel, filled a few notches deeper than the band it sits on
+     (--sky #e8f5fd -> #d8effc, roughly 40% of the way to --light-blue) so it
+     reads as its own block without turning into a hard-edged card */
+  .dlbox{background:#d8effc;border:1px solid rgba(0,50,92,.10);border-radius:14px;padding:20px 22px;}
   .dlbox p{margin:0 0 13px;font-size:13.5px;line-height:1.6;color:var(--ink);max-width:40em;}
   .dlbox .acts{display:flex;gap:9px;flex-wrap:wrap;}
   .dlbox .hint{margin:10px 0 0;font-size:11.5px;color:var(--muted);}
@@ -464,7 +467,7 @@
   <div class="wrap">
     <div class="eyebrow">Pass It On</div>
     <h2>Somebody you know is in their <em class="hl">hardest mile</em> right now.</h2>
-    <p>You can&rsquo;t run it for them. You can hand them the map.</p>
+    <p>You can&rsquo;t run it for them. But you can hand them a map.</p>
     <a href="https://unbreakablesole.com" class="btn">Get Copies To Share &rarr;</a>
   </div>
 </section>
