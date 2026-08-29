@@ -103,12 +103,15 @@
     text-transform:uppercase;letter-spacing:.06em;font-size:15px;padding:16px 30px;border-radius:6px;border:0;
     cursor:pointer;text-decoration:none;transition:transform .12s,box-shadow .12s,background .12s;box-shadow:0 10px 26px rgba(34,48,58,.16);}
   .btn:hover{background:#ffd63f;transform:translateY(-2px);box-shadow:0 14px 30px rgba(34,48,58,.22);}
-  /* Deep blue rather than the commerce yellow: this is a player control, and it
-     should not compete with "Get The Book". Colour is held on hover; the button
-     lifts instead of darkening. */
-  .btn.play-all{background:var(--blue-deep);color:#fff;border:0;box-shadow:0 10px 26px rgba(0,50,92,.3);}
-  .btn.play-all:hover{background:var(--blue-deep);transform:translateY(-2px);box-shadow:0 15px 32px rgba(0,50,92,.38);}
-  .btn.play-all svg{width:15px;height:15px;flex:none;}
+  /* Ghost, following the site's own outline pattern (Site Nav - Book CTA Ghost):
+     a 2px dark-blue outline on transparent that fills to CTA yellow on hover.
+     Padding is trimmed by the 2px border so the box stays exactly the size of
+     a solid .btn. No drop shadow - an outline button should not float. */
+  .btn.ghost{background:none;border:2px solid var(--blue-deep);color:var(--blue-deep);
+    padding:14px 28px;box-shadow:none;}
+  .btn.ghost:hover{background:var(--yellow);border-color:var(--yellow);color:#1b2126;
+    transform:translateY(-2px);box-shadow:0 14px 30px rgba(34,48,58,.22);}
+  .btn.ghost svg{width:15px;height:15px;flex:none;}
 
   /* top bar - matches home.html */
   /* ============ NAV - mirrors the site's "Site Nav - Links" component ============ */
@@ -283,10 +286,8 @@
   /* ============ CTA ============ */
   .cta{background:var(--sky);}
   .cta .wrap{max-width:760px;text-align:center;}
-  .cta h2{font-size:clamp(25px,3.2vw,35px);margin:12px 0 14px;}
-  .cta .rule{width:52px;height:3px;background:var(--gold);margin:0 auto 22px;}   /* .res-band-rule */
-  .cta p{font-size:17px;color:#42525c;margin-bottom:26px;}
-  .cta .fine{font-size:12.5px;color:var(--muted);margin:16px 0 0;}
+  .cta h2{font-size:clamp(25px,3.2vw,35px);margin:14px 0 16px;}
+  .cta p{font-size:18.5px;color:#42525c;margin-bottom:30px;}
 
   /* ============ FOOTER - mirrors the site's "Site Footer" component ============ */
   .site-footer{background:var(--blue);color:var(--on-blue);border-top:2px solid var(--gold);
@@ -463,7 +464,7 @@
         <h2>Every chapter, <em class="hl">ready to play.</em></h2>
         <p>Start at mile one, or jump to the mile you need today. It remembers where you stopped and rolls straight into the next chapter.</p>
       </div>
-      <button class="btn play-all" id="startTop">
+      <button class="btn ghost" id="startTop">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
         Play From The Beginning
       </button>
@@ -476,11 +477,9 @@
 <section class="cta">
   <div class="wrap">
     <div class="eyebrow">Pass It On</div>
-    <div class="rule"></div>
     <h2>Somebody you know is in their <em class="hl">hardest mile</em> right now.</h2>
-    <p>Every order is a signed hardcover with all seven hours of audio included. Read it, then put it in the hands of the person who needs it, or keep the audiobook for your own runs and give the book away. Nobody should have to run the hard miles without somebody handing them the map.</p>
-    <a href="https://unbreakablesole.com" class="btn">Get A Copy To Share &rarr;</a>
-    <p class="fine">Free U.S. shipping. 30-day happiness guarantee. The audiobook is yours to keep either way.</p>
+    <p>You can&rsquo;t run it for them. You can hand them the map.</p>
+    <a href="https://unbreakablesole.com" class="btn">Get Copies To Share &rarr;</a>
   </div>
 </section>
 
