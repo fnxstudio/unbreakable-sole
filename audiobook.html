@@ -146,12 +146,8 @@
 
   /* ============ HERO ============ */
   .hero{background:linear-gradient(180deg,#eaf4fb 0%,#f2f9fc 60%,#fbfcfd 100%);padding:52px 0 62px;overflow:hidden;}
-  .hero .wrap{display:grid;grid-template-columns:.86fr 1.14fr;gap:30px 46px;align-items:start;
-    grid-template-areas:"art copy" "aside copy";}
-  .hero-art{grid-area:art;position:relative;}
-  .txt{grid-area:copy;}
-  .hero-aside{grid-area:aside;}
-  .hero-aside .plats{margin-top:0;}   /* spacing under the cover comes from the grid row-gap */
+  .hero .wrap{display:grid;grid-template-columns:.86fr 1.14fr;gap:46px;align-items:center;}
+  .hero-art{position:relative;}
   .hero-art img{width:100%;height:auto;border-radius:16px;box-shadow:0 30px 60px -22px rgba(34,48,58,.42);}
   .hero h1{font-size:clamp(31px,4.4vw,50px);margin:13px 0 15px;line-height:1.08em;}
   .hero p.lead{font-size:17.5px;color:#42525c;max-width:33em;margin:0 0 22px;}
@@ -210,9 +206,8 @@
     background:var(--yellow);padding:9px 15px;border-radius:5px;}
 
   /* platform row */
-  .plats{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:24px;}
-  .plats .lbl{width:100%;margin-bottom:2px;font-size:10.5px;font-weight:800;letter-spacing:.18em;
-    text-transform:uppercase;color:var(--muted);}
+  .plats{display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+  .plats .lbl{width:100%;}
   .plat{display:inline-flex;align-items:center;gap:8px;text-decoration:none;background:#fff;
     border:1px solid var(--line);border-radius:10px;padding:9px 13px;font-size:12px;font-weight:700;color:var(--ink);
     transition:border-color .18s,transform .18s var(--ease),box-shadow .18s;}
@@ -222,23 +217,24 @@
     background:#fdf3dd;border-radius:20px;padding:2px 6px;margin-left:1px;}
   .plat.pending{cursor:default;opacity:.9;}
   .plat.pending:hover{border-color:var(--sky-2);transform:none;box-shadow:none;}
-  .plat-note{width:100%;font-size:11.5px;color:var(--muted);margin-top:9px;}
+  .plat-note{width:100%;font-size:11.5px;color:var(--muted);margin-top:10px;}
 
   @media (max-width:900px){
-    .hero .wrap{grid-template-columns:1fr;gap:34px;grid-template-areas:"art" "copy" "aside";}
-    .hero-art{max-width:330px;margin:0 auto;}
+    .hero .wrap{grid-template-columns:1fr;gap:34px;}
+    .hero-art{max-width:330px;margin:0 auto;order:-1;}
   }
 
-  /* ============ STATS BAND ============ */
-  /* Webflow's bands are flat --sky-tint with dark-blue display type (.res-band).
-     The navy band this page used to have exists nowhere on the site. */
-  .band{background:var(--sky);color:var(--ink);padding:44px 0;}
-  .band .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;text-align:center;}
-  .band .n{font-family:var(--brand-display);font-size:34px;font-weight:400;letter-spacing:-.01em;
-    line-height:1;color:var(--blue-deep);font-variant-numeric:tabular-nums;}
-  .band .c{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-    color:var(--muted);margin-top:10px;line-height:1.5;}
-  @media (max-width:720px){.band .wrap{grid-template-columns:repeat(2,1fr);gap:28px 14px;} .band .n{font-size:28px;}}
+  /* ============ LISTEN ANYWHERE BAND ============ */
+  /* Flat --sky-tint, matching the site's .res-band. Two columns so the whole
+     strip stays about one screen-inch tall instead of a long stack. */
+  .listen{background:var(--sky);padding:38px 0;}
+  .listen .wrap{display:grid;grid-template-columns:1.3fr 1fr;gap:26px 54px;align-items:start;}
+  .listen .lbl{font-size:10.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--blue);margin-bottom:11px;}
+  @media (max-width:860px){
+    .listen{padding:32px 0;}
+    .listen .wrap{grid-template-columns:1fr;gap:26px;}
+  }
 
   /* ============ CHAPTERS ============ */
   .chapters{background:#fff;}
@@ -275,12 +271,10 @@
     color:var(--muted);text-decoration:none;transition:background .16s,color .16s;}
   .row .dl:hover{background:var(--sky);color:var(--blue-deep);}
   .row .dl svg{width:15px;height:15px;}
-  .dlbox{margin-top:26px;padding:22px 24px;border:1px solid var(--line);border-radius:14px;background:var(--sky);}
-  .dlbox .lbl{font-size:10.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
-    margin-bottom:10px;}
-  .dlbox p{margin:0 0 14px;font-size:13.5px;line-height:1.6;color:var(--ink);}
+  /* no border or fill: a box inside a tinted band reads as a box in a box */
+  .dlbox p{margin:0 0 13px;font-size:13.5px;line-height:1.6;color:var(--ink);max-width:40em;}
   .dlbox .acts{display:flex;gap:9px;flex-wrap:wrap;}
-  .dlbox .hint{margin:12px 0 0;font-size:11.5px;color:var(--muted);}
+  .dlbox .hint{margin:10px 0 0;font-size:11.5px;color:var(--muted);}
   .row .bar{position:absolute;left:0;bottom:0;height:2px;background:var(--gold);width:0;transition:width .2s linear;}
 
   /* ============ CTA ============ */
@@ -401,8 +395,8 @@
 
     <div class="txt">
       <div class="eyebrow">The Unbreakable Sole Audiobook</div>
-      <h1>Every mile, in the voice of the woman who <em class="hl">ran it.</em></h1>
-      <p class="lead">Some stories land differently when you hear them said out loud. Missy reads all 26.2 miles herself, so you can take the whole book on your run, your drive, or your hardest day.</p>
+      <h1>Some days you don&rsquo;t need advice. You need <em class="hl">somebody who gets it.</em></h1>
+      <p class="lead">Press play on the run, the drive, or the afternoon you can&rsquo;t seem to get through. Seven hours of company for the miles that are hardest to do on your own.</p>
 
       <!-- HERO PLAYER: first chapter loaded, one tap -->
       <div class="pcard">
@@ -426,32 +420,24 @@
 
     </div>
 
-    <!-- sits under the cover on desktop to balance the tall copy column,
-         and drops below the copy on phones (grid-template-areas, below) -->
-    <div class="hero-aside">
-      <div class="plats" id="plats">
-        <span class="lbl">Or listen on</span>
-      </div>
-
-      <div class="dlbox" id="dlbox">
-        <div class="lbl">Listen offline</div>
-        <p id="dlCopy"></p>
-        <div class="acts" id="dlActs"></div>
-        <p class="hint" id="dlHint"></p>
-      </div>
-    </div>
-
   </div>
 </section>
 
-<!-- ============ STATS BAND ============ -->
-<section class="band">
+<!-- ============ LISTEN ANYWHERE ============
+     Two short columns on one tinted band: where else to play it, and how to
+     take it offline. Kept to a single band so it reads as a utility strip
+     rather than a section that has to be scrolled through. -->
+<section class="listen">
   <div class="wrap">
-    <!-- the printed value is the real one; the counter only takes over if JS runs -->
-    <div><div class="n" data-count="33">33</div><div class="c">Chapters<br>Start To Finish</div></div>
-    <div><div class="n" data-count="426" data-fmt="time">7:06</div><div class="c">Hours Of<br>The Whole Story</div></div>
-    <div><div class="n" data-count="26.2" data-fmt="dec">26.2</div><div class="c">Miles<br>One At A Time</div></div>
-    <div><div class="n" data-count="0" data-fmt="money">$0</div><div class="c">Included Free<br>With The Book</div></div>
+    <div class="plats" id="plats">
+      <span class="lbl">Or listen on</span>
+    </div>
+    <div class="dlbox" id="dlbox">
+      <div class="lbl">Listen offline</div>
+      <p id="dlCopy"></p>
+      <div class="acts" id="dlActs"></div>
+      <p class="hint" id="dlHint"></p>
+    </div>
   </div>
 </section>
 
@@ -987,68 +973,6 @@
     setInterval(render, 1000);
   })();
 
-
-  /* ---- stats band: numbers roll up the first time the band is scrolled into
-     view. Progressive enhancement - the real figures are printed in the HTML,
-     so with no JS, no IntersectionObserver or reduced motion the band just
-     shows them. Because the counter zeroes the numbers to animate them, it
-     also carries a guard: if the observer never fires (it does not, for one,
-     while a tab is not being composited) the true values are written back
-     rather than leaving a row of zeros on screen. */
-  (function(){
-    var band = document.querySelector(".band");
-    if (!band) return;
-    var nums = [].slice.call(band.querySelectorAll(".n[data-count]"));
-    if (!nums.length) return;
-    var reduced = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced || !("IntersectionObserver" in window) || !window.requestAnimationFrame) return;
-
-    function fmt(el, v){
-      switch (el.getAttribute("data-fmt")) {
-        case "time":  var m = Math.round(v); return Math.floor(m/60) + ":" + String(m%60).padStart(2,"0");
-        case "dec":   return v.toFixed(1);
-        case "money": return "$" + Math.round(v);
-        default:      return String(Math.round(v));
-      }
-    }
-    var done = [];
-    function claim(el){ if (done.indexOf(el) > -1) return false; done.push(el); return true; }
-    function settle(el){ if (claim(el)) el.textContent = fmt(el, parseFloat(el.getAttribute("data-count"))); }
-    function run(el){
-      if (!claim(el)) return;
-      var to = parseFloat(el.getAttribute("data-count")), t0 = null, DUR = 1100;
-      if (!to) { el.textContent = fmt(el, to); return; }        /* $0 has nowhere to travel */
-      requestAnimationFrame(function step(ts){
-        if (t0 === null) t0 = ts;
-        var p = Math.min(1, (ts - t0) / DUR);
-        el.textContent = fmt(el, to * (1 - Math.pow(1 - p, 3)));  /* easeOutCubic */
-        if (p < 1) requestAnimationFrame(step);
-        else el.textContent = fmt(el, to);                        /* land exactly on the value */
-      });
-    }
-
-    nums.forEach(function(el){ el.textContent = fmt(el, 0); });
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(en){
-        if (en.isIntersecting) { io.unobserve(en.target); run(en.target); }
-      });
-    }, { threshold: 0.5 });
-    nums.forEach(function(el){ io.observe(el); });
-
-    /* guard: catch anything the observer misses, and never leave zeros up */
-    var ticks = 0;
-    var guard = setInterval(function(){
-      ticks++;
-      var left = nums.filter(function(el){ return done.indexOf(el) === -1; });
-      if (!left.length) { clearInterval(guard); return; }
-      left.forEach(function(el){
-        var b = el.getBoundingClientRect();
-        if (ticks >= 24) settle(el);                                  /* ~12s: give up, show the truth */
-        else if (b.top < innerHeight && b.bottom > 0) run(el);
-      });
-      if (ticks >= 24) { clearInterval(guard); io.disconnect(); }
-    }, 500);
-  })();
 
   /* mobile nav toggle - the staging site carries the same behaviour in site code */
   (function(){
