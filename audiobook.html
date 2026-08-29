@@ -567,6 +567,7 @@
           au.currentTime = at; au.removeEventListener("loadedmetadata", once);
         });
       }
+      setNowPlaying(c);
       $("skTitle").textContent = titlecase(c.t);
       $("heroLabel").textContent = "Now playing";
       $("heroTitle").textContent = titlecase(c.t);
@@ -586,6 +587,53 @@
     if (i === cur && au.paused)  { au.play(); return; }
     play(i);
   }
+
+  /* ---- Lock screen / Control Center metadata (MediaSession) ---------------
+     Without this iOS shows an empty artwork tile and no chapter name. */
+  var ART = [96,128,192,256,512,1024].map(function(n){
+    return { src: "assets/audiobook-art-" + n + ".jpg", sizes: n + "x" + n, type: "image/jpeg" };
+  });
+  function setNowPlaying(c){
+    if (!("mediaSession" in navigator)) return;
+    try {
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title:  titlecase(c.t),
+        artist: "Missy Moss Wright",
+        album:  "Unbreakable Sole",
+        artwork: ART
+      });
+    } catch (e) {}
+  }
+  function syncPositionState(){
+    if (!("mediaSession" in navigator) || !navigator.mediaSession.setPositionState) return;
+    if (!au.duration || !isFinite(au.duration)) return;
+    try {
+      navigator.mediaSession.setPositionState({
+        duration: au.duration,
+        playbackRate: au.playbackRate || 1,
+        position: Math.min(au.currentTime, au.duration)
+      });
+    } catch (e) {}
+  }
+  if ("mediaSession" in navigator) {
+    var MS = navigator.mediaSession;
+    try { MS.setActionHandler("play",  function(){ au.play();  }); } catch(e){}
+    try { MS.setActionHandler("pause", function(){ au.pause(); }); } catch(e){}
+    try { MS.setActionHandler("seekbackward", function(d){
+      au.currentTime = Math.max(0, au.currentTime - ((d && d.seekOffset) || 15)); }); } catch(e){}
+    try { MS.setActionHandler("seekforward", function(d){
+      au.currentTime = Math.min(au.duration || 0, au.currentTime + ((d && d.seekOffset) || 30)); }); } catch(e){}
+    try { MS.setActionHandler("seekto", function(d){
+      if (d && d.fastSeek && au.fastSeek) { au.fastSeek(d.seekTime); return; }
+      if (d) au.currentTime = d.seekTime; syncPositionState(); }); } catch(e){}
+    try { MS.setActionHandler("previoustrack", function(){ if (cur > 0) play(cur - 1); }); } catch(e){}
+    try { MS.setActionHandler("nexttrack", function(){ if (cur >= 0 && cur < CH.length - 1) play(cur + 1); }); } catch(e){}
+  }
+  au.addEventListener("loadedmetadata", syncPositionState);
+  au.addEventListener("ratechange", syncPositionState);
+  au.addEventListener("seeked", syncPositionState);
+  au.addEventListener("play",  function(){ if ("mediaSession" in navigator) navigator.mediaSession.playbackState = "playing"; syncPositionState(); });
+  au.addEventListener("pause", function(){ if ("mediaSession" in navigator) navigator.mediaSession.playbackState = "paused"; });
 
   au.addEventListener("play",  function(){ setPlayIcons(true);  });
   au.addEventListener("pause", function(){ setPlayIcons(false); });
