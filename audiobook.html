@@ -324,6 +324,9 @@
   .plat-steps{width:100%;margin:10px 0 0;padding:11px 13px;border-radius:10px;
     background:#fff;border:1px solid var(--sky-2);font-size:12.5px;line-height:1.55;color:var(--ink);}
   .plat-steps a{color:var(--blue-deep);font-weight:700;white-space:nowrap;}
+  .plat-steps code{display:block;margin-top:9px;padding:9px 11px;border-radius:8px;background:var(--sky);
+    font:11.5px/1.5 ui-monospace,Menlo,monospace;color:var(--blue-deep);word-break:break-all;
+    -webkit-user-select:all;user-select:all;}
   .plat .soon{font-size:8.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#8a6420;
     background:#fdf3dd;border-radius:20px;padding:2px 6px;margin-left:1px;}
   .plat.pending{cursor:default;opacity:.9;}
@@ -704,6 +707,19 @@
      will need the account-link URL from Hello Audio's own player list. */
   var APPS = [
     {
+      n: "Apple Podcasts",
+      on: ["ios", "desktop"],          /* no Apple Podcasts on Android */
+      u: function(){ return "podcast://" + FEED_URL.replace(/^https?:\/\//, ""); },
+      svg: '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+             '<defs><linearGradient id="apg" x1="0" y1="0" x2="0" y2="1">' +
+               '<stop offset="0" stop-color="#F452FF"/><stop offset="1" stop-color="#832BC1"/>' +
+             '</linearGradient></defs>' +
+             '<rect width="24" height="24" rx="5.4" fill="url(#apg)"/>' +
+             '<g transform="translate(3.6,3.6) scale(.7)" fill="#fff">' +
+               '<path d="M12 2a10 10 0 0 0-3.6 19.3c.2-.6 0-1.3-.2-1.9A8 8 0 1 1 20 12a8 8 0 0 1-4.2 7c-.2.7-.4 1.4-.2 2A10 10 0 0 0 12 2zm0 4.6a5.4 5.4 0 0 0-2.6 10.1c.3-.5.4-1.2.3-1.8a3.4 3.4 0 1 1 4.6 0c-.1.6 0 1.3.3 1.8A5.4 5.4 0 0 0 12 6.6zm0 4a1.9 1.9 0 0 0-1.9 2.1c.1.6.5 1 .6 1.6l.5 3.6c.1.7.3 1.3.8 1.3s.7-.6.8-1.3l.5-3.6c.1-.6.5-1 .6-1.6A1.9 1.9 0 0 0 12 10.6z"/>' +
+             '</g></svg>'
+    },
+    {
       n: "YouTube Music",
       on: ["ios", "android", "desktop"],
       /* No one-click subscribe exists for a private feed here - YouTube Music
@@ -723,16 +739,22 @@
            '</svg>'
     },
     {
-      n: "Apple Podcasts",
-      on: ["ios", "desktop"],          /* no Apple Podcasts on Android */
-      u: function(){ return "podcast://" + FEED_URL.replace(/^https?:\/\//, ""); },
+      n: "RSS Feed",
+      on: ["ios", "android", "desktop"],
+      /* The universal fallback - Pocket Casts, Overcast, Castro, Castbox,
+         Player FM, Podcast Addict, AntennaPod and the rest all take a pasted
+         URL. Shows the link as well as copying it, because clipboard writes
+         can silently fail and a buyer who can see the URL is never stuck. */
+      manual: {
+        steps: "Your link is copied. Paste it into any podcast app that can add a show by URL.",
+        showUrl: true
+      },
       svg: '<svg viewBox="0 0 24 24" aria-hidden="true">' +
-             '<defs><linearGradient id="apg" x1="0" y1="0" x2="0" y2="1">' +
-               '<stop offset="0" stop-color="#F452FF"/><stop offset="1" stop-color="#832BC1"/>' +
-             '</linearGradient></defs>' +
-             '<rect width="24" height="24" rx="5.4" fill="url(#apg)"/>' +
-             '<g transform="translate(3.6,3.6) scale(.7)" fill="#fff">' +
-               '<path d="M12 2a10 10 0 0 0-3.6 19.3c.2-.6 0-1.3-.2-1.9A8 8 0 1 1 20 12a8 8 0 0 1-4.2 7c-.2.7-.4 1.4-.2 2A10 10 0 0 0 12 2zm0 4.6a5.4 5.4 0 0 0-2.6 10.1c.3-.5.4-1.2.3-1.8a3.4 3.4 0 1 1 4.6 0c-.1.6 0 1.3.3 1.8A5.4 5.4 0 0 0 12 6.6zm0 4a1.9 1.9 0 0 0-1.9 2.1c.1.6.5 1 .6 1.6l.5 3.6c.1.7.3 1.3.8 1.3s.7-.6.8-1.3l.5-3.6c.1-.6.5-1 .6-1.6A1.9 1.9 0 0 0 12 10.6z"/>' +
+             '<rect width="24" height="24" rx="5.4" fill="#F2A93B"/>' +
+             '<g fill="#fff" transform="translate(5,5) scale(.62)">' +
+               '<circle cx="3.2" cy="17.8" r="2.9"/>' +
+               '<path d="M1 9.6v4.1a6.3 6.3 0 0 1 6.3 6.3h4.1A10.4 10.4 0 0 0 1 9.6z"/>' +
+               '<path d="M1 2.4v4.1A13.5 13.5 0 0 1 14.5 20h4.1A17.6 17.6 0 0 0 1 2.4z"/>' +
              '</g></svg>'
     }
   ];
@@ -867,9 +889,13 @@
     manual.forEach(function(m){
       var btn = box.querySelector('[data-manual="' + m.i + '"]');
       btn.addEventListener("click", function(){
-        var steps = $("platSteps");
-        steps.innerHTML = esc(m.app.manual.steps) + ' <a href="' + esc(m.app.manual.open) +
-                          '" target="_blank" rel="noopener">Open ' + esc(m.app.n) + ' &rarr;</a>';
+        var steps = $("platSteps"), inner = esc(m.app.manual.steps);
+        if (m.app.manual.open) {
+          inner += ' <a href="' + esc(m.app.manual.open) + '" target="_blank" rel="noopener">Open ' +
+                   esc(m.app.n) + ' &rarr;</a>';
+        }
+        if (m.app.manual.showUrl) inner += '<code>' + esc(FEED_URL) + '</code>';
+        steps.innerHTML = inner;
         steps.hidden = false;
         if (navigator.clipboard) navigator.clipboard.writeText(FEED_URL).catch(function(){});
       });
