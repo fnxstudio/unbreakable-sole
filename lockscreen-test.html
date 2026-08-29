@@ -6,6 +6,16 @@
 <title>Lock screen test</title>
 <meta name="robots" content="noindex, nofollow">
 
+<!-- Lets the page run standalone when added to the Home Screen. iOS treats a
+     Home Screen web app as a different media context from a Safari tab, and
+     that is the one remaining variable worth testing. -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Lock Test">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="assets/favicon/us-favicon-blue-180.png">
+<link rel="manifest" href="lockscreen-test.webmanifest">
+
 <!-- ─────────────────────────────────────────────────────────────
      LOCK SCREEN BISECT  ·  throwaway diagnostic, delete when done
 
@@ -47,6 +57,13 @@
 
 <h1>Lock screen bisect</h1>
 <p class="sub">Tap one, lock the phone for ~15s, unlock, screenshot this panel.</p>
+
+<div class="note" style="margin:0 0 16px;border-color:#ffdd60;color:#ffdd60">
+  <b>Round 2.</b> A, B and C all failed in a Safari tab, so this is no longer
+  about the page. Add this page to your Home Screen (Share &rarr; Add to Home
+  Screen), open it from that icon, and run A again. The readout will say
+  <b>standalone PWA: yes</b> when you are in the right context.
+</div>
 
 <button id="a">A &nbsp;SAME-ORIGIN FILE &middot; metadata only</button>
 <button id="b" class="alt">B &nbsp;REAL CHAPTER URL &middot; metadata only</button>

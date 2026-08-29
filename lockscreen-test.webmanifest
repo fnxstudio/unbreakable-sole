@@ -1,0 +1,13 @@
+{
+  "name": "Unbreakable Sole lock screen test",
+  "short_name": "Lock Test",
+  "start_url": "lockscreen-test.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#00325c",
+  "theme_color": "#00325c",
+  "icons": [
+    { "src": "assets/favicon/us-favicon-blue-180.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "assets/favicon/us-favicon-blue-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
