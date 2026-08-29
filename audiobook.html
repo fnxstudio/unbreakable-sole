@@ -149,21 +149,21 @@
   .hero .wrap{display:grid;grid-template-columns:.86fr 1.14fr;gap:46px;align-items:center;}
   .hero-art{position:relative;}
   .hero-art .cover{width:100%;height:auto;border-radius:16px;box-shadow:0 30px 60px -22px rgba(34,48,58,.42);}
-  /* Straddles the cover's top-right corner, as the Compound Effect headshot
-     does. Sized and offset in percentages of the cover so the relationship
-     holds at every width; the floor in the clamp keeps her face legible once
-     the cover scales down on phones. It clips the tail of the title, which is
-     the intended look. */
-  .hero-face{position:absolute;right:-6%;top:-9%;width:clamp(62px,28%,132px);height:auto;
-    aspect-ratio:1;object-fit:cover;border-radius:14px;border:3px solid #fff;
+  /* Sits on the play card's top-right and pokes well above it. At 208px it is
+     taller than the card, so it is anchored to sit flush with the card's
+     bottom and rise out of the top - anchoring from the top instead would push
+     it down onto the resume bar. The card's right side is empty (label and
+     title both run from the left), so nothing is covered. */
+  .hero-face{position:absolute;right:-12px;bottom:-2px;width:208px;height:auto;
+    aspect-ratio:1;object-fit:cover;border-radius:16px;border:3px solid #fff;
     box-shadow:0 16px 34px -14px rgba(20,42,58,.42);}
   .hero h1{font-size:clamp(31px,4.4vw,50px);margin:13px 0 15px;line-height:1.08em;}
   .hero p.lead{font-size:17.5px;color:#42525c;max-width:33em;margin:0 0 22px;}
 
   /* hero play card */
   /* the site's feature card: gold hairline, 16px, deep soft shadow (.res-card) */
-  .pcard{background:#fff;border:1px solid rgba(215,159,54,.5);border-radius:16px;
-    padding:22px 24px;box-shadow:0 26px 60px rgba(20,42,58,.18);max-width:600px;}
+  .pcard{position:relative;margin-top:70px;background:#fff;border:1px solid rgba(215,159,54,.5);
+    border-radius:16px;padding:22px 24px;box-shadow:0 26px 60px rgba(20,42,58,.18);max-width:600px;}
   .pcard-head{display:flex;align-items:center;gap:9px;font-size:10.5px;font-weight:800;letter-spacing:.2em;
     text-transform:uppercase;color:var(--blue);margin-bottom:14px;}
   .livedot{width:7px;height:7px;border-radius:50%;background:var(--gold);flex:none;}
@@ -241,6 +241,12 @@
     /* Reading order is unchanged from desktop; the cover is simply scaled
        back so the play card still lands in the first screen on a phone. */
     .hero-art{max-width:164px;margin:0 auto;order:-1;}
+    /* The phone card is half the width, so 208px would run straight into
+       "Book Intro". Kept small enough to clear the title text, and poking up
+       less than the existing gap so the card needs no extra margin - that
+       margin would push the play button below the fold. */
+    .pcard{margin-top:10px;}
+    .hero-face{width:108px;right:-8px;bottom:auto;top:-26px;border-width:3px;border-radius:14px;}
     .hero h1{font-size:clamp(26px,7vw,32px);margin:10px 0 12px;}
     .hero p.lead{font-size:16px;}
   }
@@ -415,10 +421,6 @@
     <div class="hero-art">
       <img id="coverArt" class="cover" src="https://d32kcwy5dai345.cloudfront.net/c97c8584-0b94-49cc-95cc-fc29ed882798.jpg"
            alt="Unbreakable Sole, the audiobook, read by Missy Moss Wright" width="900" height="900" fetchpriority="high">
-      <!-- her real About-page portrait, cropped square, straddling the cover's
-           top-right corner the way the Compound Effect headshot does -->
-      <img class="hero-face" src="assets/missy-hero.webp"
-           alt="Missy Moss Wright, who reads the audiobook" width="440" height="440">
     </div>
 
     <div class="txt">
@@ -428,6 +430,10 @@
 
       <!-- HERO PLAYER: first chapter loaded, one tap -->
       <div class="pcard">
+        <!-- her real About-page portrait, cropped square: sits on the play
+             card's top-right and pokes above it, so the voice has a face -->
+        <img class="hero-face" src="assets/missy-hero.webp"
+             alt="Missy Moss Wright, who reads the audiobook" width="440" height="440">
         <div class="pcard-head"><span class="livedot"></span><span id="heroLabel">Start at the start line</span></div>
         <div class="pcard-body">
           <button class="bigplay" id="heroPlay" aria-label="Play the audiobook">
