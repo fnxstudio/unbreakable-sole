@@ -321,6 +321,9 @@
   .plat svg{width:16px;height:16px;flex:none;}
   .plat svg{width:20px;height:20px;border-radius:4px;}   /* app marks are square, not glyphs */
   .plat-more{color:var(--muted);}
+  .plat-steps{width:100%;margin:10px 0 0;padding:11px 13px;border-radius:10px;
+    background:#fff;border:1px solid var(--sky-2);font-size:12.5px;line-height:1.55;color:var(--ink);}
+  .plat-steps a{color:var(--blue-deep);font-weight:700;white-space:nowrap;}
   .plat .soon{font-size:8.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#8a6420;
     background:#fdf3dd;border-radius:20px;padding:2px 6px;margin-left:1px;}
   .plat.pending{cursor:default;opacity:.9;}
@@ -701,6 +704,25 @@
      will need the account-link URL from Hello Audio's own player list. */
   var APPS = [
     {
+      n: "YouTube Music",
+      on: ["ios", "android", "desktop"],
+      /* No one-click subscribe exists for a private feed here - YouTube Music
+         only takes a pasted RSS URL (their own doc, and Hello Audio's:
+         help.helloaudio.fm/en/articles/12261890). So this chip copies the
+         link and shows the four taps, rather than pretending to be a
+         subscribe button that lands people on an empty library. */
+      manual: {
+        open: "https://music.youtube.com/library/podcasts",
+        steps: "Your link is copied. In YouTube Music: Library \u2192 Podcasts \u2192 " +
+               "+ Add Podcast \u2192 Add a podcast by RSS feed \u2192 paste. " +
+               "Episodes take a couple of minutes to appear."
+      },
+      svg: '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+             '<circle cx="12" cy="12" r="11" fill="#FF0000"/>' +
+             '<path d="M9.8 7.4v9.2L17 12z" fill="#fff"/>' +
+           '</svg>'
+    },
+    {
       n: "Apple Podcasts",
       on: ["ios", "desktop"],          /* no Apple Podcasts on Android */
       u: function(){ return "podcast://" + FEED_URL.replace(/^https?:\/\//, ""); },
@@ -827,14 +849,31 @@
 
   function renderPlats(){
     var box = $("plats");
-    var kind = deviceKind(), html = "";
-    APPS.filter(function(a){ return a.on.indexOf(kind) > -1; }).forEach(function(a){
-      html += '<a class="plat" href="' + esc(a.u()) + '">' + a.svg + esc(a.n) + '</a>';
+    var kind = deviceKind(), html = "", manual = [];
+    APPS.filter(function(a){ return a.on.indexOf(kind) > -1; }).forEach(function(a, i){
+      if (a.manual) {
+        html += '<button class="plat" type="button" data-manual="' + i + '">' + a.svg + esc(a.n) + '</button>';
+        manual.push({ i: i, app: a });
+      } else {
+        html += '<a class="plat" href="' + esc(a.u()) + '">' + a.svg + esc(a.n) + '</a>';
+      }
     });
     /* everything else still lives on Hello Audio's own player list */
     html += '<a class="plat plat-more" href="' + esc(subscribeUrl()) + '" target="_blank" rel="noopener">More apps</a>';
+    html += '<p class="plat-steps" id="platSteps" hidden></p>';
     html += '<p class="plat-note">Your own private feed. Please don&rsquo;t pass the link on.</p>';
     box.insertAdjacentHTML("beforeend", html);
+
+    manual.forEach(function(m){
+      var btn = box.querySelector('[data-manual="' + m.i + '"]');
+      btn.addEventListener("click", function(){
+        var steps = $("platSteps");
+        steps.innerHTML = esc(m.app.manual.steps) + ' <a href="' + esc(m.app.manual.open) +
+                          '" target="_blank" rel="noopener">Open ' + esc(m.app.n) + ' &rarr;</a>';
+        steps.hidden = false;
+        if (navigator.clipboard) navigator.clipboard.writeText(FEED_URL).catch(function(){});
+      });
+    });
   }
 
   /* ─── CHAPTER LIST ─────────────────────────────────────────── */
