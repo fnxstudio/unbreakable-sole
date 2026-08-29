@@ -149,12 +149,11 @@
   .hero .wrap{display:grid;grid-template-columns:.86fr 1.14fr;gap:46px;align-items:center;}
   .hero-art{position:relative;}
   .hero-art .cover{width:100%;height:auto;border-radius:16px;box-shadow:0 30px 60px -22px rgba(34,48,58,.42);}
-  /* Sits on the play card's top-right and pokes well above it. At 208px it is
-     taller than the card, so it is anchored to sit flush with the card's
-     bottom and rise out of the top - anchoring from the top instead would push
-     it down onto the resume bar. The card's right side is empty (label and
-     title both run from the left), so nothing is covered. */
-  .hero-face{position:absolute;right:-12px;bottom:-2px;width:208px;height:auto;
+  /* Sits on the play card's top-right and pokes above it. Anchored to the
+     card's bottom rather than its top, so growing it rises out of the card
+     instead of pushing down onto the resume bar. The card's right side is
+     empty (label and title both run from the left), so nothing is covered. */
+  .hero-face{position:absolute;right:-12px;bottom:-2px;width:156px;height:auto;
     aspect-ratio:1;object-fit:cover;border-radius:16px;border:3px solid #fff;
     box-shadow:0 16px 34px -14px rgba(20,42,58,.42);}
   .hero h1{font-size:clamp(31px,4.4vw,50px);margin:13px 0 15px;line-height:1.08em;}
@@ -162,7 +161,7 @@
 
   /* hero play card */
   /* the site's feature card: gold hairline, 16px, deep soft shadow (.res-card) */
-  .pcard{position:relative;margin-top:70px;background:#fff;border:1px solid rgba(215,159,54,.5);
+  .pcard{position:relative;margin-top:14px;background:#fff;border:1px solid rgba(215,159,54,.5);
     border-radius:16px;padding:22px 24px;box-shadow:0 26px 60px rgba(20,42,58,.18);max-width:600px;}
   .pcard-head{display:flex;align-items:center;gap:9px;font-size:10.5px;font-weight:800;letter-spacing:.2em;
     text-transform:uppercase;color:var(--blue);margin-bottom:14px;}
@@ -181,8 +180,8 @@
     animation:usRingPulse 1.8s cubic-bezier(.25,.6,.3,1) infinite;}
   /* dropping the animation on hover lets the hover transform actually apply -
      a running animation outranks it otherwise */
-  .bigplay:hover{animation:none;transform:scale(1.08);background:var(--blue);
-    box-shadow:0 16px 34px -10px rgba(0,50,92,.7);}
+  .bigplay:hover{animation:none;transform:scale(1.08);background:var(--yellow);color:#1b2126;
+    box-shadow:0 16px 34px -10px rgba(215,159,54,.55);}
   /* once it is playing the button is a pause control, so it stops asking */
   .bigplay.is-pause,.bigplay.is-pause::after{animation:none;}
   @keyframes usBtnPulse{
@@ -283,7 +282,8 @@
   .row.active{border-color:var(--blue);background:var(--sky);}
   .row .pbtn{width:40px;height:40px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
     background:var(--sky);color:var(--blue-deep);transition:background .16s,color .16s;}
-  .row:hover .pbtn,.row.active .pbtn{background:var(--blue-deep);color:#fff;}
+  .row.active .pbtn{background:var(--blue-deep);color:#fff;}
+  .row:hover .pbtn{background:var(--yellow);color:#1b2126;}
   .row .pbtn svg{width:16px;height:16px;margin-left:2px;}
   .row .pbtn.is-pause svg{margin-left:0;}
   .row .num{font-size:11.5px;font-weight:800;color:var(--muted);width:26px;flex:none;
