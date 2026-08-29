@@ -96,7 +96,7 @@
   /* the site's emphasis mark is a yellow highlight, not coloured text (.rq-em) */
   em.hl{font-style:normal;color:var(--blue-deep);background:var(--yellow);border-radius:4px;
     padding:0 .14em;-webkit-box-decoration-break:clone;box-decoration-break:clone;}
-  section{padding:72px 0;scroll-margin-top:82px;}   /* clears the fixed nav on jump links */
+  section{padding:72px 0;scroll-margin-top:24px;}   /* breathing room for jump links */
   .center{text-align:center;}
 
   .btn{display:inline-flex;align-items:center;gap:9px;background:var(--yellow);color:#1b2126;font-weight:800;
@@ -130,7 +130,6 @@
   .navl-burger{display:none;flex-direction:column;justify-content:space-between;
     width:26px;height:20px;margin-left:auto;cursor:pointer;}
   .navl-bar{height:2px;background:var(--blue-deep);border-radius:2px;}
-  body{padding-top:66px;}   /* the nav is fixed, so the page has to clear it */
   @media (max-width:767px){
     .site-nav-inner{padding:12px 22px;}
     .nav-logo{height:22px;}
@@ -141,7 +140,6 @@
     .navl-links.is-open{display:flex;}
     .navl-link{width:100%;padding:11px 0;font-size:16px;}
     .navl-link.navl-cta{width:auto;align-self:flex-start;}
-    body{padding-top:58px;}
   }
 
   /* ============ HERO ============ */
@@ -153,7 +151,7 @@
      card's bottom rather than its top, so growing it rises out of the card
      instead of pushing down onto the resume bar. The card's right side is
      empty (label and title both run from the left), so nothing is covered. */
-  .hero-face{position:absolute;right:-12px;bottom:-2px;width:156px;height:auto;
+  .hero-face{position:absolute;right:12px;bottom:20px;width:156px;height:auto;
     aspect-ratio:1;object-fit:cover;border-radius:16px;border:3px solid #fff;
     box-shadow:0 16px 34px -14px rgba(20,42,58,.42);}
   .hero h1{font-size:clamp(31px,4.4vw,50px);margin:13px 0 15px;line-height:1.08em;}
@@ -161,7 +159,7 @@
 
   /* hero play card */
   /* the site's feature card: gold hairline, 16px, deep soft shadow (.res-card) */
-  .pcard{position:relative;margin-top:14px;background:#fff;border:1px solid rgba(215,159,54,.5);
+  .pcard{position:relative;margin-top:38px;background:#fff;border:1px solid rgba(215,159,54,.5);
     border-radius:16px;padding:22px 24px;box-shadow:0 26px 60px rgba(20,42,58,.18);max-width:600px;}
   .pcard-head{display:flex;align-items:center;gap:9px;font-size:10.5px;font-weight:800;letter-spacing:.2em;
     text-transform:uppercase;color:var(--blue);margin-bottom:14px;}
@@ -237,9 +235,10 @@
   @media (max-width:900px){
     .hero{padding:22px 0 44px;}
     .hero .wrap{grid-template-columns:1fr;gap:18px;}
-    /* Reading order is unchanged from desktop; the cover is simply scaled
-       back so the play card still lands in the first screen on a phone. */
-    .hero-art{max-width:164px;margin:0 auto;order:-1;}
+    /* Reading order is unchanged from desktop; the cover is scaled to keep the
+       play card in the first screen on a phone. Dropping the fixed nav gave
+       back ~58px, which has gone straight into the cover. */
+    .hero-art{max-width:222px;margin:0 auto;order:-1;}
     /* The phone card is half the width, so 208px would run straight into
        "Book Intro". Kept small enough to clear the title text, and poking up
        less than the existing gap so the card needs no extra margin - that
@@ -394,23 +393,27 @@
 </head>
 <body>
 
-<!-- NAV - same links, order and yellow-underlined CTA as the staging site -->
-<header class="site-nav">
-  <div class="site-nav-inner">
-    <a href="https://unbreakable-sole.webflow.io/" aria-label="Unbreakable Sole home" class="nav-logo-link">
-      <img src="assets/logo-hz.png" alt="Unbreakable Sole" class="nav-logo" width="820" height="132">
-    </a>
-    <nav class="navl-links" id="navLinks">
-      <a href="https://unbreakable-sole.webflow.io/about" class="navl-link">About</a>
-      <a href="https://unbreakable-sole.webflow.io/speaking" class="navl-link">Speaking</a>
-      <a href="https://unbreakable-sole.webflow.io/community" class="navl-link">Community</a>
-      <a href="https://secure.darrenhardy.com/checkout/unbreakable-sole" class="navl-link navl-cta">Book + Audio</a>
-    </nav>
-    <div class="navl-burger" id="navBurger" role="button" tabindex="0" aria-label="Menu" aria-expanded="false">
-      <div class="navl-bar"></div><div class="navl-bar"></div><div class="navl-bar"></div>
-    </div>
-  </div>
-</header>
+<!-- NAV REMOVED for now. The .site-nav / .navl-* styles and the burger
+     toggle are left in place (both no-op without this markup), so restoring
+     it is a matter of pasting the header back:
+
+     <header class="site-nav">
+       <div class="site-nav-inner">
+         <a href="/" aria-label="Unbreakable Sole home" class="nav-logo-link">
+           <img src="assets/logo-hz.png" alt="Unbreakable Sole" class="nav-logo" width="820" height="132"></a>
+         <nav class="navl-links" id="navLinks">
+           <a href="/about" class="navl-link">About</a>
+           <a href="/speaking" class="navl-link">Speaking</a>
+           <a href="/community" class="navl-link">Community</a>
+           <a href="https://secure.darrenhardy.com/checkout/unbreakable-sole" class="navl-link navl-cta">Book + Audio</a>
+         </nav>
+         <div class="navl-burger" id="navBurger" role="button" tabindex="0" aria-label="Menu" aria-expanded="false">
+           <div class="navl-bar"></div><div class="navl-bar"></div><div class="navl-bar"></div></div>
+       </div>
+     </header>
+
+     Restoring it also means putting back body{padding-top} and raising
+     section{scroll-margin-top} so anchors clear the fixed bar again. -->
 
 <main>
 
