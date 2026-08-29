@@ -96,7 +96,7 @@
   /* the site's emphasis mark is a yellow highlight, not coloured text (.rq-em) */
   em.hl{font-style:normal;color:var(--blue-deep);background:var(--yellow);border-radius:4px;
     padding:0 .14em;-webkit-box-decoration-break:clone;box-decoration-break:clone;}
-  section{padding:72px 0;}
+  section{padding:72px 0;scroll-margin-top:82px;}   /* clears the fixed nav on jump links */
   .center{text-align:center;}
 
   .btn{display:inline-flex;align-items:center;gap:9px;background:var(--yellow);color:#1b2126;font-weight:800;
@@ -204,6 +204,14 @@
   .resume .ttl{font-size:13.5px;font-weight:600;flex:1 1 180px;}
   .resume .go{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#1b2126;
     background:var(--yellow);padding:9px 15px;border-radius:5px;}
+
+  .jump{display:inline-flex;align-items:center;gap:9px;margin-top:20px;text-decoration:none;
+    font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--blue-deep);
+    border-bottom:1px solid rgba(54,93,115,.35);padding-bottom:4px;
+    transition:color .2s,border-color .2s;}
+  .jump:hover{color:var(--blue);border-color:var(--blue);}
+  .jump .arw{transition:transform .2s var(--ease);font-size:13px;line-height:1;}
+  .jump:hover .arw{transform:translateY(3px);}
 
   /* platform row */
   .plats{display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
@@ -420,6 +428,10 @@
         <span class="ttl" id="resumeTitle"></span>
         <button class="go" id="resumeGo">Resume &rarr;</button>
       </div>
+
+      <!-- keeps the scroll moving: the listening band below is a side road,
+           not the end of the page -->
+      <a class="jump" href="#chapters">Jump to all 33 chapters <span class="arw" aria-hidden="true">&darr;</span></a>
 
     </div>
 
