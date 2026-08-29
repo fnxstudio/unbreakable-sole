@@ -10,6 +10,15 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="description" content="All 26.2 miles of Unbreakable Sole, read aloud by Missy Moss Wright. 33 chapters, 7 hours, free with every copy of the book.">
 
+<!-- Favicon / webclip: the same us-favicon-blue artwork the Webflow site serves,
+     but pointed at correctly-sized files rather than one 1024px source per slot. -->
+<link rel="icon" type="image/png" sizes="32x32"   href="assets/favicon/us-favicon-blue-32.png">
+<link rel="icon" type="image/png" sizes="64x64"   href="assets/favicon/us-favicon-blue-64.png">
+<link rel="icon" type="image/png" sizes="256x256" href="assets/favicon/us-favicon-blue-256.png">
+<link rel="icon" type="image/png" sizes="512x512" href="assets/favicon/us-favicon-blue-512.png">
+<link rel="apple-touch-icon" sizes="180x180"      href="assets/favicon/us-favicon-blue-180.png">
+<meta name="theme-color" content="#c0e7fa">
+
 <!-- ─────────────────────────────────────────────────────────────
      UNBREAKABLE SOLE - AUDIOBOOK PLAYER   ·   PROTOTYPE
 
@@ -47,25 +56,45 @@
        replaces them if anything has changed upstream.
      ───────────────────────────────────────────────────────────── -->
 <style>
-  /* Palette: Style Guide/Unbreakable Sole Brand Book.pdf p3 - same tokens as home.html */
+  /* Tokens read straight out of the live Webflow stylesheet
+     (unbreakable-sole.webflow.shared.39d9d2da8.css :root) so this page and
+     the staging site cannot drift. Names on the left are this page's; the
+     comment is the Webflow variable they mirror. */
   :root{
-    --ink:#22303a; --blue:#337690; --blue-2:#5c94ab; --blue-deep:#00325c;
-    --sky:#e8f5fd; --sky-2:#c0e7fa; --paper:#fbfcfd; --gold:#d79f36; --orange:#b96531;
-    --clay:#e27c68; --yellow:#ffdd60; --muted:#65757f; --line:#e4ebf0;
+    --ink:#22303a;            /* --ink */
+    --blue:#337690;           /* --medium-blue */
+    --blue-deep:#00325c;      /* --dark-blue */
+    --sky:#e8f5fd;            /* --sky-tint */
+    --sky-2:#c0e7fa;          /* --light-blue */
+    --gold:#d79f36;           /* --gold */
+    --yellow:#ffdd60;         /* --cta-yellow */
+    --orange:#b96531;         /* --burnt-orange - used sparingly, the site leads with the yellow highlight */
+    --muted:#65757f;          /* --muted */
+    --line:#e4ebf0;
+    --on-blue:#c6d7df;        /* --on-blue-text */
+    --on-blue-muted:#b2c8d3;  /* --on-blue-text-muted */
+    --on-blue-soft:#a3bac6;   /* --on-blue-text-soft */
+    --container-max:1120px; --gutter:26px;
     --ease:cubic-bezier(.16,1,.3,1); --player-h:82px;
     --brand-display:"Archivo Black",sans-serif; --brand-sans:Figtree,sans-serif;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   html{scroll-behavior:smooth;}
-  body{font-family:Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);
-    background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  body{font-family:var(--brand-sans),-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);
+    background:#fff;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
   img{max-width:100%;height:auto;display:block;}   /* height:auto matters: the hero art carries width/height attrs */
   button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;}
   a{color:inherit;}
   :focus-visible{outline:3px solid var(--blue);outline-offset:3px;}
-  .wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
-  h1,h2,h3{line-height:1.08;letter-spacing:-.02em;font-weight:800;}
+  .wrap{max-width:var(--container-max);margin:0 auto;padding:0 var(--gutter);}
+  /* Webflow sets every heading in Archivo Black at weight 400 in --dark-blue.
+     Faux-bolding it (the old 800) is what made the type read wrong. */
+  h1,h2,h3{font-family:var(--brand-display);font-weight:400;color:var(--blue-deep);
+    line-height:1.12em;letter-spacing:-.01em;text-wrap:balance;}
   .eyebrow{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);}
+  /* the site's emphasis mark is a yellow highlight, not coloured text (.rq-em) */
+  em.hl{font-style:normal;color:var(--blue-deep);background:var(--yellow);border-radius:4px;
+    padding:0 .14em;-webkit-box-decoration-break:clone;box-decoration-break:clone;}
   section{padding:72px 0;}
   .center{text-align:center;}
 
@@ -73,39 +102,65 @@
     text-transform:uppercase;letter-spacing:.06em;font-size:15px;padding:16px 30px;border-radius:6px;border:0;
     cursor:pointer;text-decoration:none;transition:transform .12s,box-shadow .12s,background .12s;box-shadow:0 10px 26px rgba(34,48,58,.16);}
   .btn:hover{background:#ffd63f;transform:translateY(-2px);box-shadow:0 14px 30px rgba(34,48,58,.22);}
-  .btn.outline{background:none;border:1.5px solid var(--blue);color:var(--blue-deep);box-shadow:none;}
-  .btn.outline:hover{background:var(--sky);transform:none;}
+  .btn.outline{background:none;border:0;border-bottom:2px solid var(--yellow);border-radius:0;box-shadow:none;
+    color:var(--blue-deep);font-size:11.5px;letter-spacing:.18em;padding:0 2px 5px;}
+  .btn.outline:hover{background:none;border-bottom-color:var(--gold);transform:none;box-shadow:none;}
 
   /* top bar - matches home.html */
-  .topbar{position:sticky;top:0;z-index:50;background:rgba(251,252,253,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
-  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:66px;}
-  .topbar img{height:30px;}
-  .topbar .btn{padding:11px 22px;font-size:13px;box-shadow:none;}
+  /* ============ NAV - mirrors the site's "Site Nav - Links" component ============ */
+  .site-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.85);
+    -webkit-backdrop-filter:blur(12px) saturate(140%);backdrop-filter:blur(12px) saturate(140%);
+    border-bottom:1px solid rgba(0,50,92,.09);}
+  .site-nav-inner{max-width:var(--container-max);margin:0 auto;padding:14px var(--gutter);display:flex;align-items:center;}
+  .nav-logo-link{line-height:0;display:inline-block;}
+  .nav-logo{height:26px;width:auto;opacity:.95;display:block;}
+  .navl-links{display:flex;align-items:center;column-gap:34px;margin-left:auto;}
+  .navl-link{color:var(--blue-deep);font-size:14px;font-weight:700;letter-spacing:.01em;
+    text-decoration:none;padding:6px 0;transition:color .16s,border-color .16s;}
+  .navl-link:hover{color:var(--blue);}
+  .navl-link.navl-cta{border-bottom:2px solid var(--yellow);padding-bottom:3px;}
+  .navl-link.navl-cta:hover{border-bottom-color:var(--gold);}
+  .navl-burger{display:none;flex-direction:column;justify-content:space-between;
+    width:26px;height:20px;margin-left:auto;cursor:pointer;}
+  .navl-bar{height:2px;background:var(--blue-deep);border-radius:2px;}
+  body{padding-top:66px;}   /* the nav is fixed, so the page has to clear it */
+  @media (max-width:767px){
+    .site-nav-inner{padding:12px 22px;}
+    .nav-logo{height:22px;}
+    .navl-burger{display:flex;}
+    .navl-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;
+      align-items:flex-start;gap:2px 0;padding:8px 22px 14px;background:#fff;
+      border-bottom:1px solid rgba(0,50,92,.09);box-shadow:0 14px 30px rgba(0,50,92,.1);}
+    .navl-links.is-open{display:flex;}
+    .navl-link{width:100%;padding:11px 0;font-size:16px;}
+    .navl-link.navl-cta{width:auto;align-self:flex-start;}
+    body{padding-top:58px;}
+  }
 
   /* ============ HERO ============ */
   .hero{background:linear-gradient(180deg,#eaf4fb 0%,#f2f9fc 60%,#fbfcfd 100%);padding:52px 0 62px;overflow:hidden;}
   .hero .wrap{display:grid;grid-template-columns:.86fr 1.14fr;gap:46px;align-items:center;}
   .hero-art{position:relative;}
-  .hero-art img{width:100%;height:auto;border-radius:10px;box-shadow:0 30px 60px -22px rgba(34,48,58,.42);}
+  .hero-art img{width:100%;height:auto;border-radius:16px;box-shadow:0 30px 60px -22px rgba(34,48,58,.42);}
   .art-chip{position:absolute;left:-22px;bottom:-20px;background:#fff;border:1px solid var(--sky-2);
-    border-radius:8px;padding:13px 18px;box-shadow:0 18px 40px -20px rgba(34,48,58,.45);}
-  .art-chip .n{font-weight:900;font-size:24px;letter-spacing:-.03em;line-height:1;color:var(--blue-deep);}
+    border-radius:12px;padding:13px 18px;box-shadow:0 18px 40px -20px rgba(34,48,58,.45);}
+  .art-chip .n{font-family:var(--brand-display);font-weight:400;font-size:23px;letter-spacing:-.01em;line-height:1;color:var(--blue-deep);}
   .art-chip .c{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:5px;}
   .badges{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 8px;}
   .badge{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--sky-2);border-radius:40px;
     font-size:12px;font-weight:700;color:var(--blue-deep);padding:6px 13px;}
   .badge .st{color:var(--gold);letter-spacing:1px;}
   .dur-badge{display:none;}   /* stands in for .art-chip once the chip is dropped on small screens */
-  .hero h1{font-family:var(--brand-display);font-weight:400;letter-spacing:-.015em;font-size:clamp(31px,4.4vw,50px);margin:13px 0 15px;color:var(--ink);}
-  .hero h1 em{font-style:normal;color:var(--orange);}
+  .hero h1{font-size:clamp(31px,4.4vw,50px);margin:13px 0 15px;line-height:1.08em;}
   .hero p.lead{font-size:17.5px;color:#42525c;max-width:33em;margin:0 0 22px;}
 
   /* hero play card */
-  .pcard{background:#fff;border:1px solid var(--sky-2);border-radius:10px;padding:20px 22px;
-    box-shadow:0 12px 34px rgba(67,116,143,.13);max-width:600px;}
+  /* the site's feature card: gold hairline, 16px, deep soft shadow (.res-card) */
+  .pcard{background:#fff;border:1px solid rgba(215,159,54,.5);border-radius:16px;padding:22px 24px;
+    box-shadow:0 26px 60px rgba(20,42,58,.18);max-width:600px;}
   .pcard-head{display:flex;align-items:center;gap:9px;font-size:10.5px;font-weight:800;letter-spacing:.2em;
     text-transform:uppercase;color:var(--blue);margin-bottom:14px;}
-  .livedot{width:7px;height:7px;border-radius:50%;background:var(--orange);flex:none;}
+  .livedot{width:7px;height:7px;border-radius:50%;background:var(--gold);flex:none;}
   .pcard-body{display:flex;align-items:center;gap:18px;}
   .bigplay{width:64px;height:64px;border-radius:50%;background:var(--blue-deep);color:#fff;flex:none;
     display:flex;align-items:center;justify-content:center;transition:transform .2s var(--ease),background .2s;
@@ -113,11 +168,13 @@
   .bigplay:hover{transform:scale(1.06);background:var(--blue);}
   .bigplay svg{width:26px;height:26px;margin-left:3px;}
   .bigplay.is-pause svg{margin-left:0;}
-  .pcard h2{font-size:20px;font-weight:800;letter-spacing:-.02em;line-height:1.2;}
+  /* card titles are brand-sans 700 dark-blue on this site, not display type (.res-item-h) */
+  .pcard h2{font-family:var(--brand-sans);font-weight:700;font-size:20px;letter-spacing:0;
+    line-height:1.25;color:var(--blue-deep);}
   .pcard .meta{font-size:12.5px;color:var(--muted);margin-top:6px;font-weight:600;letter-spacing:.03em;}
 
   .resume{display:none;align-items:center;gap:12px;flex-wrap:wrap;margin-top:14px;max-width:600px;
-    background:var(--sky);border:1px solid var(--sky-2);border-radius:6px;padding:11px 15px;}
+    background:var(--sky);border:1px solid var(--sky-2);border-radius:10px;padding:11px 15px;}
   .resume.show{display:flex;}
   .resume .lbl{font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);}
   .resume .ttl{font-size:13.5px;font-weight:600;flex:1 1 180px;}
@@ -129,12 +186,12 @@
   .plats .lbl{width:100%;margin-bottom:2px;font-size:10.5px;font-weight:800;letter-spacing:.18em;
     text-transform:uppercase;color:var(--muted);}
   .plat{display:inline-flex;align-items:center;gap:8px;text-decoration:none;background:#fff;
-    border:1px solid var(--line);border-radius:6px;padding:9px 13px;font-size:12px;font-weight:700;color:var(--ink);
+    border:1px solid var(--line);border-radius:10px;padding:9px 13px;font-size:12px;font-weight:700;color:var(--ink);
     transition:border-color .18s,transform .18s var(--ease),box-shadow .18s;}
-  .plat:hover{border-color:var(--blue);transform:translateY(-2px);box-shadow:0 12px 24px -14px rgba(34,48,58,.5);}
+  .plat:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 14px 30px rgba(20,42,58,.10);}
   .plat svg{width:16px;height:16px;flex:none;}
-  .plat .soon{font-size:8.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);
-    background:#fdf0ea;border-radius:20px;padding:2px 6px;margin-left:1px;}
+  .plat .soon{font-size:8.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#8a6420;
+    background:#fdf3dd;border-radius:20px;padding:2px 6px;margin-left:1px;}
   .plat.pending{cursor:default;opacity:.9;}
   .plat.pending:hover{border-color:var(--sky-2);transform:none;box-shadow:none;}
   .plat-note{width:100%;font-size:11.5px;color:var(--muted);margin-top:9px;}
@@ -146,37 +203,35 @@
     .art-chip{display:none;}
     .dur-badge{display:inline-flex;}
   }
-  @media (max-width:560px){
-    .topbar .wrap{height:58px;}
-    .topbar img{height:22px;}
-    .topbar .btn{padding:9px 15px;font-size:11px;letter-spacing:.05em;white-space:nowrap;flex:none;}
-  }
 
   /* ============ STATS BAND ============ */
-  .band{background:var(--blue-deep);color:#fff;border-top:2px solid var(--gold);padding:38px 0;}
+  /* Webflow's bands are flat --sky-tint with dark-blue display type (.res-band).
+     The navy band this page used to have exists nowhere on the site. */
+  .band{background:var(--sky);color:var(--ink);padding:44px 0;}
   .band .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;text-align:center;}
-  .band .n{font-size:34px;font-weight:800;letter-spacing:-.035em;line-height:1;color:var(--yellow);}
+  .band .n{font-family:var(--brand-display);font-size:34px;font-weight:400;letter-spacing:-.01em;
+    line-height:1;color:var(--blue-deep);}
   .band .c{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-    color:rgba(255,255,255,.72);margin-top:9px;line-height:1.5;}
+    color:var(--muted);margin-top:10px;line-height:1.5;}
   @media (max-width:720px){.band .wrap{grid-template-columns:repeat(2,1fr);gap:28px 14px;} .band .n{font-size:28px;}}
 
   /* ============ CHAPTERS ============ */
-  .chapters{background:var(--paper);}
+  .chapters{background:#fff;}
   .shead{max-width:640px;margin-bottom:8px;}
   .shead h2{font-size:clamp(26px,3.4vw,38px);margin:12px 0 12px;}
-  .shead h2 em{font-style:normal;color:var(--orange);}
   .shead p{font-size:16.5px;color:#4a5962;}
   .feed-top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:30px;}
 
-  .grp{font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);
+  .grp{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);
     display:flex;align-items:center;gap:14px;margin:34px 0 12px;}
   .grp:first-of-type{margin-top:0;}
   .grp::after{content:"";flex:1;height:1px;background:var(--line);}
 
-  .row{display:flex;align-items:center;gap:16px;padding:13px 16px;border:1px solid var(--line);
-    border-radius:6px;background:#fff;margin-bottom:7px;transition:border-color .16s,box-shadow .16s,transform .16s var(--ease);
+  /* geometry + gold hover lifted from .res-item on /resources */
+  .row{display:flex;align-items:center;gap:16px;padding:15px 20px;border:1px solid var(--line);
+    border-radius:14px;background:#fff;margin-bottom:8px;transition:border-color .14s,box-shadow .14s,transform .14s;
     position:relative;overflow:hidden;}
-  .row:hover{border-color:var(--sky-2);box-shadow:0 10px 24px -16px rgba(34,48,58,.5);transform:translateY(-1px);}
+  .row:hover{border-color:var(--gold);box-shadow:0 14px 30px rgba(20,42,58,.10);transform:translateY(-2px);}
   .row.active{border-color:var(--blue);background:var(--sky);}
   .row .pbtn{width:40px;height:40px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
     background:var(--sky);color:var(--blue-deep);transition:background .16s,color .16s;}
@@ -185,7 +240,7 @@
   .row .pbtn.is-pause svg{margin-left:0;}
   .row .num{font-size:11.5px;font-weight:800;color:var(--muted);width:26px;flex:none;
     font-variant-numeric:tabular-nums;letter-spacing:.02em;}
-  .row .ttl{flex:1;min-width:0;font-size:15px;font-weight:700;letter-spacing:-.01em;
+  .row .ttl{flex:1;min-width:0;font-size:16px;font-weight:700;letter-spacing:0;color:var(--blue-deep);
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .row .dur{font-size:12.5px;font-weight:700;color:var(--muted);flex:none;font-variant-numeric:tabular-nums;}
   .row .done{color:var(--blue);flex:none;display:none;}
@@ -195,7 +250,7 @@
     color:var(--muted);text-decoration:none;transition:background .16s,color .16s;}
   .row .dl:hover{background:var(--sky);color:var(--blue-deep);}
   .row .dl svg{width:15px;height:15px;}
-  .dlbox{margin-top:26px;padding:20px 22px;border:1px solid var(--line);border-radius:8px;background:var(--paper);}
+  .dlbox{margin-top:26px;padding:22px 24px;border:1px solid var(--line);border-radius:14px;background:var(--sky);}
   .dlbox .lbl{font-size:10.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
     margin-bottom:10px;}
   .dlbox p{margin:0 0 14px;font-size:13.5px;line-height:1.6;color:var(--ink);}
@@ -204,18 +259,36 @@
   .row .bar{position:absolute;left:0;bottom:0;height:2px;background:var(--gold);width:0;transition:width .2s linear;}
 
   /* ============ CTA ============ */
-  .cta{background:linear-gradient(180deg,#f2f9fc,#eaf4fb);border-top:1px solid var(--line);}
+  .cta{background:var(--sky);}
   .cta .wrap{max-width:760px;text-align:center;}
   .cta h2{font-size:clamp(25px,3.2vw,35px);margin:12px 0 14px;}
-  .cta h2 em{font-style:normal;color:var(--orange);}
+  .cta .rule{width:52px;height:3px;background:var(--gold);margin:0 auto 22px;}   /* .res-band-rule */
   .cta p{font-size:17px;color:#42525c;margin-bottom:26px;}
   .cta .fine{font-size:12.5px;color:var(--muted);margin:16px 0 0;}
 
-  /* ============ FOOTER ============ */
-  .ft{background:var(--blue);color:#fff;border-top:2px solid var(--gold);font-size:13px;padding:0;}
-  .ft .wrap{display:flex;align-items:center;justify-content:space-between;gap:8px 20px;flex-wrap:wrap;padding:16px 24px;}
-  .ft a{color:#fff;text-decoration:none;opacity:.92;} .ft a:hover{text-decoration:underline;}
-  .ft .legal a{margin-left:20px;}
+  /* ============ FOOTER - mirrors the site's "Site Footer" component ============ */
+  .site-footer{background:var(--blue);color:var(--on-blue);border-top:2px solid var(--gold);
+    font-family:var(--brand-sans);font-size:14px;line-height:1.6;}
+  .footer-inner{max-width:var(--container-max);margin:0 auto;padding:52px var(--gutter) 0;}
+  .footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:34px 40px;padding-bottom:34px;}
+  .footer-logo{height:30px;width:auto;margin-bottom:16px;}
+  .footer-tagline{max-width:34em;color:var(--on-blue);margin:0;}
+  .footer-heading{color:var(--gold);font-size:12px;font-weight:700;letter-spacing:.18em;
+    text-transform:uppercase;margin:0 0 16px;}
+  .footer-col a{display:block;color:var(--on-blue);text-decoration:none;padding:5px 0;transition:color .14s;}
+  .footer-col a:hover{color:#fff;text-decoration:underline;text-underline-offset:3px;}
+  .footer-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;
+    gap:6px 20px;padding:18px 0 20px;border-top:1px solid rgba(255,255,255,.18);font-size:13px;}
+  .footer-copy{color:var(--on-blue-soft);margin:0;}
+  .footer-legal{margin:0;}
+  .footer-legal a{color:var(--on-blue-muted);margin-left:20px;text-decoration:none;}
+  .footer-legal a:hover{color:#fff;text-decoration:underline;text-underline-offset:2px;}
+  @media (max-width:767px){
+    .footer-grid{grid-template-columns:1fr;gap:28px;}
+    .footer-inner{padding:40px 22px 0;}
+    .footer-bottom{flex-direction:column;text-align:center;gap:8px;}
+    .footer-legal a{margin:0 10px;}
+  }
 
   /* ============ STICKY PLAYER ============ */
   .sticky{position:fixed;left:0;right:0;bottom:0;z-index:95;background:rgba(0,50,92,.97);
@@ -265,17 +338,26 @@
     .row .num{display:none;}
     .feed-top{margin-bottom:22px;}
     section{padding:54px 0;}
-    .ft .wrap{flex-direction:column;text-align:center;} .ft .legal a{margin:0 10px;}
   }
 </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
-<header class="topbar">
-  <div class="wrap">
-    <a href="https://unbreakablesole.com"><img src="assets/07f8927f_Horizontal_20Logo_201.webp" alt="Unbreakable Sole"></a>
-    <a href="https://unbreakablesole.com" class="btn">Get The Book</a>
+<!-- NAV - same links, order and yellow-underlined CTA as the staging site -->
+<header class="site-nav">
+  <div class="site-nav-inner">
+    <a href="https://unbreakable-sole.webflow.io/" aria-label="Unbreakable Sole home" class="nav-logo-link">
+      <img src="assets/logo-hz-v2.png" alt="Unbreakable Sole" class="nav-logo">
+    </a>
+    <nav class="navl-links" id="navLinks">
+      <a href="https://unbreakable-sole.webflow.io/about" class="navl-link">About</a>
+      <a href="https://unbreakable-sole.webflow.io/speaking" class="navl-link">Speaking</a>
+      <a href="https://unbreakable-sole.webflow.io/community" class="navl-link">Community</a>
+      <a href="https://secure.darrenhardy.com/checkout/unbreakable-sole" class="navl-link navl-cta">Book + Audio</a>
+    </nav>
+    <div class="navl-burger" id="navBurger" role="button" tabindex="0" aria-label="Menu" aria-expanded="false">
+      <div class="navl-bar"></div><div class="navl-bar"></div><div class="navl-bar"></div>
+    </div>
   </div>
 </header>
 
@@ -302,7 +384,7 @@
         <span class="badge"><span class="st">★★★★★</span> Free With The Book</span>
       </div>
       <div class="eyebrow">The Unbreakable Sole Audiobook</div>
-      <h1>Every mile, in the voice of the woman who <em>ran it.</em></h1>
+      <h1>Every mile, in the voice of the woman who <em class="hl">ran it.</em></h1>
       <p class="lead">Some stories land differently when you hear them said out loud. Missy reads all 26.2 miles herself, so you can take the whole book on your run, your drive, or your hardest day.</p>
 
       <!-- HERO PLAYER: first chapter loaded, one tap -->
@@ -356,7 +438,7 @@
     <div class="feed-top">
       <div class="shead">
         <div class="eyebrow">The Full Run</div>
-        <h2>Every chapter, <em>ready to play.</em></h2>
+        <h2>Every chapter, <em class="hl">ready to play.</em></h2>
         <p>Start at mile one, or jump to the mile you need today. It remembers where you stopped and rolls straight into the next chapter.</p>
       </div>
       <button class="btn outline" id="startTop">Play From The Beginning</button>
@@ -368,8 +450,9 @@
 <!-- ============ CTA ============ -->
 <section class="cta">
   <div class="wrap">
-    <div class="eyebrow" style="justify-content:center">The Book</div>
-    <h2>The audiobook comes <em>free</em> with every copy.</h2>
+    <div class="eyebrow">The Book</div>
+    <div class="rule"></div>
+    <h2>The audiobook comes <em class="hl">free</em> with every copy.</h2>
     <p>Signed hardcover, free U.S. shipping, and the full seven hours to take with you anywhere.</p>
     <a href="https://unbreakablesole.com" class="btn">Get The Book &rarr;</a>
     <p class="fine">30-day happiness guarantee. Cancel-proof: the audiobook is yours to keep either way.</p>
@@ -378,13 +461,34 @@
 
 </main>
 
-<footer class="ft">
-  <div class="wrap">
-    <p>© 2026 Unbreakable Sole. All Rights Reserved.</p>
-    <p class="legal">
-      <a href="https://dh.darrenhardy.com/terms-of-service/" target="_blank" rel="noopener">Terms &amp; Conditions</a>
-      <a href="https://dh.darrenhardy.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>
-    </p>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/logo-white.png" alt="Unbreakable Sole" class="footer-logo" loading="lazy">
+        <p class="footer-tagline">Unbreakable Sole is your guide through life&rsquo;s toughest miles. You don&rsquo;t need to be a runner. You just need to be human.</p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-heading">Explore</p>
+        <a href="https://unbreakable-sole.webflow.io/about">About Missy</a>
+        <a href="https://unbreakable-sole.webflow.io/speaking">Speaking</a>
+        <a href="https://unbreakable-sole.webflow.io/community">Community</a>
+        <a href="https://unbreakable-sole.webflow.io/resources">Free Resources</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-heading">The Book</p>
+        <a href="https://secure.darrenhardy.com/checkout/unbreakable-sole">Book + Audio</a>
+        <a href="#listen">Listen To The Audiobook</a>
+        <a href="https://unbreakable-sole.webflow.io/connect">Connect</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Unbreakable Sole. All Rights Reserved.</p>
+      <p class="footer-legal">
+        <a href="https://dh.darrenhardy.com/terms-of-service/" target="_blank" rel="noopener">Terms &amp; Conditions</a>
+        <a href="https://dh.darrenhardy.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>
+      </p>
+    </div>
   </div>
 </footer>
 
@@ -671,7 +775,12 @@
   /* ---- Lock screen / Control Center metadata (MediaSession) ---------------
      Without this iOS shows an empty artwork tile and no chapter name. */
   var ART = [96,128,192,256,512,1024].map(function(n){
-    return { src: "assets/audiobook-art-" + n + ".jpg", sizes: n + "x" + n, type: "image/jpeg" };
+    return {
+      /* absolute - iOS gives no artwork at all for a path it cannot resolve */
+      src: new URL("assets/audiobook-art-" + n + ".jpg", document.baseURI).href,
+      sizes: n + "x" + n,
+      type: "image/jpeg"
+    };
   });
   function setNowPlaying(c){
     if (!("mediaSession" in navigator)) return;
@@ -709,7 +818,12 @@
     try { MS.setActionHandler("previoustrack", function(){ if (cur > 0) play(cur - 1); }); } catch(e){}
     try { MS.setActionHandler("nexttrack", function(){ if (cur >= 0 && cur < CH.length - 1) play(cur + 1); }); } catch(e){}
   }
-  au.addEventListener("loadedmetadata", syncPositionState);
+  /* iOS wipes Now Playing when a new source finishes loading, which lands AFTER
+     the setNowPlaying() inside play(). Re-assert it on the events that fire
+     after that wipe, or the lock screen stays blank. */
+  function reassertNowPlaying(){ if (cur >= 0 && CH[cur]) setNowPlaying(CH[cur]); }
+  au.addEventListener("loadedmetadata", function(){ reassertNowPlaying(); syncPositionState(); });
+  au.addEventListener("playing", function(){ reassertNowPlaying(); syncPositionState(); });
   au.addEventListener("ratechange", syncPositionState);
   au.addEventListener("seeked", syncPositionState);
   au.addEventListener("play",  function(){ if ("mediaSession" in navigator) navigator.mediaSession.playbackState = "playing"; syncPositionState(); });
@@ -817,6 +931,20 @@
       if (art && art.textContent) { $("coverArt").src = $("skArt").src = art.textContent.trim(); }
     }).catch(function(){ /* baked list stands */ });
   }
+
+  /* mobile nav toggle - the staging site carries the same behaviour in site code */
+  (function(){
+    var b = $("navBurger"), l = $("navLinks");
+    if (!b || !l) return;
+    function toggleNav(){
+      var open = l.classList.toggle("is-open");
+      b.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+    b.addEventListener("click", toggleNav);
+    b.addEventListener("keydown", function(e){
+      if (e.key === "Enter" || e.code === "Space") { e.preventDefault(); toggleNav(); }
+    });
+  })();
 
   renderPlats(); renderOffline();
   renderList();
