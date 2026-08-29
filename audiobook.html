@@ -782,16 +782,19 @@
       type: "image/jpeg"
     };
   });
+  var MS_ERR = null, MS_SETS = 0;
   function setNowPlaying(c){
-    if (!("mediaSession" in navigator)) return;
+    if (!("mediaSession" in navigator)) { MS_ERR = "navigator.mediaSession missing"; return; }
     try {
       navigator.mediaSession.metadata = new MediaMetadata({
         title:  titlecase(c.t),
-        artist: "Missy Moss Wright",
+        /* iOS shows artist OR album, never both, so artist carries the book name */
+        artist: "Missy Moss Wright \u00b7 Unbreakable Sole",
         album:  "Unbreakable Sole",
         artwork: ART
       });
-    } catch (e) {}
+      MS_SETS++;
+    } catch (e) { MS_ERR = (e && e.name ? e.name + ": " : "") + (e && e.message || String(e)); }
   }
   function syncPositionState(){
     if (!("mediaSession" in navigator) || !navigator.mediaSession.setPositionState) return;
@@ -802,7 +805,7 @@
         playbackRate: au.playbackRate || 1,
         position: Math.min(au.currentTime, au.duration)
       });
-    } catch (e) {}
+    } catch (e) { MS_ERR = "setPositionState " + (e && e.message || e); }
   }
   if ("mediaSession" in navigator) {
     var MS = navigator.mediaSession;
@@ -822,11 +825,11 @@
      the setNowPlaying() inside play(). Re-assert it on the events that fire
      after that wipe, or the lock screen stays blank. */
   function reassertNowPlaying(){ if (cur >= 0 && CH[cur]) setNowPlaying(CH[cur]); }
-  au.addEventListener("loadedmetadata", function(){ reassertNowPlaying(); syncPositionState(); });
-  au.addEventListener("playing", function(){ reassertNowPlaying(); syncPositionState(); });
-  au.addEventListener("ratechange", syncPositionState);
-  au.addEventListener("seeked", syncPositionState);
-  au.addEventListener("play",  function(){ if ("mediaSession" in navigator) navigator.mediaSession.playbackState = "playing"; syncPositionState(); });
+  au.addEventListener("loadedmetadata", function(){ syncPositionState(); reassertNowPlaying(); });
+  au.addEventListener("playing", function(){ syncPositionState(); reassertNowPlaying(); });
+  au.addEventListener("ratechange", function(){ syncPositionState(); reassertNowPlaying(); });
+  au.addEventListener("seeked", function(){ syncPositionState(); reassertNowPlaying(); });
+  au.addEventListener("play",  function(){ if ("mediaSession" in navigator) navigator.mediaSession.playbackState = "playing"; syncPositionState(); reassertNowPlaying(); });
   au.addEventListener("pause", function(){ if ("mediaSession" in navigator) navigator.mediaSession.playbackState = "paused"; });
 
   au.addEventListener("play",  function(){ setPlayIcons(true);  });
@@ -931,6 +934,53 @@
       if (art && art.textContent) { $("coverArt").src = $("skArt").src = art.textContent.trim(); }
     }).catch(function(){ /* baked list stands */ });
   }
+
+
+  /* ---- #mediadebug ------------------------------------------------------
+     iOS lock-screen behaviour cannot be reproduced off-device, so this panel
+     reports what the phone itself sees. Open the page with #mediadebug,
+     press play, lock and unlock, then read the panel. Delete once the
+     lock screen is confirmed working. */
+  if (/mediadebug/i.test(location.hash)) (function(){
+    var box = document.createElement("div");
+    box.setAttribute("style",
+      "position:fixed;left:8px;right:8px;bottom:96px;z-index:9999;background:#00325c;color:#fff;" +
+      "font:12px/1.45 ui-monospace,Menlo,monospace;padding:12px 14px;border-radius:10px;" +
+      "box-shadow:0 18px 40px rgba(0,0,0,.45);max-height:46vh;overflow:auto;white-space:pre-wrap;");
+    document.body.appendChild(box);
+
+    var artState = "not tested";
+    var probe = new Image();
+    probe.onload  = function(){ artState = "LOADS " + probe.naturalWidth + "x" + probe.naturalHeight; };
+    probe.onerror = function(){ artState = "FAILED TO LOAD"; };
+    probe.src = ART[0].src;
+
+    function line(k, v){ return k + ": " + v + "\n"; }
+    function render(){
+      var ms = navigator.mediaSession, m = ms && ms.metadata;
+      box.textContent =
+        "MEDIA SESSION DIAGNOSTIC\n------------------------\n" +
+        line("mediaSession API", ("mediaSession" in navigator) ? "yes" : "NO - unsupported browser") +
+        line("MediaMetadata API", (typeof window.MediaMetadata === "function") ? "yes" : "NO") +
+        line("setPositionState", (ms && ms.setPositionState) ? "yes" : "no") +
+        line("metadata object", m ? "present" : "NULL  <-- nothing for the lock screen") +
+        line("  title",  m ? m.title  : "-") +
+        line("  artist", m ? m.artist : "-") +
+        line("  artwork entries", m ? m.artwork.length : "-") +
+        line("  first artwork", m && m.artwork[0] ? m.artwork[0].sizes : "-") +
+        line("artwork fetch", artState) +
+        line("times metadata set", MS_SETS) +
+        line("last error", MS_ERR || "none") +
+        line("playbackState", ms ? ms.playbackState : "-") +
+        line("audio paused", au.paused) +
+        line("audio currentTime", au.currentTime.toFixed(1)) +
+        line("audio src set", au.src ? "yes" : "NO - nothing loaded") +
+        line("page origin", location.origin) +
+        line("UA", navigator.userAgent);
+    }
+    render();
+    setInterval(render, 1000);
+  })();
 
   /* mobile nav toggle - the staging site carries the same behaviour in site code */
   (function(){
