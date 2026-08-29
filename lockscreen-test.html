@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lock screen test</title>
+<meta name="robots" content="noindex, nofollow">
+
+<!-- ─────────────────────────────────────────────────────────────
+     LOCK SCREEN BISECT  ·  throwaway diagnostic, delete when done
+
+     audiobook.html sets MediaSession metadata correctly (verified on
+     device: metadata present, artwork loads, no errors, audio keeps
+     playing while the screen is off) and iOS still shows no Now Playing.
+
+     Before changing that page again, establish whether ANY page can get
+     Now Playing on this phone. This is the smallest possible page that
+     should: one <audio>, one tap, metadata only. No action handlers, no
+     setPositionState, no framework, no other markup.
+
+     Three buttons, three variables:
+       A  same-origin file       - rules out the cross-origin 302
+       B  the real chapter URL   - the audiobook's actual source
+       C  A, but with the extras - adds handlers + setPositionState back
+
+     If A shows a lock screen and B does not  -> the Hello Audio URL.
+     If A shows one and C does not            -> our extra API calls.
+     If none of them show one                 -> Safari/iOS, not our code,
+                                                 and I stop editing the page.
+     ───────────────────────────────────────────────────────────── -->
+
+<style>
+  body{margin:0;padding:20px;background:#00325c;color:#fff;
+    font:14px/1.5 ui-monospace,Menlo,monospace;-webkit-text-size-adjust:100%;}
+  h1{font:800 16px/1.3 -apple-system,sans-serif;margin:0 0 4px;}
+  p.sub{margin:0 0 18px;color:#a3bac6;font-size:12.5px;}
+  button{display:block;width:100%;margin:0 0 10px;padding:16px;border:0;border-radius:8px;
+    background:#ffdd60;color:#1b2126;font:800 13px/1.3 -apple-system,sans-serif;
+    letter-spacing:.04em;cursor:pointer;}
+  button.alt{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.45);}
+  pre{white-space:pre-wrap;margin:16px 0 0;font-size:12px;line-height:1.45;}
+  .note{margin-top:16px;padding:12px;border:1px solid rgba(255,255,255,.25);border-radius:8px;
+    color:#c6d7df;font-size:12px;}
+</style>
+</head>
+<body>
+
+<h1>Lock screen bisect</h1>
+<p class="sub">Tap one, lock the phone for ~15s, unlock, screenshot this panel.</p>
+
+<button id="a">A &nbsp;SAME-ORIGIN FILE &middot; metadata only</button>
+<button id="b" class="alt">B &nbsp;REAL CHAPTER URL &middot; metadata only</button>
+<button id="c" class="alt">C &nbsp;SAME-ORIGIN + handlers &amp; positionState</button>
+<button id="stop" class="alt">■ &nbsp;STOP</button>
+
+<div class="note">Each button reloads nothing — it just swaps the source and
+re-sets the metadata, so you can try all three in one sitting.</div>
+
+<pre id="out">…</pre>
+
+<audio id="au" preload="none"></audio>
+
+<script>
+(function(){
+  "use strict";
+  var au = document.getElementById("au"), out = document.getElementById("out");
+  var LOCAL  = "assets/lockscreen-test-tone.m4a";
+  var REMOTE = "https://podcasts.helloaudio.fm/download/N288mn9Ua3/4ca3f6c4-d63f-4aec-8e57-a092b26f82fe.mp3";
+  var mode = "-", err = "none", sets = 0, lock = "not tested - lock the phone while it plays", hid = null;
+
+  var ART = [96,192,512].map(function(n){
+    return { src: new URL("assets/audiobook-art-" + n + ".jpg", document.baseURI).href,
+             sizes: n + "x" + n, type: "image/jpeg" };
+  });
+
+  function meta(title){
+    try {
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: title, artist: "Missy Moss Wright", artwork: ART });
+      sets++;
+    } catch (e) { err = (e && e.message) || String(e); }
+  }
+
+  var HANDLERS = {
+    play:  function(){ au.play(); },
+    pause: function(){ au.pause(); },
+    seekbackward: function(){ au.currentTime = Math.max(0, au.currentTime - 15); },
+    seekforward:  function(){ au.currentTime = au.currentTime + 30; },
+    previoustrack: function(){}, nexttrack: function(){}
+  };
+  function handlers(on){
+    Object.keys(HANDLERS).forEach(function(a){
+      try { navigator.mediaSession.setActionHandler(a, on ? HANDLERS[a] : null); } catch(e){}
+    });
+  }
+
+  function go(which){
+    var extras = which === "C";
+    mode = which;
+    handlers(extras);
+    au.src = which === "B" ? REMOTE : LOCAL;
+    au.play().then(function(){
+      meta("Test " + which);
+      if (extras && navigator.mediaSession.setPositionState) {
+        au.addEventListener("loadedmetadata", function once(){
+          try { navigator.mediaSession.setPositionState({
+            duration: au.duration, playbackRate: 1, position: 0 }); } catch(e){}
+          au.removeEventListener("loadedmetadata", once);
+        });
+      }
+      navigator.mediaSession.playbackState = "playing";
+    }).catch(function(e){ err = "play() rejected: " + e.name; });
+  }
+
+  document.getElementById("a").addEventListener("click", function(){ go("A"); });
+  document.getElementById("b").addEventListener("click", function(){ go("B"); });
+  document.getElementById("c").addEventListener("click", function(){ go("C"); });
+  document.getElementById("stop").addEventListener("click", function(){ au.pause(); });
+
+  document.addEventListener("visibilitychange", function(){
+    if (document.hidden) hid = au.currentTime;
+    else if (hid !== null) {
+      var moved = au.currentTime - hid;
+      lock = moved > 0.5 ? "KEPT PLAYING (+" + moved.toFixed(1) + "s)"
+                         : "STOPPED (+" + moved.toFixed(1) + "s)";
+    }
+  });
+
+  setInterval(function(){
+    var m = navigator.mediaSession && navigator.mediaSession.metadata;
+    out.textContent =
+      "variant tested : " + mode + (mode === "-" ? "  (tap a button)" : "") + "\n" +
+      "source         : " + (au.src ? (au.src.indexOf("helloaudio") > -1 ? "Hello Audio (cross-origin, 302)" : "same-origin file") : "none") + "\n" +
+      "extras         : " + (mode === "C" ? "handlers + positionState" : mode === "-" ? "-" : "none (metadata only)") + "\n" +
+      "\n" +
+      "metadata       : " + (m ? "present" : "NULL") + "\n" +
+      "  title        : " + (m ? m.title : "-") + "\n" +
+      "  artwork      : " + (m ? m.artwork.length + " entries" : "-") + "\n" +
+      "times set      : " + sets + "\n" +
+      "playbackState  : " + (navigator.mediaSession ? navigator.mediaSession.playbackState : "-") + "\n" +
+      "audio playing  : " + (au.src ? !au.paused : "not started") + "\n" +
+      "position       : " + au.currentTime.toFixed(1) + "s\n" +
+      "audio error    : " + (au.error ? au.error.code : "none") + "\n" +
+      "last error     : " + err + "\n" +
+      "while screen off: " + lock + "\n" +
+      "\n" +
+      "iOS            : " + ((navigator.userAgent.match(/OS (\d+_\d+)/) || [,"?"])[1] || "?").replace("_", ".") + "\n" +
+      "standalone PWA : " + (navigator.standalone === true ? "yes" : "no (Safari tab)");
+  }, 600);
+})();
+</script>
+</body>
+</html>
