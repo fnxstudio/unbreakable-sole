@@ -3,6 +3,7 @@
 <meta name="robots" content="noindex">
 <link rel="stylesheet" href="https://cdn.prod.website-files.com/6a7cb5226941c3869a8b1f52/css/unbreakable-sole.webflow.shared.39d9d2da8.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Figtree:wght@400;700;800&display=swap">
+<link rel="preload" as="image" href="assets/bg-clouds.webp">
 <style>
 body{margin:0;background:#fff}
 .hm-draftbar{background:#00325c;color:#fff;font:600 13px/1.5 Figtree,sans-serif;padding:9px 22px;letter-spacing:.02em}
@@ -18,7 +19,12 @@ body{margin:0;background:#fff}
 @media (prefers-reduced-motion:reduce){.hm-acc-track{animation:none}}
 
 .hm-hero{background-color:var(--sky-tint);font-family:var(--brand-sans);overflow:hidden;
-  padding:0 26px;min-height:660px;display:flex;align-items:center}
+  padding:0 26px;min-height:660px;display:flex;align-items:center;
+  /* The sky sits at the top and dissolves to white at the bottom, so the hero
+     hands off cleanly to the white video section underneath it. */
+  background-image:linear-gradient(to bottom,#ffffff00 34%,#ffffffc4 78%,#ffffff 100%),
+    url("assets/bg-clouds.webp");
+  background-repeat:no-repeat,no-repeat;background-size:auto,cover;background-position:0 0,50% 30%}
 .hm-hero-grid{max-width:1240px;margin:0 auto;width:100%;display:grid;
   grid-template-columns:1.02fr .98fr;column-gap:56px;align-items:center}
 .hm-book-wrap{position:relative;margin:-70px 0}
@@ -58,6 +64,11 @@ body{margin:0;background:#fff}
  100%{box-shadow:0 10px 30px #00325c4d, 0 0 0 0 #ffdd6000}}
 .hm-vid-btn:hover .hm-play{transform:scale(1.06)}
 @media (prefers-reduced-motion:reduce){.hm-play{animation:none;box-shadow:0 10px 30px #00325c4d}}
+/* ---------- missy band pull quote ---------- */
+.rb-q{font-family:var(--brand-display);font-weight:400;color:var(--dark-blue);
+  font-size:clamp(23px,2.7vw,35px);line-height:1.3em;letter-spacing:-.012em;margin:0;text-wrap:balance}
+.rb-q mark{background:var(--cta-yellow);color:var(--dark-blue);padding:.02em .14em;
+  box-decoration-break:clone;-webkit-box-decoration-break:clone}
 /* ---------- the book: what it teaches ---------- */
 .tb-wrap{display:grid;grid-template-columns:.86fr 1.64fr;gap:64px;align-items:center}
 .tb-h{margin:0 0 22px;line-height:1.16em}
@@ -239,10 +250,7 @@ body{margin:0;background:#fff}
   <div><img class="res-band-photo" src="https://cdn.prod.website-files.com/6a7cb5226941c3869a8b1f52/6a80b6e76dcaab11627f6701_missy-band-opt.webp"
     alt="Missy Moss Wright" loading="lazy" decoding="async"></div>
   <div style="padding:68px 0 78px">
-   <div class="hm-kick">Why she wrote it</div>
-   <p class="res-band-quote">&ldquo;The hard miles don&rsquo;t break you. They build you. I didn&rsquo;t
-    learn that on a good day. I learned it mile after mile, when quitting felt easier than continuing,
-    and I kept going anyway.&rdquo;</p>
+   <p class="res-band-quote rb-q">&ldquo;Life may break you open&hellip; <br>But only to reveal the <br><mark>UNBREAKABLE SOUL</mark> <br>already inside you.&rdquo;</p>
    <img src="https://cdn.prod.website-files.com/6a7cb5226941c3869a8b1f52/6a826e1ed12232f65d499e35_missy-signature-2x.webp" alt="Missy"
     style="width:170px;height:auto;display:block;margin-top:26px" loading="lazy">
   </div>
