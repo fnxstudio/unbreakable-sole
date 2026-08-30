@@ -6,9 +6,8 @@
 <link rel="preload" as="image" href="assets/bg-clouds.webp">
 <style>
 body{margin:0;background:#fff}
-.hm-draftbar{background:var(--dark-blue);color:#fff;font:600 13px/1.5 Figtree,sans-serif;padding:9px 22px;letter-spacing:.02em}
 /* ---------- hero ---------- */
-.hm-acc{position:relative;overflow:hidden;background:#fff;border-bottom:1px solid #00325c14;padding:16px 0;
+.hm-acc{position:relative;overflow:hidden;background:#fff;border-bottom:1px solid #00325c14;padding:18px 0;
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
   mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
 .hm-acc-track{display:flex;width:max-content;animation:hm-roll 68s linear infinite}
@@ -26,15 +25,15 @@ body{margin:0;background:#fff}
     url("assets/bg-clouds.webp");
   background-repeat:no-repeat,no-repeat;background-size:auto,cover;background-position:0 0,50% 30%}
 .hm-hero-grid{max-width:var(--container-max);margin:0 auto;width:100%;display:grid;
-  grid-template-columns:.88fr 1.12fr;column-gap:56px;align-items:center}
+  grid-template-columns:1fr 1fr;column-gap:56px;align-items:center}
 .hm-book-wrap{position:relative}
-.hm-book{width:106%;max-width:none;margin-left:-6%;height:auto;display:block;
-  filter:drop-shadow(0 30px 60px #00325c33)}
+.hm-book{width:124%;max-width:none;margin-left:-14%;height:auto;display:block;
+  filter:drop-shadow(0 34px 68px #00325c33)}
 .hm-eyebrow{color:var(--medium-blue);letter-spacing:.2em;text-transform:uppercase;font-size:12.5px;font-weight:700;margin-bottom:16px}
 .hm-h1{font-family:var(--brand-display);color:var(--dark-blue);font-weight:400;line-height:1.06em;
-  /* Capped at 70 so the highlighted "They build you." always holds one line;
-     74 overflows the 596px column by a few pixels and orphans "you." */
-  letter-spacing:-.022em;margin:0 0 24px;font-size:clamp(40px,5.4vw,70px)}
+  /* Capped at 62 so the headline holds three lines with "build you." unbroken in
+     the narrower column the bigger book leaves it. 66 spills to five. */
+  letter-spacing:-.022em;margin:0 0 24px;font-size:clamp(38px,5.4vw,62px)}
 .hm-h1 mark{background:var(--cta-yellow);color:var(--dark-blue);border-radius:4px;padding:.02em .14em;
   box-decoration-break:clone;-webkit-box-decoration-break:clone}
 .hm-lede{color:var(--ink);font-size:20px;line-height:1.6;max-width:44ch;margin:0 0 34px;text-wrap:pretty}
@@ -78,6 +77,11 @@ body{margin:0;background:#fff}
    the larger size without breaking its line structure. Desktop only — below this
    the site's own stylesheet stacks the band and must win. */
 @media (min-width:992px){.res-band-inner{grid-template-columns:.76fr 1.24fr}}
+/* Stacked, the quote should lead and Missy should close the band. */
+@media (max-width:991px){
+ .res-band-inner > *:first-child{order:2}
+ .res-band-inner > *:last-child{order:1;padding-bottom:34px !important}
+}
 .rb-q mark{background:var(--cta-yellow);color:var(--dark-blue);border-radius:4px;padding:.02em .14em;
   box-decoration-break:clone;-webkit-box-decoration-break:clone}
 /* ---------- the book: what it teaches ---------- */
@@ -101,6 +105,9 @@ body{margin:0;background:#fff}
 @keyframes hm-up{from{transform:translateY(0)}to{transform:translateY(-50%)}}
 @media (prefers-reduced-motion:reduce){.hm-roll .rq-track{animation:none}}
 .rq-role{color:var(--muted);font-size:12.5px}
+/* These three are shot turned away from the quote that sits to their right;
+   mirroring turns them back into it. */
+.rq-flip{transform:scaleX(-1)}
 .rq-mono{background:var(--light-blue);border:1px solid #00325c1a;color:var(--dark-blue);
   display:grid;place-items:center;font-weight:800;font-size:27px;letter-spacing:.02em;
   width:96px;height:120px;border-radius:4px;flex:none;box-sizing:border-box}
@@ -120,7 +127,8 @@ body{margin:0;background:#fff}
   font-size:clamp(23px,2.9vw,37px);line-height:1.3;letter-spacing:-.014em;margin:0;text-wrap:pretty}
 .dh-q mark{background:var(--cta-yellow);color:var(--dark-blue);border-radius:4px;padding:0 .14em;
   box-decoration-break:clone;-webkit-box-decoration-break:clone}
-.dh-name{color:var(--dark-blue);font-weight:800;font-size:15px;margin-top:6px}
+.dh-name{color:var(--dark-blue);font-weight:800;font-size:clamp(17px,1.5vw,21px);
+  text-transform:uppercase;letter-spacing:.06em;margin-top:10px}
 .dh-role{color:var(--muted);font-size:13.5px;line-height:1.5;max-width:46ch}
 /* ---------- two-up cards ---------- */
 .hm-two{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:8px}
@@ -191,10 +199,9 @@ body{margin:0;background:#fff}
  .pr-grid{grid-template-columns:1fr}
 }
 </style>
-</head><body><div class="hm-draftbar">DRAFT — home page for review. Not published. Styling pulled live from the Webflow site stylesheet.</div>
+</head><body>
 
 <!-- ============ HERO ============ -->
-<div class="hm-acc"><div class="hm-acc-track"><span class="hm-acc-i"><b>&ldquo;Soul hydration.&rdquo;</b> Jessica Fairbanks</span><span class="hm-acc-i"><b>&ldquo;Raw, real, and unfiltered.&rdquo;</b> Dave Koepsell</span><span class="hm-acc-i"><b>&ldquo;A sacred mirror.&rdquo;</b> Dr. Kristi Lopez</span><span class="hm-acc-i"><b>&ldquo;Grit and grace.&rdquo;</b> Dr. Jack Ward</span><span class="hm-acc-i"><b>&ldquo;This book changed me.&rdquo;</b> David I. Green</span><span class="hm-acc-i"><b>&ldquo;A pilgrimage of the heart.&rdquo;</b> Elo Jones</span><span class="hm-acc-i"><b>&ldquo;Heartwarming and heartwrenching.&rdquo;</b> George Contos</span><span class="hm-acc-i"><b>&ldquo;Beautifully raw.&rdquo;</b> Gini Williams</span><span class="hm-acc-i"><b>&ldquo;A definite must-read.&rdquo;</b> Michael Fife</span><span class="hm-acc-i"><b>&ldquo;Sacred teachers.&rdquo;</b> Tara Lawallan</span><span class="hm-acc-i"><b>&ldquo;Soul hydration.&rdquo;</b> Jessica Fairbanks</span><span class="hm-acc-i"><b>&ldquo;Raw, real, and unfiltered.&rdquo;</b> Dave Koepsell</span><span class="hm-acc-i"><b>&ldquo;A sacred mirror.&rdquo;</b> Dr. Kristi Lopez</span><span class="hm-acc-i"><b>&ldquo;Grit and grace.&rdquo;</b> Dr. Jack Ward</span><span class="hm-acc-i"><b>&ldquo;This book changed me.&rdquo;</b> David I. Green</span><span class="hm-acc-i"><b>&ldquo;A pilgrimage of the heart.&rdquo;</b> Elo Jones</span><span class="hm-acc-i"><b>&ldquo;Heartwarming and heartwrenching.&rdquo;</b> George Contos</span><span class="hm-acc-i"><b>&ldquo;Beautifully raw.&rdquo;</b> Gini Williams</span><span class="hm-acc-i"><b>&ldquo;A definite must-read.&rdquo;</b> Michael Fife</span><span class="hm-acc-i"><b>&ldquo;Sacred teachers.&rdquo;</b> Tara Lawallan</span></div></div>
 <section class="hm-hero">
  <div class="hm-hero-grid">
   <div class="hm-book-wrap">
@@ -216,16 +223,34 @@ body{margin:0;background:#fff}
  </div>
 </section>
 
+<div class="hm-acc"><div class="hm-acc-track"><span class="hm-acc-i"><b>&ldquo;Soul hydration.&rdquo;</b> Jessica Fairbanks</span><span class="hm-acc-i"><b>&ldquo;Raw, real, and unfiltered.&rdquo;</b> Dave Koepsell</span><span class="hm-acc-i"><b>&ldquo;A sacred mirror.&rdquo;</b> Dr. Kristi Lopez</span><span class="hm-acc-i"><b>&ldquo;Grit and grace.&rdquo;</b> Dr. Jack Ward</span><span class="hm-acc-i"><b>&ldquo;This book changed me.&rdquo;</b> David I. Green</span><span class="hm-acc-i"><b>&ldquo;A pilgrimage of the heart.&rdquo;</b> Elo Jones</span><span class="hm-acc-i"><b>&ldquo;Heartwarming and heartwrenching.&rdquo;</b> George Contos</span><span class="hm-acc-i"><b>&ldquo;Beautifully raw.&rdquo;</b> Gini Williams</span><span class="hm-acc-i"><b>&ldquo;A definite must-read.&rdquo;</b> Michael Fife</span><span class="hm-acc-i"><b>&ldquo;Sacred teachers.&rdquo;</b> Tara Lawallan</span><span class="hm-acc-i"><b>&ldquo;Soul hydration.&rdquo;</b> Jessica Fairbanks</span><span class="hm-acc-i"><b>&ldquo;Raw, real, and unfiltered.&rdquo;</b> Dave Koepsell</span><span class="hm-acc-i"><b>&ldquo;A sacred mirror.&rdquo;</b> Dr. Kristi Lopez</span><span class="hm-acc-i"><b>&ldquo;Grit and grace.&rdquo;</b> Dr. Jack Ward</span><span class="hm-acc-i"><b>&ldquo;This book changed me.&rdquo;</b> David I. Green</span><span class="hm-acc-i"><b>&ldquo;A pilgrimage of the heart.&rdquo;</b> Elo Jones</span><span class="hm-acc-i"><b>&ldquo;Heartwarming and heartwrenching.&rdquo;</b> George Contos</span><span class="hm-acc-i"><b>&ldquo;Beautifully raw.&rdquo;</b> Gini Williams</span><span class="hm-acc-i"><b>&ldquo;A definite must-read.&rdquo;</b> Michael Fife</span><span class="hm-acc-i"><b>&ldquo;Sacred teachers.&rdquo;</b> Tara Lawallan</span></div></div>
+
 <!-- ============ VIDEO ============ -->
 <section class="hm-s">
  <div class="hm-in" style="max-width:900px">
-  <div class="hm-kick" style="text-align:center">Watch Missy tell it</div>
+  <div class="hm-kick" style="text-align:center">Ninety seconds on the road</div>
   <h2 class="hm-h2" style="text-align:center;margin-bottom:34px">Sometimes it is hard to see where the road is taking you.</h2>
   <div class="hm-vid" id="hmvid">
    <video preload="none" playsinline controls poster="assets/us_website_video_poster.webp">
     <source src="assets/us_website_video.mp4" type="video/mp4">
    </video>
    <button class="hm-vid-btn" aria-label="Play the story"><span class="hm-play"></span></button>
+  </div>
+ </div>
+</section>
+
+<!-- ============ DARREN HARDY ============ -->
+<section class="dh-band">
+ <div class="dh-art">
+  <img src="assets/dh-missy.webp" alt="Darren Hardy with Missy Moss Wright" loading="lazy" decoding="async">
+ </div>
+ <div class="dh-copy">
+  <div class="dh-inner">
+   <p class="dh-q">&ldquo;This book transforms your toughest challenges into proof that you&rsquo;re
+    not just resilient. You&rsquo;re <mark>truly unbreakable</mark>, no matter what life throws at you.&rdquo;</p>
+   <div class="dh-name">&mdash;Darren Hardy</div>
+   <div class="dh-role">Former publisher of <i>SUCCESS</i> magazine, New York Times &amp; Wall Street
+    Journal Best-Selling Author</div>
   </div>
  </div>
 </section>
@@ -262,22 +287,6 @@ body{margin:0;background:#fff}
    <p class="res-band-quote rb-q">&ldquo;Life may break you open&hellip; <br>But only to reveal the <br><mark>UNBREAKABLE SOUL</mark> <br>already inside you.&rdquo;</p>
    <img src="https://cdn.prod.website-files.com/6a7cb5226941c3869a8b1f52/6a826e1ed12232f65d499e35_missy-signature-2x.webp" alt="Missy"
     style="width:170px;height:auto;display:block;margin-top:26px" loading="lazy">
-  </div>
- </div>
-</section>
-
-<!-- ============ DARREN HARDY ============ -->
-<section class="dh-band">
- <div class="dh-art">
-  <img src="assets/dh-missy.webp" alt="Darren Hardy with Missy Moss Wright" loading="lazy" decoding="async">
- </div>
- <div class="dh-copy">
-  <div class="dh-inner">
-   <p class="dh-q">&ldquo;This book transforms your toughest challenges into proof that you&rsquo;re
-    not just resilient. You&rsquo;re <mark>truly unbreakable</mark>, no matter what life throws at you.&rdquo;</p>
-   <div class="dh-name">Darren Hardy</div>
-   <div class="dh-role">Former publisher of SUCCESS magazine, New York Times &amp; Wall Street
-    Journal Best-Selling Author</div>
   </div>
  </div>
 </section>
@@ -353,7 +362,7 @@ body{margin:0;background:#fff}
  </div>
 </div>
 <div class="rq-card">
- <img class="rq-face" src="assets/db4b816d_69bd2c89dec5b6f584ce95c07d98dd974642fd2c.webp" alt="David I. Green" loading="lazy" decoding="async">
+ <img class="rq-face rq-flip" src="assets/db4b816d_69bd2c89dec5b6f584ce95c07d98dd974642fd2c.webp" alt="David I. Green" loading="lazy" decoding="async">
  <div class="rq-body">
   <p class="rq-quote">“This book changed me. Mile by mile, <mark>something in me softened, opened, and let go</mark>. Missy’s honesty gave me permission to face emotions I hadn’t named and release things I’d carried for years.”</p>
   <div class="rq-name">David I. Green</div>
@@ -377,7 +386,7 @@ body{margin:0;background:#fff}
  </div>
 </div>
 <div class="rq-card">
- <img class="rq-face" src="assets/9c468bcc_918f0e98cafdc02bd776e844fb64374209ad165f.webp" alt="Elo Jones" loading="lazy" decoding="async">
+ <img class="rq-face rq-flip" src="assets/9c468bcc_918f0e98cafdc02bd776e844fb64374209ad165f.webp" alt="Elo Jones" loading="lazy" decoding="async">
  <div class="rq-body">
   <p class="rq-quote">“This book is <mark>a pilgrimage of the heart</mark>, rich with faith, resilience, and raw emotion. Missy walks you through life’s sacred miles, and reveals the beauty that rises from them. Lace up, you’re in for something incredible.”</p>
   <div class="rq-name">Elo Jones</div>
@@ -393,7 +402,7 @@ body{margin:0;background:#fff}
  </div>
 </div>
 <div class="rq-card">
- <img class="rq-face" src="assets/b5a47b42_8b6dc8ce07fd8fcc28e45426343308045b6df297.webp" alt="Pamela Nelson" loading="lazy" decoding="async">
+ <img class="rq-face rq-flip" src="assets/b5a47b42_8b6dc8ce07fd8fcc28e45426343308045b6df297.webp" alt="Pamela Nelson" loading="lazy" decoding="async">
  <div class="rq-body">
   <p class="rq-quote">“The challenges Missy’s family has faced could’ve broken them. But through faith, strong relationships, and resilience, <mark>she delivers a powerful story of hope and endurance</mark>.”</p>
   <div class="rq-name">Pamela Nelson</div>
@@ -414,14 +423,6 @@ body{margin:0;background:#fff}
   <p class="rq-quote">“This book takes you on a powerful journey that reminds you, your story, your scars, your dreams, they’re what make you, you. <mark>Wear them with pride.</mark> It’s an inspiring, heartfelt read you won’t forget.”</p>
   <div class="rq-name">Evelyn Opony</div>
   <div class="rq-role">Certified Field Trainer</div>
- </div>
-</div>
-<div class="rq-card">
- <span class="rq-face rq-mono" aria-hidden="true">KA</span>
- <div class="rq-body">
-  <p class="rq-quote">“Wow, just wow. <mark>Two for two in evoking tears</mark> for each chapter. All the thoughts hearing these first two chapters.”</p>
-  <div class="rq-name">Kylie Anfin</div>
-  <div class="rq-role">Reader, Miles 1 and 2</div>
  </div>
 </div>
 <div class="rq-card">
@@ -502,6 +503,7 @@ body{margin:0;background:#fff}
      <span class="pr-badge"><img
       src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/95/0d/d0/950dd094-d72c-dd31-3fae-4be1d4436533/mza_18047289211210272137.jpg/600x600bb.jpg"
       alt="The St. George Marathon Podcast" loading="lazy"></span>
+     <span class="pr-play" aria-hidden="true"></span>
     </div>
     <div class="pr-b">
      <div class="pr-src">Apple Podcasts</div>
