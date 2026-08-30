@@ -88,7 +88,7 @@ re-sets the metadata, so you can try all three in one sitting.</div>
   var mode = "-", err = "none", sets = 0, lock = "not tested - lock the phone while it plays", hid = null;
 
   var ART = [96,192,512].map(function(n){
-    return { src: new URL("assets/audiobook-art-" + n + ".jpg", document.baseURI).href,
+    return { src: new URL("assets/audiobook-cover-" + n + ".jpg", document.baseURI).href,
              sizes: n + "x" + n, type: "image/jpeg" };
   });
 

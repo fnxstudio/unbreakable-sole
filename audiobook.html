@@ -1113,7 +1113,9 @@
   var ART = [96,128,192,256,512,1024].map(function(n){
     return {
       /* absolute - iOS gives no artwork at all for a path it cannot resolve */
-      src: new URL("assets/audiobook-art-" + n + ".jpg", document.baseURI).href,
+      /* the square cover, NOT audiobook-art-* which is a 3D book mockup and
+         was what the lock screen had been showing */
+      src: new URL("assets/audiobook-cover-" + n + ".jpg", document.baseURI).href,
       sizes: n + "x" + n,
       type: "image/jpeg"
     };
@@ -1306,10 +1308,9 @@
       /* The cover deliberately stays on our own copy rather than being
          repointed at the feed's 1500px original: same picture resized, 27KB
          instead of 137KB, and no third-party image request on every load.
-         NB audiobook-cover-* (the flat square feed artwork, used here) is a
-         different image from audiobook-art-* (the 3D book mockup used for the
-         lock screen). If Hello Audio's artwork changes, regenerate
-         assets/audiobook-cover-512.jpg and -128.jpg from it. */
+         audiobook-cover-* (the flat square feed artwork) is used everywhere
+         now, including the lock screen. If Hello Audio's artwork ever
+         changes, regenerate assets/audiobook-cover-*.jpg from it. */
     }).catch(function(){ /* baked list stands */ });
   }
 
