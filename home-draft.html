@@ -20,9 +20,9 @@ body{margin:0;background:#fff}
 
 .hm-hero{background-color:var(--sky-tint);font-family:var(--brand-sans);overflow:hidden;
   padding:132px 26px 104px;display:flex;align-items:center;
-  /* The sky sits at the top and dissolves to white at the bottom, so the hero
-     hands off cleanly to the white video section underneath it. */
-  background-image:linear-gradient(to bottom,#ffffff00 40%,#ffffffc4 82%,#ffffff 100%),
+  /* The sky deepens into blue at the bottom rather than washing out, so the hero
+     ends on a definite edge against the white video section below it. */
+  background-image:linear-gradient(to bottom,#c0e7fa00 46%,#c0e7fa8c 84%,var(--light-blue) 100%),
     url("assets/bg-clouds.webp");
   background-repeat:no-repeat,no-repeat;background-size:auto,cover;background-position:0 0,50% 30%}
 .hm-hero-grid{max-width:var(--container-max);margin:0 auto;width:100%;display:grid;
@@ -71,7 +71,13 @@ body{margin:0;background:#fff}
 @media (prefers-reduced-motion:reduce){.hm-play{animation:none;box-shadow:0 10px 30px #00325c4d}}
 /* ---------- missy band pull quote ---------- */
 .rb-q{font-family:var(--brand-display);font-weight:400;color:var(--dark-blue);
-  font-size:clamp(23px,2.7vw,35px);line-height:1.3em;letter-spacing:-.012em;margin:0;text-wrap:balance}
+  /* 46px is the ceiling that still holds the quote's four deliberate lines in the
+     widened column; 48 wraps "Life may break you open" onto a second line. */
+  font-size:clamp(23px,3.6vw,46px);line-height:1.24em;letter-spacing:-.014em;margin:0}
+/* Hand the quote more of the band than the stock split gives it, so it can carry
+   the larger size without breaking its line structure. Desktop only — below this
+   the site's own stylesheet stacks the band and must win. */
+@media (min-width:992px){.res-band-inner{grid-template-columns:.76fr 1.24fr}}
 .rb-q mark{background:var(--cta-yellow);color:var(--dark-blue);border-radius:4px;padding:.02em .14em;
   box-decoration-break:clone;-webkit-box-decoration-break:clone}
 /* ---------- the book: what it teaches ---------- */
@@ -101,26 +107,21 @@ body{margin:0;background:#fff}
 .rq-quote mark{background:linear-gradient(transparent 12%,var(--cta-yellow) 12%,var(--cta-yellow) 92%,transparent 92%);
   color:inherit;padding:0 .12em;border-radius:2px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 .hm-roll-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px 52px}
-/* ---------- featured quotes ---------- */
-.hm-feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:26px;margin-top:8px}
-.hm-fq{background:#fff;border-radius:4px;padding:28px 30px 26px;box-shadow:0 1px 2px #00325c0a,0 10px 28px #00325c12;
-  display:flex;flex-direction:column;gap:14px}
-.hm-fq-q{color:var(--ink);font-size:17px;line-height:1.68;margin:0}
-.hm-fq-n{color:var(--dark-blue);font-weight:800;font-size:14.5px}
-.hm-fq-r{color:var(--muted);font-size:13px;margin-top:-10px}
-.hm-fq-who{display:flex;align-items:center;gap:14px;margin-top:auto;padding-top:4px}
-.hm-fq-face{width:54px;height:54px;border-radius:50%;object-fit:cover;object-position:50% 22%;flex:none;
-  box-shadow:0 0 0 3px #fff,0 0 0 4px #00325c1f}
-.hm-fq-who .hm-fq-r{margin-top:1px}
-.hm-fq.big{grid-column:1/-1;background:var(--light-blue);flex-direction:row;gap:0;padding:0;overflow:hidden;
-  box-shadow:0 1px 2px #00325c0a,0 10px 28px #00325c12}
-.hm-fq.big .hm-fq-hero{width:38%;flex:none;align-self:stretch;object-fit:cover;object-position:50% 28%;display:block}
-.hm-fq.big .hm-fq-inner{padding:34px 38px;display:flex;flex-direction:column;gap:12px;justify-content:center}
-.hm-fq.big .hm-fq-q{color:var(--dark-blue);font-size:clamp(20px,2.2vw,29px);line-height:1.42;
-  font-family:var(--brand-display);margin:0}
-.hm-fq.big .hm-fq-q mark{background:var(--cta-yellow);color:var(--dark-blue);border-radius:4px;
-  padding:0 .14em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
-.hm-fq.big .hm-fq-n{color:var(--dark-blue)} .hm-fq.big .hm-fq-r{color:var(--muted);margin-top:-8px}
+/* ---------- darren hardy band ---------- */
+.dh-band{display:grid;grid-template-columns:1fr 1fr;align-items:stretch;background:#fff;
+  font-family:var(--brand-sans)}
+.dh-art{position:relative;overflow:hidden;min-height:560px}
+.dh-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  object-position:50% 24%;display:block}
+.dh-copy{display:flex;align-items:center;
+  padding:96px max(26px,calc((100vw - var(--container-max))/2)) 104px 60px}
+.dh-inner{display:flex;flex-direction:column;gap:14px}
+.dh-q{color:var(--dark-blue);font-family:var(--brand-display);font-weight:400;
+  font-size:clamp(23px,2.9vw,37px);line-height:1.3;letter-spacing:-.014em;margin:0;text-wrap:pretty}
+.dh-q mark{background:var(--cta-yellow);color:var(--dark-blue);border-radius:4px;padding:0 .14em;
+  box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.dh-name{color:var(--dark-blue);font-weight:800;font-size:15px;margin-top:6px}
+.dh-role{color:var(--muted);font-size:13.5px;line-height:1.5;max-width:46ch}
 /* ---------- two-up cards ---------- */
 .hm-two{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:8px}
 .hm-card{background:#fff;border-radius:4px;overflow:hidden;box-shadow:0 1px 2px #00325c0a,0 10px 28px #00325c12;
@@ -171,11 +172,11 @@ body{margin:0;background:#fff}
  .hm-book{width:100%;margin-left:0}
  .hm-roll-grid{grid-template-columns:1fr} .hm-roll{height:520px}
  .hm-two{grid-template-columns:1fr}
+ .dh-band{grid-template-columns:1fr}
+ .dh-art{min-height:0;aspect-ratio:16/10}
+ .dh-copy{padding:60px 26px 68px}
  .tb-wrap{grid-template-columns:1fr;gap:40px}
  .tb-h br{display:none}
- .hm-fq.big{flex-direction:column}
- .hm-fq.big .hm-fq-hero{width:100%;height:300px;align-self:auto}
- .hm-fq.big .hm-fq-inner{padding:28px 30px 32px}
  .pr-grid{grid-template-columns:1fr 1fr}
  .cta-two{grid-template-columns:1fr;row-gap:32px;text-align:center}
  .cta-two .hm-p{margin-left:auto;margin-right:auto}
@@ -202,7 +203,7 @@ body{margin:0;background:#fff}
   </div>
   <div>
    <div class="hm-eyebrow">By Missy Moss Wright</div>
-   <h1 class="hm-h1">The hard miles don&rsquo;t break you. <br><mark>They build you.</mark></h1>
+   <h1 class="hm-h1">The hard miles don&rsquo;t break you. <br>They <mark>build you.</mark></h1>
    <p class="hm-lede">26.2 principles for whatever life throws at you. One chapter for every mile
     of the marathon that changed everything.</p>
    <div class="hm-cta-row">
@@ -265,44 +266,18 @@ body{margin:0;background:#fff}
  </div>
 </section>
 
-<!-- ============ FEATURED ENDORSEMENTS ============ -->
-<section class="hm-s">
- <div class="hm-in">
-  <div class="hm-kick">What readers found in the miles</div>
-  <h2 class="hm-h2">They came out the other side different.</h2>
-  <p class="hm-p">Coaches, physicians, founders, and parents. Here is what the miles did to them.</p>
-  <div class="hm-feat">
-   <div class="hm-fq big">
-    <img class="hm-fq-hero" src="assets/dh-missy.webp" alt="Darren Hardy with Missy Moss Wright" loading="lazy" decoding="async">
-    <div class="hm-fq-inner">
-     <p class="hm-fq-q">&ldquo;This book transforms your toughest challenges into proof that you&rsquo;re
-      not just resilient. You&rsquo;re <mark>truly unbreakable</mark>, no matter what life throws at you.&rdquo;</p>
-     <div class="hm-fq-n">Darren Hardy</div>
-     <div class="hm-fq-r">Former publisher of SUCCESS magazine, New York Times &amp; Wall Street
-      Journal Best-Selling Author</div>
-    </div>
-   </div>
-   <div class="hm-fq">
-    <p class="hm-fq-q">&ldquo;From the first chapter, I was captivated. Missy&rsquo;s words reached places in me I didn&rsquo;t know needed healing. This book is a sacred mirror and a ministry of hope.&rdquo;</p>
-    <div class="hm-fq-who">
-     <img class="hm-fq-face" src="assets/602ab4a3_3ed1bfb49a97f6727b43ac661d53edd6ab68e859.webp" alt="Dr. Kristi Lopez" loading="lazy" decoding="async">
-     <div><div class="hm-fq-n">Dr. Kristi Lopez</div><div class="hm-fq-r">Gastroenterologist</div></div>
-    </div>
-   </div>
-   <div class="hm-fq">
-    <p class="hm-fq-q">&ldquo;A beautifully raw and inspiring read. Unbreakable Sole moved me to reflect, cry, and hope. It was so good, I read each chapter twice.&rdquo;</p>
-    <div class="hm-fq-who">
-     <img class="hm-fq-face" src="assets/e034613b_7043badd31c3f09a3dfd7223cabff75e40b7ad69.webp" alt="Gini Williams" loading="lazy" decoding="async">
-     <div><div class="hm-fq-n">Gini Williams</div><div class="hm-fq-r">Property Manager</div></div>
-    </div>
-   </div>
-   <div class="hm-fq">
-    <p class="hm-fq-q">&ldquo;Missy&rsquo;s story takes you from the basement to the rooftop&mdash;raw, real, and unfiltered. This isn&rsquo;t just a book you read, it&rsquo;s a journey you take.&rdquo;</p>
-    <div class="hm-fq-who">
-     <img class="hm-fq-face" src="assets/7344228b_b142f3f074d9eac42f17cc08d97eec0af875606d.webp" alt="Dave Koepsell" loading="lazy" decoding="async">
-     <div><div class="hm-fq-n">Dave Koepsell</div><div class="hm-fq-r">Franchise Owner of Chick-fil-A</div></div>
-    </div>
-   </div>
+<!-- ============ DARREN HARDY ============ -->
+<section class="dh-band">
+ <div class="dh-art">
+  <img src="assets/dh-missy.webp" alt="Darren Hardy with Missy Moss Wright" loading="lazy" decoding="async">
+ </div>
+ <div class="dh-copy">
+  <div class="dh-inner">
+   <p class="dh-q">&ldquo;This book transforms your toughest challenges into proof that you&rsquo;re
+    not just resilient. You&rsquo;re <mark>truly unbreakable</mark>, no matter what life throws at you.&rdquo;</p>
+   <div class="dh-name">Darren Hardy</div>
+   <div class="dh-role">Former publisher of SUCCESS magazine, New York Times &amp; Wall Street
+    Journal Best-Selling Author</div>
   </div>
  </div>
 </section>
