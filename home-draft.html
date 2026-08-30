@@ -31,6 +31,12 @@ body{margin:0;background:#fff}
 .hm-book-wrap{position:relative}
 .hm-book{width:124%;max-width:none;margin-left:-14%;height:auto;display:block;
   filter:drop-shadow(0 34px 68px #00325c33)}
+.hm-badge{position:absolute;left:-4%;bottom:3%;z-index:2;background:#fff;border-radius:4px;
+  padding:14px 20px 15px;text-align:center;box-shadow:0 2px 6px #00325c1a,0 16px 38px #00325c2e}
+.hm-badge-stars{display:block;width:84px;height:17px;margin:0 auto 7px;
+  background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2024%22%20fill%3D%22%23ffdd60%22%3E%3Cpath%20transform%3D%22translate%280%200%29%22%20d%3D%22M12%201.6l3.2%206.5%207.2%201-5.2%205.1%201.2%207.2L12%2018l-6.4%203.4%201.2-7.2L1.6%209.1l7.2-1z%22%2F%3E%3Cpath%20transform%3D%22translate%2824%200%29%22%20d%3D%22M12%201.6l3.2%206.5%207.2%201-5.2%205.1%201.2%207.2L12%2018l-6.4%203.4%201.2-7.2L1.6%209.1l7.2-1z%22%2F%3E%3Cpath%20transform%3D%22translate%2848%200%29%22%20d%3D%22M12%201.6l3.2%206.5%207.2%201-5.2%205.1%201.2%207.2L12%2018l-6.4%203.4%201.2-7.2L1.6%209.1l7.2-1z%22%2F%3E%3Cpath%20transform%3D%22translate%2872%200%29%22%20d%3D%22M12%201.6l3.2%206.5%207.2%201-5.2%205.1%201.2%207.2L12%2018l-6.4%203.4%201.2-7.2L1.6%209.1l7.2-1z%22%2F%3E%3Cpath%20transform%3D%22translate%2896%200%29%22%20d%3D%22M12%201.6l3.2%206.5%207.2%201-5.2%205.1%201.2%207.2L12%2018l-6.4%203.4%201.2-7.2L1.6%209.1l7.2-1z%22%2F%3E%3C%2Fsvg%3E") no-repeat center/contain}
+.hm-badge-t{display:block;color:var(--dark-blue);font-weight:800;font-size:13px;line-height:1.35;
+  letter-spacing:.03em;text-transform:uppercase}
 .hm-eyebrow{color:var(--medium-blue);letter-spacing:.2em;text-transform:uppercase;font-size:12.5px;font-weight:700;margin-bottom:16px}
 .hm-h1{font-family:var(--brand-display);color:var(--dark-blue);font-weight:400;line-height:1.06em;
   /* Capped at 62 so the headline holds three lines with "build you." unbroken in
@@ -41,7 +47,8 @@ body{margin:0;background:#fff}
 .hm-lede{color:var(--ink);font-size:20px;line-height:1.6;max-width:44ch;margin:0 0 34px;text-wrap:pretty}
 .hm-cta-row{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
 .hm-buy{display:inline-flex;align-items:center;gap:10px;background:var(--cta-yellow);color:var(--dark-blue);
-  font-weight:800;font-size:17px;letter-spacing:.01em;padding:19px 34px;border-radius:4px;text-decoration:none;
+  font-weight:800;font-size:16px;letter-spacing:.06em;text-transform:uppercase;
+  padding:19px 32px;border-radius:4px;text-decoration:none;
   box-shadow:0 8px 22px #00325c26;transition:transform .18s ease,box-shadow .18s ease}
 .hm-buy:hover{transform:translateY(-2px);box-shadow:0 12px 30px #00325c33}
 .hm-fine{color:var(--muted);font-size:14.5px;margin:20px 0 0}
@@ -180,6 +187,8 @@ body{margin:0;background:#fff}
  .hm-hero-grid{grid-template-columns:1fr;row-gap:30px}
  .hm-book-wrap{margin:0;order:-1}
  .hm-book{width:100%;margin-left:0}
+ .hm-badge{left:0;bottom:2%;padding:11px 15px 12px}
+ .hm-badge-stars{width:70px;height:14px;margin-bottom:5px} .hm-badge-t{font-size:11.5px}
  .hm-roll-grid{grid-template-columns:1fr} .hm-roll{height:520px}
  .hm-two{grid-template-columns:1fr}
  .dh-band{grid-template-columns:1fr}
@@ -204,11 +213,15 @@ body{margin:0;background:#fff}
 </head><body>
 
 <!-- ============ HERO ============ -->
-<div class="hm-acc"><div class="hm-acc-track"><span class="hm-acc-i"><b>&ldquo;Soul hydration.&rdquo;</b> Jessica Fairbanks</span><span class="hm-acc-i"><b>&ldquo;Raw, real, and unfiltered.&rdquo;</b> Dave Koepsell</span><span class="hm-acc-i"><b>&ldquo;A sacred mirror.&rdquo;</b> Dr. Kristi Lopez</span><span class="hm-acc-i"><b>&ldquo;Grit and grace.&rdquo;</b> Dr. Jack Ward</span><span class="hm-acc-i"><b>&ldquo;This book changed me.&rdquo;</b> David I. Green</span><span class="hm-acc-i"><b>&ldquo;A pilgrimage of the heart.&rdquo;</b> Elo Jones</span><span class="hm-acc-i"><b>&ldquo;Heartwarming and heartwrenching.&rdquo;</b> George Contos</span><span class="hm-acc-i"><b>&ldquo;Beautifully raw.&rdquo;</b> Gini Williams</span><span class="hm-acc-i"><b>&ldquo;A definite must-read.&rdquo;</b> Michael Fife</span><span class="hm-acc-i"><b>&ldquo;Sacred teachers.&rdquo;</b> Tara Lawallan</span><span class="hm-acc-i"><b>&ldquo;Soul hydration.&rdquo;</b> Jessica Fairbanks</span><span class="hm-acc-i"><b>&ldquo;Raw, real, and unfiltered.&rdquo;</b> Dave Koepsell</span><span class="hm-acc-i"><b>&ldquo;A sacred mirror.&rdquo;</b> Dr. Kristi Lopez</span><span class="hm-acc-i"><b>&ldquo;Grit and grace.&rdquo;</b> Dr. Jack Ward</span><span class="hm-acc-i"><b>&ldquo;This book changed me.&rdquo;</b> David I. Green</span><span class="hm-acc-i"><b>&ldquo;A pilgrimage of the heart.&rdquo;</b> Elo Jones</span><span class="hm-acc-i"><b>&ldquo;Heartwarming and heartwrenching.&rdquo;</b> George Contos</span><span class="hm-acc-i"><b>&ldquo;Beautifully raw.&rdquo;</b> Gini Williams</span><span class="hm-acc-i"><b>&ldquo;A definite must-read.&rdquo;</b> Michael Fife</span><span class="hm-acc-i"><b>&ldquo;Sacred teachers.&rdquo;</b> Tara Lawallan</span></div></div>
+<div class="hm-acc"><div class="hm-acc-track"><span class="hm-acc-i"><b>&ldquo;Soul hydration.&rdquo;</b> Jessica Fairbanks</span><span class="hm-acc-i"><b>&ldquo;Raw, real, and unfiltered.&rdquo;</b> Dave Koepsell</span><span class="hm-acc-i"><b>&ldquo;It made me feel seen.&rdquo;</b> Maureen Holland</span><span class="hm-acc-i"><b>&ldquo;A sacred mirror.&rdquo;</b> Dr. Kristi Lopez</span><span class="hm-acc-i"><b>&ldquo;Hit me squared in the heart.&rdquo;</b> Olga Gonzalez</span><span class="hm-acc-i"><b>&ldquo;Grit and grace.&rdquo;</b> Dr. Jack Ward</span><span class="hm-acc-i"><b>&ldquo;A beauty and grace I&rsquo;ve never seen.&rdquo;</b> Holly Nye</span><span class="hm-acc-i"><b>&ldquo;A pilgrimage of the heart.&rdquo;</b> Elo Jones</span><span class="hm-acc-i"><b>&ldquo;This book changed me.&rdquo;</b> David I. Green</span><span class="hm-acc-i"><b>&ldquo;It captures your heart.&rdquo;</b> Dinorah Livingston</span><span class="hm-acc-i"><b>&ldquo;Beautifully raw.&rdquo;</b> Gini Williams</span><span class="hm-acc-i"><b>&ldquo;Holding my breath.&rdquo;</b> Nikki Barratt</span><span class="hm-acc-i"><b>&ldquo;A powerful story of hope.&rdquo;</b> Pamela Nelson</span><span class="hm-acc-i"><b>&ldquo;Heartwarming and heartwrenching.&rdquo;</b> George Contos</span><span class="hm-acc-i"><b>&ldquo;Wear them with pride.&rdquo;</b> Evelyn Opony</span><span class="hm-acc-i"><b>&ldquo;Sacred teachers.&rdquo;</b> Tara Lawallan</span><span class="hm-acc-i"><b>&ldquo;Soul hydration.&rdquo;</b> Jessica Fairbanks</span><span class="hm-acc-i"><b>&ldquo;Raw, real, and unfiltered.&rdquo;</b> Dave Koepsell</span><span class="hm-acc-i"><b>&ldquo;It made me feel seen.&rdquo;</b> Maureen Holland</span><span class="hm-acc-i"><b>&ldquo;A sacred mirror.&rdquo;</b> Dr. Kristi Lopez</span><span class="hm-acc-i"><b>&ldquo;Hit me squared in the heart.&rdquo;</b> Olga Gonzalez</span><span class="hm-acc-i"><b>&ldquo;Grit and grace.&rdquo;</b> Dr. Jack Ward</span><span class="hm-acc-i"><b>&ldquo;A beauty and grace I&rsquo;ve never seen.&rdquo;</b> Holly Nye</span><span class="hm-acc-i"><b>&ldquo;A pilgrimage of the heart.&rdquo;</b> Elo Jones</span><span class="hm-acc-i"><b>&ldquo;This book changed me.&rdquo;</b> David I. Green</span><span class="hm-acc-i"><b>&ldquo;It captures your heart.&rdquo;</b> Dinorah Livingston</span><span class="hm-acc-i"><b>&ldquo;Beautifully raw.&rdquo;</b> Gini Williams</span><span class="hm-acc-i"><b>&ldquo;Holding my breath.&rdquo;</b> Nikki Barratt</span><span class="hm-acc-i"><b>&ldquo;A powerful story of hope.&rdquo;</b> Pamela Nelson</span><span class="hm-acc-i"><b>&ldquo;Heartwarming and heartwrenching.&rdquo;</b> George Contos</span><span class="hm-acc-i"><b>&ldquo;Wear them with pride.&rdquo;</b> Evelyn Opony</span><span class="hm-acc-i"><b>&ldquo;Sacred teachers.&rdquo;</b> Tara Lawallan</span></div></div>
 
 <section class="hm-hero">
  <div class="hm-hero-grid">
   <div class="hm-book-wrap">
+   <div class="hm-badge">
+    <span class="hm-badge-stars" aria-hidden="true"></span>
+    <span class="hm-badge-t">Loved by<br>early readers</span>
+   </div>
    <img class="hm-book" src="https://cdn.prod.website-files.com/6a7cb5226941c3869a8b1f52/6a84ea7678518ed4dc932562_book-phone-real.webp"
     alt="Unbreakable Sole hardcover beside the audiobook playing on a phone" fetchpriority="high">
   </div>
@@ -218,8 +231,7 @@ body{margin:0;background:#fff}
    <p class="hm-lede">26.2 principles for whatever life throws at you. One chapter for every mile
     of the marathon that changed everything.</p>
    <div class="hm-cta-row">
-    <a class="hm-buy" href="https://secure.darrenhardy.com/checkout/unbreakable-sole">Get the book &rarr;</a>
-    <a class="vid-secondary" href="#the-book">See what is inside</a>
+    <a class="hm-buy" href="https://secure.darrenhardy.com/checkout/unbreakable-sole">Get the book + audiobook &rarr;</a>
    </div>
    <p class="hm-fine"><b>Every hardcover includes the complete audiobook, free.</b><br>
     Only here. You can start listening the moment you order.</p>
@@ -230,7 +242,7 @@ body{margin:0;background:#fff}
 <!-- ============ VIDEO ============ -->
 <section class="hm-s">
  <div class="hm-in" style="max-width:900px">
-  <div class="hm-kick" style="text-align:center">Ninety seconds on the road</div>
+  <div class="hm-kick" style="text-align:center">Your path</div>
   <h2 class="hm-h2" style="text-align:center;margin-bottom:34px">Sometimes it is hard to see where the road is taking you.</h2>
   <div class="hm-vid" id="hmvid">
    <video preload="none" playsinline controls poster="assets/us_website_video_poster.webp">
