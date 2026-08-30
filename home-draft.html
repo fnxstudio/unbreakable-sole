@@ -7,18 +7,6 @@
 <style>
 body{margin:0;background:#fff}
 /* ---------- hero ---------- */
-.hm-acc{position:relative;overflow:hidden;background:#fff;border-bottom:1px solid #00325c14;padding:18px 0;
-  -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
-  mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
-.hm-acc-track{display:flex;width:max-content;animation:hm-roll 68s linear infinite}
-@keyframes hm-roll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.hm-acc-i{display:inline-flex;align-items:center;gap:9px;padding:0 34px;white-space:nowrap;
-  font-size:15px;color:var(--muted);border-right:1px solid #00325c1a}
-.hm-acc-i::before{content:"";flex:none;width:70px;height:14px;
-  background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2024%22%20fill%3D%22%23ffdd60%22%3E%3Cpath%20transform%3D%22translate%280%200%29%22%20d%3D%22M12%201.6l3.2%206.5%207.2%201-5.2%205.1%201.2%207.2L12%2018l-6.4%203.4%201.2-7.2L1.6%209.1l7.2-1z%22%2F%3E%3Cpath%20transform%3D%22translate%2824%200%29%22%20d%3D%22M12%201.6l3.2%206.5%207.2%201-5.2%205.1%201.2%207.2L12%2018l-6.4%203.4%201.2-7.2L1.6%209.1l7.2-1z%22%2F%3E%3Cpath%20transform%3D%22translate%2848%200%29%22%20d%3D%22M12%201.6l3.2%206.5%207.2%201-5.2%205.1%201.2%207.2L12%2018l-6.4%203.4%201.2-7.2L1.6%209.1l7.2-1z%22%2F%3E%3Cpath%20transform%3D%22translate%2872%200%29%22%20d%3D%22M12%201.6l3.2%206.5%207.2%201-5.2%205.1%201.2%207.2L12%2018l-6.4%203.4%201.2-7.2L1.6%209.1l7.2-1z%22%2F%3E%3Cpath%20transform%3D%22translate%2896%200%29%22%20d%3D%22M12%201.6l3.2%206.5%207.2%201-5.2%205.1%201.2%207.2L12%2018l-6.4%203.4%201.2-7.2L1.6%209.1l7.2-1z%22%2F%3E%3C%2Fsvg%3E") no-repeat center/contain}
-.hm-acc-i b{color:var(--dark-blue);font-weight:800}
-@media (prefers-reduced-motion:reduce){.hm-acc-track{animation:none}}
-
 .hm-hero{background-color:var(--sky-tint);font-family:var(--brand-sans);overflow:hidden;
   padding:132px 26px 104px;display:flex;align-items:center;
   /* The sky deepens into blue at the bottom rather than washing out, so the hero
@@ -31,12 +19,21 @@ body{margin:0;background:#fff}
 .hm-book-wrap{position:relative}
 .hm-book{width:124%;max-width:none;margin-left:-14%;height:auto;display:block;
   filter:drop-shadow(0 34px 68px #00325c33)}
-.hm-badge{position:absolute;left:-4%;bottom:3%;z-index:2;background:#fff;border-radius:4px;
-  padding:14px 20px 15px;text-align:center;box-shadow:0 2px 6px #00325c1a,0 16px 38px #00325c2e}
+/* Clears "MISSY MOSS WRIGHT" on the cover, which sits at x .21-.51 / y .79-.87
+   of the art; the card hangs off the bottom-left corner instead. */
+.hm-badge{position:absolute;left:-13%;bottom:-16%;z-index:2;width:232px;background:#fff;border-radius:4px;
+  padding:16px 18px 18px;text-align:center;box-shadow:0 2px 6px #00325c1a,0 16px 38px #00325c2e}
 .hm-badge-stars{display:block;width:84px;height:17px;margin:0 auto 7px;
   background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2024%22%20fill%3D%22%23ffdd60%22%3E%3Cpath%20transform%3D%22translate%280%200%29%22%20d%3D%22M12%201.6l3.2%206.5%207.2%201-5.2%205.1%201.2%207.2L12%2018l-6.4%203.4%201.2-7.2L1.6%209.1l7.2-1z%22%2F%3E%3Cpath%20transform%3D%22translate%2824%200%29%22%20d%3D%22M12%201.6l3.2%206.5%207.2%201-5.2%205.1%201.2%207.2L12%2018l-6.4%203.4%201.2-7.2L1.6%209.1l7.2-1z%22%2F%3E%3Cpath%20transform%3D%22translate%2848%200%29%22%20d%3D%22M12%201.6l3.2%206.5%207.2%201-5.2%205.1%201.2%207.2L12%2018l-6.4%203.4%201.2-7.2L1.6%209.1l7.2-1z%22%2F%3E%3Cpath%20transform%3D%22translate%2872%200%29%22%20d%3D%22M12%201.6l3.2%206.5%207.2%201-5.2%205.1%201.2%207.2L12%2018l-6.4%203.4%201.2-7.2L1.6%209.1l7.2-1z%22%2F%3E%3Cpath%20transform%3D%22translate%2896%200%29%22%20d%3D%22M12%201.6l3.2%206.5%207.2%201-5.2%205.1%201.2%207.2L12%2018l-6.4%203.4%201.2-7.2L1.6%209.1l7.2-1z%22%2F%3E%3C%2Fsvg%3E") no-repeat center/contain}
-.hm-badge-t{display:block;color:var(--dark-blue);font-weight:800;font-size:13px;line-height:1.35;
-  letter-spacing:.03em;text-transform:uppercase}
+/* Fixed height so the card never resizes as the quotes rotate through it. */
+.hm-badge-slot{position:relative;height:66px}
+.hm-bq{position:absolute;inset:0;margin:0;display:flex;flex-direction:column;justify-content:center;
+  gap:5px;opacity:0;transition:opacity .55s ease}
+.hm-bq.is-on{opacity:1}
+.hm-bq p{margin:0;color:var(--dark-blue);font-weight:800;font-size:14.5px;line-height:1.32;
+  letter-spacing:-.005em}
+.hm-bq figcaption{color:var(--muted);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase}
+@media (prefers-reduced-motion:reduce){.hm-bq{transition:none}}
 .hm-eyebrow{color:var(--medium-blue);letter-spacing:.2em;text-transform:uppercase;font-size:12.5px;font-weight:700;margin-bottom:16px}
 .hm-h1{font-family:var(--brand-display);color:var(--dark-blue);font-weight:400;line-height:1.06em;
   /* Capped at 62 so the headline holds three lines with "build you." unbroken in
@@ -85,12 +82,12 @@ body{margin:0;background:#fff}
 /* Hand the quote more of the band than the stock split gives it, so it can carry
    the larger size without breaking its line structure. Desktop only — below this
    the site's own stylesheet stacks the band and must win. */
-@media (min-width:992px){.res-band-inner{grid-template-columns:.76fr 1.24fr}}
-/* Stacked, the quote should lead and Missy should close the band. */
-@media (max-width:991px){
- .res-band-inner > *:first-child{order:2}
- .res-band-inner > *:last-child{order:1;padding-bottom:34px !important}
-}
+/* The quote leads and Missy closes the band at every width: she sits on the right
+   on desktop and below the quote once it stacks. */
+.res-band-inner > *:first-child{order:2}
+.res-band-inner > *:last-child{order:1}
+@media (min-width:992px){.res-band-inner{grid-template-columns:1.24fr .76fr}}
+@media (max-width:991px){.res-band-inner > *:last-child{padding-bottom:34px !important}}
 .rb-q mark{background:var(--cta-yellow);color:var(--dark-blue);border-radius:4px;padding:.02em .14em;
   box-decoration-break:clone;-webkit-box-decoration-break:clone}
 /* ---------- the book: what it teaches ---------- */
@@ -117,9 +114,6 @@ body{margin:0;background:#fff}
 /* These three are shot turned away from the quote that sits to their right;
    mirroring turns them back into it. */
 .rq-flip{transform:scaleX(-1)}
-.rq-mono{background:var(--light-blue);border:1px solid #00325c1a;color:var(--dark-blue);
-  display:grid;place-items:center;font-weight:800;font-size:27px;letter-spacing:.02em;
-  width:96px;height:120px;border-radius:4px;flex:none;box-sizing:border-box}
 .rq-quote mark{background:linear-gradient(transparent 12%,var(--cta-yellow) 12%,var(--cta-yellow) 92%,transparent 92%);
   color:inherit;padding:0 .12em;border-radius:2px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 .hm-roll-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px 52px}
@@ -187,8 +181,9 @@ body{margin:0;background:#fff}
  .hm-hero-grid{grid-template-columns:1fr;row-gap:30px}
  .hm-book-wrap{margin:0;order:-1}
  .hm-book{width:100%;margin-left:0}
- .hm-badge{left:0;bottom:2%;padding:11px 15px 12px}
- .hm-badge-stars{width:70px;height:14px;margin-bottom:5px} .hm-badge-t{font-size:11.5px}
+ .hm-badge{left:0;bottom:-3%;width:206px;padding:13px 15px 15px}
+ .hm-badge-stars{width:70px;height:14px;margin-bottom:6px}
+ .hm-badge-slot{height:62px} .hm-bq p{font-size:13.5px}
  .hm-roll-grid{grid-template-columns:1fr} .hm-roll{height:520px}
  .hm-two{grid-template-columns:1fr}
  .dh-band{grid-template-columns:1fr}
@@ -206,21 +201,35 @@ body{margin:0;background:#fff}
  .rq-face{width:76px;height:95px}
  .tb-list{grid-template-columns:1fr;grid-template-rows:none;grid-auto-flow:row;gap:22px}
  .tb-num{width:34px;height:34px;font-size:14px} .tb-t{font-size:17px}
- .rq-mono{width:76px;height:95px;font-size:22px}
  .pr-grid{grid-template-columns:1fr}
 }
 </style>
 </head><body>
 
 <!-- ============ HERO ============ -->
-<div class="hm-acc"><div class="hm-acc-track"><span class="hm-acc-i"><b>&ldquo;Soul hydration.&rdquo;</b> Jessica Fairbanks</span><span class="hm-acc-i"><b>&ldquo;Raw, real, and unfiltered.&rdquo;</b> Dave Koepsell</span><span class="hm-acc-i"><b>&ldquo;It made me feel seen.&rdquo;</b> Maureen Holland</span><span class="hm-acc-i"><b>&ldquo;A sacred mirror.&rdquo;</b> Dr. Kristi Lopez</span><span class="hm-acc-i"><b>&ldquo;Hit me squared in the heart.&rdquo;</b> Olga Gonzalez</span><span class="hm-acc-i"><b>&ldquo;Grit and grace.&rdquo;</b> Dr. Jack Ward</span><span class="hm-acc-i"><b>&ldquo;A beauty and grace I&rsquo;ve never seen.&rdquo;</b> Holly Nye</span><span class="hm-acc-i"><b>&ldquo;A pilgrimage of the heart.&rdquo;</b> Elo Jones</span><span class="hm-acc-i"><b>&ldquo;This book changed me.&rdquo;</b> David I. Green</span><span class="hm-acc-i"><b>&ldquo;It captures your heart.&rdquo;</b> Dinorah Livingston</span><span class="hm-acc-i"><b>&ldquo;Beautifully raw.&rdquo;</b> Gini Williams</span><span class="hm-acc-i"><b>&ldquo;Holding my breath.&rdquo;</b> Nikki Barratt</span><span class="hm-acc-i"><b>&ldquo;A powerful story of hope.&rdquo;</b> Pamela Nelson</span><span class="hm-acc-i"><b>&ldquo;Heartwarming and heartwrenching.&rdquo;</b> George Contos</span><span class="hm-acc-i"><b>&ldquo;Wear them with pride.&rdquo;</b> Evelyn Opony</span><span class="hm-acc-i"><b>&ldquo;Sacred teachers.&rdquo;</b> Tara Lawallan</span><span class="hm-acc-i"><b>&ldquo;Soul hydration.&rdquo;</b> Jessica Fairbanks</span><span class="hm-acc-i"><b>&ldquo;Raw, real, and unfiltered.&rdquo;</b> Dave Koepsell</span><span class="hm-acc-i"><b>&ldquo;It made me feel seen.&rdquo;</b> Maureen Holland</span><span class="hm-acc-i"><b>&ldquo;A sacred mirror.&rdquo;</b> Dr. Kristi Lopez</span><span class="hm-acc-i"><b>&ldquo;Hit me squared in the heart.&rdquo;</b> Olga Gonzalez</span><span class="hm-acc-i"><b>&ldquo;Grit and grace.&rdquo;</b> Dr. Jack Ward</span><span class="hm-acc-i"><b>&ldquo;A beauty and grace I&rsquo;ve never seen.&rdquo;</b> Holly Nye</span><span class="hm-acc-i"><b>&ldquo;A pilgrimage of the heart.&rdquo;</b> Elo Jones</span><span class="hm-acc-i"><b>&ldquo;This book changed me.&rdquo;</b> David I. Green</span><span class="hm-acc-i"><b>&ldquo;It captures your heart.&rdquo;</b> Dinorah Livingston</span><span class="hm-acc-i"><b>&ldquo;Beautifully raw.&rdquo;</b> Gini Williams</span><span class="hm-acc-i"><b>&ldquo;Holding my breath.&rdquo;</b> Nikki Barratt</span><span class="hm-acc-i"><b>&ldquo;A powerful story of hope.&rdquo;</b> Pamela Nelson</span><span class="hm-acc-i"><b>&ldquo;Heartwarming and heartwrenching.&rdquo;</b> George Contos</span><span class="hm-acc-i"><b>&ldquo;Wear them with pride.&rdquo;</b> Evelyn Opony</span><span class="hm-acc-i"><b>&ldquo;Sacred teachers.&rdquo;</b> Tara Lawallan</span></div></div>
 
 <section class="hm-hero">
  <div class="hm-hero-grid">
   <div class="hm-book-wrap">
    <div class="hm-badge">
     <span class="hm-badge-stars" aria-hidden="true"></span>
-    <span class="hm-badge-t">Loved by<br>early readers</span>
+    <div class="hm-badge-slot" id="hmbq">
+     <figure class="hm-bq is-on"><p>&ldquo;Soul hydration.&rdquo;</p><figcaption>Jessica Fairbanks</figcaption></figure>
+     <figure class="hm-bq"><p>&ldquo;Raw, real, and unfiltered.&rdquo;</p><figcaption>Dave Koepsell</figcaption></figure>
+     <figure class="hm-bq"><p>&ldquo;It made me feel seen.&rdquo;</p><figcaption>Maureen Holland</figcaption></figure>
+     <figure class="hm-bq"><p>&ldquo;A sacred mirror.&rdquo;</p><figcaption>Dr. Kristi Lopez</figcaption></figure>
+     <figure class="hm-bq"><p>&ldquo;Hit me squared in the heart.&rdquo;</p><figcaption>Olga Gonzalez</figcaption></figure>
+     <figure class="hm-bq"><p>&ldquo;Grit and grace.&rdquo;</p><figcaption>Dr. Jack Ward</figcaption></figure>
+     <figure class="hm-bq"><p>&ldquo;A beauty and grace.&rdquo;</p><figcaption>Holly Nye</figcaption></figure>
+     <figure class="hm-bq"><p>&ldquo;A pilgrimage of the heart.&rdquo;</p><figcaption>Elo Jones</figcaption></figure>
+     <figure class="hm-bq"><p>&ldquo;This book changed me.&rdquo;</p><figcaption>David I. Green</figcaption></figure>
+     <figure class="hm-bq"><p>&ldquo;It captures your heart.&rdquo;</p><figcaption>Dinorah Livingston</figcaption></figure>
+     <figure class="hm-bq"><p>&ldquo;Beautifully raw.&rdquo;</p><figcaption>Gini Williams</figcaption></figure>
+     <figure class="hm-bq"><p>&ldquo;Holding my breath.&rdquo;</p><figcaption>Nikki Barratt</figcaption></figure>
+     <figure class="hm-bq"><p>&ldquo;A powerful story of hope.&rdquo;</p><figcaption>Pamela Nelson</figcaption></figure>
+     <figure class="hm-bq"><p>&ldquo;Wear them with pride.&rdquo;</p><figcaption>Evelyn Opony</figcaption></figure>
+     <figure class="hm-bq"><p>&ldquo;Sacred teachers.&rdquo;</p><figcaption>Tara Lawallan</figcaption></figure>
+    </div>
    </div>
    <img class="hm-book" src="https://cdn.prod.website-files.com/6a7cb5226941c3869a8b1f52/6a84ea7678518ed4dc932562_book-phone-real.webp"
     alt="Unbreakable Sole hardcover beside the audiobook playing on a phone" fetchpriority="high">
@@ -304,27 +313,11 @@ body{margin:0;background:#fff}
  </div>
 </div>
 <div class="rq-card">
- <span class="rq-face rq-mono" aria-hidden="true">DB</span>
- <div class="rq-body">
-  <p class="rq-quote">“Wow, Mile 4 hit me hard. <mark>I felt seen in a way I wasn’t expecting.</mark> A beautiful reminder that we are not defined by how we started, but by how we keep showing up, mile after mile.”</p>
-  <div class="rq-name">Dione Black</div>
-  <div class="rq-role">Reader, Mile 4</div>
- </div>
-</div>
-<div class="rq-card">
  <img class="rq-face" src="assets/9723de50_94ea232a6046b5defc91570ca4414c6af84c5c34.webp" alt="Cindy Santos-Mendoza" loading="lazy" decoding="async">
  <div class="rq-body">
   <p class="rq-quote">“This is a deeply personal kind of story. It stirs buried wounds, invites soul-searching, and gently asks, how do I heal, forgive, and grow? <mark>This book is a conversation with the parts of us we often silence.</mark>”</p>
   <div class="rq-name">Cindy Santos-Mendoza</div>
   <div class="rq-role">Insurance Solutions CEO</div>
- </div>
-</div>
-<div class="rq-card">
- <span class="rq-face rq-mono" aria-hidden="true">MN</span>
- <div class="rq-body">
-  <p class="rq-quote">“<mark>I felt every beat of your heart</mark>, of the tender love you felt. You found strength in what remained behind, and it led you to where you are today.”</p>
-  <div class="rq-name">Mindy North</div>
-  <div class="rq-role">Reader, Mile 7</div>
  </div>
 </div>
 <div class="rq-card">
@@ -336,27 +329,11 @@ body{margin:0;background:#fff}
  </div>
 </div>
 <div class="rq-card">
- <span class="rq-face rq-mono" aria-hidden="true">NB</span>
- <div class="rq-body">
-  <p class="rq-quote">“<mark>I feel like I read through Mile One holding my breath.</mark> I am very much looking forward to the next mile and this journey.”</p>
-  <div class="rq-name">Nikki Barratt</div>
-  <div class="rq-role">Reader, Mile 1</div>
- </div>
-</div>
-<div class="rq-card">
- <img class="rq-face" src="assets/4a86a85d_2ef9eca9c03ae437dde13cd15dff5a86b16d3e3a.webp" alt="Maureen Holland" loading="lazy" decoding="async">
+ <img class="rq-face rq-flip" src="assets/4a86a85d_2ef9eca9c03ae437dde13cd15dff5a86b16d3e3a.webp" alt="Maureen Holland" loading="lazy" decoding="async">
  <div class="rq-body">
   <p class="rq-quote">“Each chapter struck a deep chord, reminding me that while our paths differ, our struggles often echo. <mark>Missy’s honesty made me feel seen</mark>, and inspired me to face my own challenges with greater strength.”</p>
   <div class="rq-name">Maureen Holland</div>
   <div class="rq-role">Project Manager</div>
- </div>
-</div>
-<div class="rq-card">
- <span class="rq-face rq-mono" aria-hidden="true">OG</span>
- <div class="rq-body">
-  <p class="rq-quote">“Wow. <mark>This hit me squared in the heart.</mark> Lots to think about. Missy, this is the most impactful chapter for me thus far.”</p>
-  <div class="rq-name">Olga Gonzalez</div>
-  <div class="rq-role">Reader, Mile 22</div>
  </div>
 </div>
 <div class="rq-card">
@@ -376,14 +353,6 @@ body{margin:0;background:#fff}
  </div>
 </div>
 <div class="rq-card">
- <span class="rq-face rq-mono" aria-hidden="true">NC</span>
- <div class="rq-body">
-  <p class="rq-quote">“Thank you Missy. This Mile 6, <mark>right now I am sobbing</mark>. I am not alone. There’s a community that cares.”</p>
-  <div class="rq-name">Nanette Caldwell</div>
-  <div class="rq-role">Reader, Mile 6</div>
- </div>
-</div>
-<div class="rq-card">
  <img class="rq-face rq-flip" src="assets/9c468bcc_918f0e98cafdc02bd776e844fb64374209ad165f.webp" alt="Elo Jones" loading="lazy" decoding="async">
  <div class="rq-body">
   <p class="rq-quote">“This book is <mark>a pilgrimage of the heart</mark>, rich with faith, resilience, and raw emotion. Missy walks you through life’s sacred miles, and reveals the beauty that rises from them. Lace up, you’re in for something incredible.”</p>
@@ -392,27 +361,11 @@ body{margin:0;background:#fff}
  </div>
 </div>
 <div class="rq-card">
- <span class="rq-face rq-mono" aria-hidden="true">KJ</span>
- <div class="rq-body">
-  <p class="rq-quote">“<mark>My heart was with you the entire way</mark> as I walked Mile 11. How wonderful and beautiful that so many others’ lives were saved.”</p>
-  <div class="rq-name">Keri Jaehnig</div>
-  <div class="rq-role">Reader, Mile 11</div>
- </div>
-</div>
-<div class="rq-card">
  <img class="rq-face rq-flip" src="assets/b5a47b42_8b6dc8ce07fd8fcc28e45426343308045b6df297.webp" alt="Pamela Nelson" loading="lazy" decoding="async">
  <div class="rq-body">
   <p class="rq-quote">“The challenges Missy’s family has faced could’ve broken them. But through faith, strong relationships, and resilience, <mark>she delivers a powerful story of hope and endurance</mark>.”</p>
   <div class="rq-name">Pamela Nelson</div>
   <div class="rq-role">Financial Advisor</div>
- </div>
-</div>
-<div class="rq-card">
- <span class="rq-face rq-mono" aria-hidden="true">HB</span>
- <div class="rq-body">
-  <p class="rq-quote">“This is a chapter I will replay multiple times and need to come back to. <mark>The battle is real.</mark> Thank you, Missy.”</p>
-  <div class="rq-name">Heidi Preis Barry</div>
-  <div class="rq-role">Reader, Mile 12</div>
  </div>
 </div>
 <div class="rq-card">
@@ -432,14 +385,6 @@ body{margin:0;background:#fff}
  </div>
 </div>
 <div class="rq-card">
- <span class="rq-face rq-mono" aria-hidden="true">FM</span>
- <div class="rq-body">
-  <p class="rq-quote">“I love the faith and love you show through your words. Thank you for sharing that <mark>pain and despair don’t last forever</mark>, and they won’t break you as long as you hold on to hope.”</p>
-  <div class="rq-name">Flor Mazeda</div>
-  <div class="rq-role">Reader, Miles 1 and 2</div>
- </div>
-</div>
-<div class="rq-card">
  <img class="rq-face" src="assets/f3c84707_d07085fe26edf9fa28a7fdd051855faf32bee2cc.webp" alt="Tara Lawallan" loading="lazy" decoding="async">
  <div class="rq-body">
   <p class="rq-quote">“Through each mile, Missy reminds us that <mark>struggles aren’t setbacks, but sacred teachers</mark>, guided by God’s hand. This inspiring read is a powerful call to become the unbreakable souls we were created to be.”</p>
@@ -448,7 +393,7 @@ body{margin:0;background:#fff}
  </div>
 </div>
 <div class="rq-card">
- <img class="rq-face" src="assets/de97a26b_aee096679aff4d6de37b837ce66dc6e6cc53d7f6.webp" alt="Ray Koopman" loading="lazy" decoding="async">
+ <img class="rq-face rq-flip" src="assets/de97a26b_aee096679aff4d6de37b837ce66dc6e6cc53d7f6.webp" alt="Ray Koopman" loading="lazy" decoding="async">
  <div class="rq-body">
   <p class="rq-quote">“Missy’s heartfelt and heartbreaking stories gave me powerful perspective on my own. We often hide our struggles, but <mark>this book reminds us that adversity shapes us more than success ever will</mark>.”</p>
   <div class="rq-name">Ray Koopman</div>
@@ -466,8 +411,9 @@ body{margin:0;background:#fff}
  </div>
  <div class="dh-copy">
   <div class="dh-inner">
-   <p class="dh-q">&ldquo;This book transforms your toughest challenges into proof that you&rsquo;re
-    not just resilient. You&rsquo;re <mark>truly unbreakable</mark>, no matter what life throws at you.&rdquo;</p>
+   <p class="dh-q">&ldquo;This book transforms your toughest challenges into <mark>proof that
+    you&rsquo;re not just resilient</mark>. You&rsquo;re truly unbreakable, no matter what life throws
+    at you.&rdquo;</p>
    <div class="dh-name">&mdash;Darren Hardy</div>
    <div class="dh-role">Former publisher of <i>SUCCESS</i> magazine, New York Times &amp; Wall Street
     Journal Best-Selling Author</div>
@@ -479,9 +425,9 @@ body{margin:0;background:#fff}
 <section class="hm-s" id="press">
  <div class="hm-in">
   <div class="hm-kick">Podcasts &amp; press</div>
-  <h2 class="hm-h2">She meets them where they are already listening.</h2>
-  <p class="hm-p">Missy is an easy guest who tells the truth, and you will never have to coax your way
-   to the real part. Here are her three most recent conversations.</p>
+  <h2 class="hm-h2">Hear it before you read it.</h2>
+  <p class="hm-p">Not sure this is your story yet? Put one of these on during a drive or a walk.
+   It is the quickest way to find out whether it lands where you are standing.</p>
 
   <div class="pr-grid">
    <a class="pr-card" href="https://www.youtube.com/watch?v=foOo8EEI4-A" target="_blank" rel="noopener">
@@ -604,6 +550,17 @@ body{margin:0;background:#fff}
  var w=document.getElementById('hmvid'); if(!w) return;
  var v=w.querySelector('video'), b=w.querySelector('.hm-vid-btn');
  b.addEventListener('click',function(){ b.style.display='none'; v.play(); });
+})();
+// The badge cycles its quotes in place; the card is a fixed size so nothing shifts.
+(function(){
+ var slot=document.getElementById('hmbq'); if(!slot) return;
+ var qs=slot.querySelectorAll('.hm-bq'); if(qs.length<2) return;
+ var i=0;
+ setInterval(function(){
+  qs[i].classList.remove('is-on');
+  i=(i+1)%qs.length;
+  qs[i].classList.add('is-on');
+ },3600);
 })();
 // The rolling track scrolls to -50%, so it needs exactly two copies of the run to loop seamlessly.
 (function(){
