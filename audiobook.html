@@ -705,6 +705,8 @@
        any device : Spotify, YouTube Music, Pocket Casts, Player FM, Castbox,
                     Podcast Republic, PodcastGuru, Podurama (paid), Snipd
        iPhone     : Apple Podcasts, Overcast, Castro, Downcast
+                    (only Apple and Overcast are offered on Hello Audio's own
+                     player page, so those are the only two we ship)
        Android    : Podcast Addict, AntennaPod
      Explicitly NOT supported: iHeartRadio, Podbean, Podomatic, DoublePod.
      Amazon Music and Audible are not on their list either. iHeart, Amazon
@@ -815,21 +817,6 @@
              '<rect width="24" height="24" rx="5.4" fill="#FC7E0F"/>' +
              '<g fill="#fff" transform="translate(5,5) scale(.62)">' +
                '<circle cx="12" cy="15.5" r="2"/><path d="M12 12.6a2.9 2.9 0 0 0-2.9 2.9H7.4a4.6 4.6 0 0 1 9.2 0h-1.7a2.9 2.9 0 0 0-2.9-2.9z" opacity=".85"/><path d="M12 8.6a6.9 6.9 0 0 0-6.9 6.9H3.4a8.6 8.6 0 0 1 17.2 0h-1.7A6.9 6.9 0 0 0 12 8.6z" opacity=".6"/>' +
-             '</g></svg>'
-    },
-    {
-      n: "Castro",
-      on: ["ios"],
-      manual: {
-        app: function(){ return "castros://subscribe/" + FEED_URL.replace(/^https?:\/\//, ""); },
-        open: "https://castro.fm/",
-        openLabel: "Get Castro",
-        steps: "Your link is copied. In Castro: tap Search and paste the URL."
-      },
-      svg: '<svg viewBox="0 0 24 24" aria-hidden="true">' +
-             '<rect width="24" height="24" rx="5.4" fill="#00B265"/>' +
-             '<g fill="#fff" transform="translate(5,5) scale(.62)">' +
-               '<circle cx="12" cy="12" r="8.6" fill="none" stroke="#fff" stroke-width="2.6"/><circle cx="12" cy="12" r="3.2"/>' +
              '</g></svg>'
     },
     {
