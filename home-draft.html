@@ -6,7 +6,7 @@
 <link rel="preload" as="image" href="assets/bg-clouds.webp">
 <style>
 body{margin:0;background:#fff}
-.hm-draftbar{background:#00325c;color:#fff;font:600 13px/1.5 Figtree,sans-serif;padding:9px 22px;letter-spacing:.02em}
+.hm-draftbar{background:var(--dark-blue);color:#fff;font:600 13px/1.5 Figtree,sans-serif;padding:9px 22px;letter-spacing:.02em}
 /* ---------- hero ---------- */
 .hm-acc{position:relative;overflow:hidden;background:#fff;border-bottom:1px solid #00325c14;padding:16px 0;
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
@@ -19,21 +19,21 @@ body{margin:0;background:#fff}
 @media (prefers-reduced-motion:reduce){.hm-acc-track{animation:none}}
 
 .hm-hero{background-color:var(--sky-tint);font-family:var(--brand-sans);overflow:hidden;
-  padding:0 26px;min-height:660px;display:flex;align-items:center;
-  /* The sky sits at the top and dissolves to white at the bottom, so the hero
-     hands off cleanly to the white video section underneath it. */
-  background-image:linear-gradient(to bottom,#ffffff00 34%,#ffffffc4 78%,#ffffff 100%),
+  padding:132px 26px 104px;display:flex;align-items:center;
+  /* The sky sits at the top and settles into the blue band below, so the hero
+     and the video section read as one continuous stretch of sky. */
+  background-image:linear-gradient(to bottom,#c0e7fa00 40%,#c0e7fa8c 82%,var(--light-blue) 100%),
     url("assets/bg-clouds.webp");
   background-repeat:no-repeat,no-repeat;background-size:auto,cover;background-position:0 0,50% 30%}
-.hm-hero-grid{max-width:1240px;margin:0 auto;width:100%;display:grid;
-  grid-template-columns:1.02fr .98fr;column-gap:56px;align-items:center}
-.hm-book-wrap{position:relative;margin:-70px 0}
-.hm-book{width:114%;max-width:none;margin-left:-9%;height:auto;display:block;
+.hm-hero-grid{max-width:var(--container-max);margin:0 auto;width:100%;display:grid;
+  grid-template-columns:1fr 1fr;column-gap:64px;align-items:center}
+.hm-book-wrap{position:relative}
+.hm-book{width:106%;max-width:none;margin-left:-6%;height:auto;display:block;
   filter:drop-shadow(0 30px 60px #00325c33)}
-.hm-eyebrow{color:var(--gold);letter-spacing:.2em;text-transform:uppercase;font-size:12.5px;font-weight:700;margin-bottom:16px}
+.hm-eyebrow{color:var(--medium-blue);letter-spacing:.2em;text-transform:uppercase;font-size:12.5px;font-weight:700;margin-bottom:16px}
 .hm-h1{font-family:var(--brand-display);color:var(--dark-blue);font-weight:400;line-height:1.03em;
-  letter-spacing:-.022em;text-wrap:balance;margin:0 0 22px;font-size:clamp(40px,5.6vw,74px)}
-.hm-lede{color:var(--ink);font-size:20px;line-height:1.6;max-width:44ch;margin:0 0 30px;text-wrap:pretty}
+  letter-spacing:-.022em;text-wrap:balance;margin:0 0 24px;font-size:clamp(40px,5.6vw,78px)}
+.hm-lede{color:var(--ink);font-size:20px;line-height:1.6;max-width:44ch;margin:0 0 34px;text-wrap:pretty}
 .hm-cta-row{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
 .hm-buy{display:inline-flex;align-items:center;gap:10px;background:var(--cta-yellow);color:var(--dark-blue);
   font-weight:800;font-size:17px;letter-spacing:.01em;padding:19px 34px;border-radius:4px;text-decoration:none;
@@ -43,15 +43,16 @@ body{margin:0;background:#fff}
 .hm-fine b{color:var(--dark-blue);font-weight:700}
 
 /* ---------- generic section ---------- */
-.hm-s{padding:92px 26px;font-family:var(--brand-sans)}
+.hm-s{padding:96px 26px 104px;font-family:var(--brand-sans)}
 .hm-s.tint{background:var(--sky-tint)}
+.hm-s.blue{background:var(--light-blue)}
 .hm-in{max-width:var(--container-max);margin:0 auto}
 .hm-kick{color:var(--medium-blue);letter-spacing:.2em;text-transform:uppercase;font-size:12px;font-weight:700;margin-bottom:14px}
 .hm-h2{font-family:var(--brand-display);color:var(--dark-blue);font-weight:400;line-height:1.12em;
   letter-spacing:-.015em;text-wrap:balance;margin:0 0 16px;font-size:clamp(28px,3.6vw,46px)}
 .hm-p{color:var(--ink);font-size:17.5px;line-height:1.68;max-width:62ch;margin:0 0 44px;text-wrap:pretty}
 /* ---------- video ---------- */
-.hm-vid{position:relative;border-radius:4px;overflow:hidden;box-shadow:0 1px 2px #00325c0f,0 18px 44px #00325c26;background:#00325c}
+.hm-vid{position:relative;border-radius:4px;overflow:hidden;box-shadow:0 1px 2px #00325c0f,0 18px 44px #00325c26;background:var(--dark-blue)}
 .hm-vid video{width:100%;height:auto;display:block}
 .hm-vid-btn{position:absolute;inset:0;display:grid;place-items:center;border:0;background:#00325c40;cursor:pointer}
 .hm-play{width:82px;height:82px;border-radius:50%;background:var(--cta-yellow);display:grid;place-items:center;
@@ -67,12 +68,12 @@ body{margin:0;background:#fff}
 /* ---------- missy band pull quote ---------- */
 .rb-q{font-family:var(--brand-display);font-weight:400;color:var(--dark-blue);
   font-size:clamp(23px,2.7vw,35px);line-height:1.3em;letter-spacing:-.012em;margin:0;text-wrap:balance}
-.rb-q mark{background:var(--cta-yellow);color:var(--dark-blue);padding:.02em .14em;
+.rb-q mark{background:var(--cta-yellow);color:var(--dark-blue);border-radius:4px;padding:.02em .14em;
   box-decoration-break:clone;-webkit-box-decoration-break:clone}
 /* ---------- the book: what it teaches ---------- */
 .tb-wrap{display:grid;grid-template-columns:.86fr 1.64fr;gap:64px;align-items:center}
 .tb-h{margin:0 0 22px;line-height:1.16em}
-.tb-h mark{background:var(--cta-yellow);color:var(--dark-blue);padding:.02em .14em;
+.tb-h mark{background:var(--cta-yellow);color:var(--dark-blue);border-radius:4px;padding:.02em .14em;
   box-decoration-break:clone;-webkit-box-decoration-break:clone}
 .tb-sub{color:var(--ink);font-size:16.5px;line-height:1.65;margin:0;max-width:34ch}
 .tb-list{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(4,auto);
@@ -90,10 +91,10 @@ body{margin:0;background:#fff}
 @keyframes hm-up{from{transform:translateY(0)}to{transform:translateY(-50%)}}
 @media (prefers-reduced-motion:reduce){.hm-roll .rq-track{animation:none}}
 .rq-role{color:var(--muted);font-size:12.5px}
-.rq-mono{background:var(--sky-tint);border:1px solid #00325c1a;color:var(--dark-blue);
+.rq-mono{background:var(--light-blue);border:1px solid #00325c1a;color:var(--dark-blue);
   display:grid;place-items:center;font-weight:800;font-size:27px;letter-spacing:.02em;
   width:96px;height:120px;border-radius:4px;flex:none;box-sizing:border-box}
-.rq-quote mark{background:linear-gradient(transparent 12%,#ffdd60 12%,#ffdd60 92%,transparent 92%);
+.rq-quote mark{background:linear-gradient(transparent 12%,var(--cta-yellow) 12%,var(--cta-yellow) 92%,transparent 92%);
   color:inherit;padding:0 .12em;border-radius:2px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 .hm-roll-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px 52px}
 /* ---------- featured quotes ---------- */
@@ -107,11 +108,15 @@ body{margin:0;background:#fff}
 .hm-fq-face{width:54px;height:54px;border-radius:50%;object-fit:cover;object-position:50% 22%;flex:none;
   box-shadow:0 0 0 3px #fff,0 0 0 4px #00325c1f}
 .hm-fq-who .hm-fq-r{margin-top:1px}
-.hm-fq.big{grid-column:1/-1;background:var(--dark-blue);flex-direction:row;gap:0;padding:0;overflow:hidden}
+.hm-fq.big{grid-column:1/-1;background:var(--light-blue);flex-direction:row;gap:0;padding:0;overflow:hidden;
+  box-shadow:0 1px 2px #00325c0a,0 10px 28px #00325c12}
 .hm-fq.big .hm-fq-hero{width:38%;flex:none;align-self:stretch;object-fit:cover;object-position:50% 28%;display:block}
 .hm-fq.big .hm-fq-inner{padding:34px 38px;display:flex;flex-direction:column;gap:12px;justify-content:center}
-.hm-fq.big .hm-fq-q{color:#fff;font-size:clamp(20px,2.2vw,29px);line-height:1.5;font-family:var(--brand-display);margin:0}
-.hm-fq.big .hm-fq-n{color:var(--cta-yellow)} .hm-fq.big .hm-fq-r{color:var(--on-blue-text);margin-top:-8px}
+.hm-fq.big .hm-fq-q{color:var(--dark-blue);font-size:clamp(20px,2.2vw,29px);line-height:1.42;
+  font-family:var(--brand-display);margin:0}
+.hm-fq.big .hm-fq-q mark{background:var(--cta-yellow);color:var(--dark-blue);border-radius:4px;
+  padding:0 .14em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.hm-fq.big .hm-fq-n{color:var(--dark-blue)} .hm-fq.big .hm-fq-r{color:var(--muted);margin-top:-8px}
 /* ---------- two-up cards ---------- */
 .hm-two{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:8px}
 .hm-card{background:#fff;border-radius:4px;overflow:hidden;box-shadow:0 1px 2px #00325c0a,0 10px 28px #00325c12;
@@ -150,13 +155,13 @@ body{margin:0;background:#fff}
 .sp-lab{color:var(--dark-blue);font-weight:800;font-size:14px;letter-spacing:.02em;margin:0 0 14px}
 .sp-topics{list-style:none;margin:0 0 30px;padding:0;display:grid;gap:11px}
 .sp-topics li{position:relative;padding-left:24px;color:var(--ink);font-size:16.5px;line-height:1.55}
-.sp-topics li::before{content:"";position:absolute;left:0;top:.6em;width:9px;height:9px;border-radius:50%;background:var(--gold)}
+.sp-topics li::before{content:"";position:absolute;left:0;top:.6em;width:9px;height:9px;border-radius:50%;background:var(--cta-yellow)}
 /* ---------- final cta ---------- */
 .cta-two{display:grid;grid-template-columns:.95fr 1.05fr;gap:52px;align-items:center}
 .cta-two img{width:100%;height:auto;display:block;filter:drop-shadow(0 24px 48px #00325c2b)}
 /* ---------- responsive ---------- */
 @media (max-width:991px){
- .hm-hero{min-height:0;padding-top:44px;padding-bottom:56px}
+ .hm-hero{padding:76px 26px 72px}
  .hm-hero-grid{grid-template-columns:1fr;row-gap:30px}
  .hm-book-wrap{margin:0;order:-1}
  .hm-book{width:100%;margin-left:0}
@@ -173,7 +178,7 @@ body{margin:0;background:#fff}
  .cta-two-copy{order:1} .cta-two-art{order:-1;max-width:460px;margin:0 auto}
 }
 @media (max-width:767px){
- .hm-hero{padding:32px 22px 62px} .hm-s{padding:64px 22px}
+ .hm-hero{padding:56px 22px 64px} .hm-s{padding:68px 22px 72px}
  .rq-face{width:76px;height:95px}
  .tb-list{grid-template-columns:1fr;grid-template-rows:none;grid-auto-flow:row;gap:22px}
  .tb-num{width:34px;height:34px;font-size:14px} .tb-t{font-size:17px}
@@ -207,7 +212,7 @@ body{margin:0;background:#fff}
 </section>
 
 <!-- ============ VIDEO ============ -->
-<section class="hm-s">
+<section class="hm-s blue">
  <div class="hm-in" style="max-width:900px">
   <div class="hm-kick" style="text-align:center">Ninety seconds</div>
   <h2 class="hm-h2" style="text-align:center">Sometimes it is hard to see where the road is taking you.</h2>
@@ -222,7 +227,7 @@ body{margin:0;background:#fff}
 </section>
 
 <!-- ============ THE BOOK / MILES ============ -->
-<section class="hm-s tint" id="the-book">
+<section class="hm-s" id="the-book">
  <div class="hm-in">
   <div class="tb-wrap">
    <div class="tb-lead">
@@ -258,7 +263,7 @@ body{margin:0;background:#fff}
 </section>
 
 <!-- ============ FEATURED ENDORSEMENTS ============ -->
-<section class="hm-s tint">
+<section class="hm-s">
  <div class="hm-in">
   <div class="hm-kick">What readers found in the miles</div>
   <h2 class="hm-h2">They came out the other side different.</h2>
@@ -268,7 +273,7 @@ body{margin:0;background:#fff}
     <img class="hm-fq-hero" src="assets/dh-missy.webp" alt="Darren Hardy with Missy Moss Wright" loading="lazy" decoding="async">
     <div class="hm-fq-inner">
      <p class="hm-fq-q">&ldquo;This book transforms your toughest challenges into proof that you&rsquo;re
-      not just resilient. You&rsquo;re truly unbreakable, no matter what life throws at you.&rdquo;</p>
+      not just resilient. You&rsquo;re <mark>truly unbreakable</mark>, no matter what life throws at you.&rdquo;</p>
      <div class="hm-fq-n">Darren Hardy</div>
      <div class="hm-fq-r">Former publisher of SUCCESS Magazine</div>
     </div>
@@ -299,7 +304,7 @@ body{margin:0;background:#fff}
 </section>
 
 <!-- ============ ROLLING TESTIMONIALS ============ -->
-<section class="hm-s">
+<section class="hm-s tint">
  <div class="hm-in">
   <div class="hm-kick">In their own words</div>
   <h2 class="hm-h2">What it feels like to read it.</h2>
@@ -477,7 +482,7 @@ body{margin:0;background:#fff}
 </section>
 
 <!-- ============ PODCASTS & PRESS ============ -->
-<section class="hm-s tint" id="press">
+<section class="hm-s" id="press">
  <div class="hm-in">
   <div class="hm-kick">Podcasts &amp; press</div>
   <h2 class="hm-h2">She meets them where they are already listening.</h2>
@@ -532,7 +537,7 @@ body{margin:0;background:#fff}
 </section>
 
 <!-- ============ SPEAKING ============ -->
-<section class="hm-s" id="speaking">
+<section class="hm-s tint" id="speaking">
  <div class="hm-in">
   <div class="hm-two" style="align-items:center">
    <div><img class="sp-shot"
@@ -560,7 +565,7 @@ body{margin:0;background:#fff}
 </section>
 
 <!-- ============ COMMUNITY ============ -->
-<section class="hm-s tint">
+<section class="hm-s">
  <div class="hm-in">
   <div class="hm-two" style="align-items:center">
    <div>
@@ -582,7 +587,7 @@ body{margin:0;background:#fff}
 </section>
 
 <!-- ============ FINAL CTA ============ -->
-<section class="hm-s">
+<section class="hm-s tint">
  <div class="hm-in">
   <div class="cta-two">
    <div class="cta-two-art"><img
