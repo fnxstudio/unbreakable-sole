@@ -321,16 +321,16 @@
   .plat svg{width:16px;height:16px;flex:none;}
   .plat svg{width:20px;height:20px;border-radius:4px;}   /* app marks are square, not glyphs */
   .plat-more{color:var(--muted);}
-  /* not a link and not pretending to be: faded behind its own label */
-  .plat-soon{position:relative;cursor:default;}
-  .plat-soon:hover{border-color:var(--line);transform:none;box-shadow:none;}
-  .plat-soon{color:var(--muted);}
-  /* the logo stays recognisable behind the label - dimmed, not hidden */
-  .plat-soon > svg{filter:grayscale(.35);opacity:.8;}
-  .soon-tag{position:absolute;left:0;right:0;bottom:5px;display:flex;justify-content:center;
-    font-style:normal;font-size:8px;font-weight:800;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--muted);}
-  .plat-soon{padding-bottom:17px;}
+  /* Not a link and not pretending to be. The chip itself goes grey while the
+     logo and name stay legible underneath, and the label sits across them. */
+  .plat-soon{position:relative;cursor:default;background:#e6ecf1;border-color:#d3dde5;
+    min-width:132px;justify-content:center;}
+  .plat-soon:hover{background:#e6ecf1;border-color:#d3dde5;transform:none;box-shadow:none;}
+  /* the logo and name read as a soft ghost under the label rather than
+     fighting it for the same pixels */
+  .soon-tag{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    border-radius:10px;background:rgba(230,236,241,.66);font-style:normal;font-size:9px;
+    font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:var(--blue-deep);}
   .plat-break{flex-basis:100%;height:0;margin:0;}
   .plat-steps{width:100%;margin:10px 0 0;padding:11px 13px;border-radius:10px;
     background:#fff;border:1px solid var(--sky-2);font-size:12.5px;line-height:1.55;color:var(--ink);}
