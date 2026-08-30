@@ -17,21 +17,22 @@ body{margin:0;background:#fff}
 .hm-hero-grid{max-width:var(--container-max);margin:0 auto;width:100%;display:grid;
   grid-template-columns:1fr 1fr;column-gap:56px;align-items:center}
 .hm-book-wrap{position:relative}
-.hm-book{width:124%;max-width:none;margin-left:-14%;height:auto;display:block;
+.hm-book{width:140%;max-width:none;margin-left:-22%;height:auto;display:block;
   filter:drop-shadow(0 34px 68px #00325c33)}
 /* Clears "MISSY MOSS WRIGHT" on the cover, which sits at x .21-.51 / y .79-.87
    of the art; the card hangs off the bottom-left corner instead. */
-.hm-badge{position:absolute;left:-13%;bottom:-16%;z-index:2;width:232px;background:#fff;border-radius:4px;
-  padding:16px 18px 18px;text-align:center;box-shadow:0 2px 6px #00325c1a,0 16px 38px #00325c2e}
+.hm-badge{position:absolute;right:-8%;bottom:-15%;z-index:2;width:300px;background:#fff;
+  border:1.5px solid #d79f3652;border-radius:6px;padding:20px 24px 22px;text-align:center;
+  box-shadow:0 2px 6px #00325c1a,0 16px 38px #00325c2e}
 .hm-badge-stars{display:block;width:84px;height:17px;margin:0 auto 7px;
   background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2024%22%20fill%3D%22%23ffdd60%22%3E%3Cpath%20transform%3D%22translate%280%200%29%22%20d%3D%22M12%201.6l3.2%206.5%207.2%201-5.2%205.1%201.2%207.2L12%2018l-6.4%203.4%201.2-7.2L1.6%209.1l7.2-1z%22%2F%3E%3Cpath%20transform%3D%22translate%2824%200%29%22%20d%3D%22M12%201.6l3.2%206.5%207.2%201-5.2%205.1%201.2%207.2L12%2018l-6.4%203.4%201.2-7.2L1.6%209.1l7.2-1z%22%2F%3E%3Cpath%20transform%3D%22translate%2848%200%29%22%20d%3D%22M12%201.6l3.2%206.5%207.2%201-5.2%205.1%201.2%207.2L12%2018l-6.4%203.4%201.2-7.2L1.6%209.1l7.2-1z%22%2F%3E%3Cpath%20transform%3D%22translate%2872%200%29%22%20d%3D%22M12%201.6l3.2%206.5%207.2%201-5.2%205.1%201.2%207.2L12%2018l-6.4%203.4%201.2-7.2L1.6%209.1l7.2-1z%22%2F%3E%3Cpath%20transform%3D%22translate%2896%200%29%22%20d%3D%22M12%201.6l3.2%206.5%207.2%201-5.2%205.1%201.2%207.2L12%2018l-6.4%203.4%201.2-7.2L1.6%209.1l7.2-1z%22%2F%3E%3C%2Fsvg%3E") no-repeat center/contain}
 /* Fixed height so the card never resizes as the quotes rotate through it. */
-.hm-badge-slot{position:relative;height:66px}
+.hm-badge-slot{position:relative;height:96px}
 .hm-bq{position:absolute;inset:0;margin:0;display:flex;flex-direction:column;justify-content:center;
   gap:5px;opacity:0;transition:opacity .55s ease}
 .hm-bq.is-on{opacity:1}
-.hm-bq p{margin:0;color:var(--dark-blue);font-weight:800;font-size:14.5px;line-height:1.32;
-  letter-spacing:-.005em}
+.hm-bq p{margin:0;color:var(--dark-blue);font-weight:800;font-size:29px;line-height:1.22;
+  letter-spacing:-.012em}
 .hm-bq figcaption{color:var(--muted);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase}
 @media (prefers-reduced-motion:reduce){.hm-bq{transition:none}}
 .hm-eyebrow{color:var(--medium-blue);letter-spacing:.2em;text-transform:uppercase;font-size:12.5px;font-weight:700;margin-bottom:16px}
@@ -45,7 +46,7 @@ body{margin:0;background:#fff}
 .hm-cta-row{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
 .hm-buy{display:inline-flex;align-items:center;gap:10px;background:var(--cta-yellow);color:var(--dark-blue);
   font-weight:800;font-size:16px;letter-spacing:.06em;text-transform:uppercase;
-  padding:19px 32px;border-radius:4px;text-decoration:none;
+  padding:19px 32px;border-radius:6px;text-decoration:none;
   box-shadow:0 8px 22px #00325c26;transition:transform .18s ease,box-shadow .18s ease}
 .hm-buy:hover{transform:translateY(-2px);box-shadow:0 12px 30px #00325c33}
 .hm-fine{color:var(--muted);font-size:14.5px;margin:20px 0 0}
@@ -61,7 +62,7 @@ body{margin:0;background:#fff}
   letter-spacing:-.015em;text-wrap:balance;margin:0 0 16px;font-size:clamp(28px,3.6vw,46px)}
 .hm-p{color:var(--ink);font-size:17.5px;line-height:1.68;max-width:62ch;margin:0 0 44px;text-wrap:pretty}
 /* ---------- video ---------- */
-.hm-vid{position:relative;border-radius:4px;overflow:hidden;box-shadow:0 1px 2px #00325c0f,0 18px 44px #00325c26;background:var(--dark-blue)}
+.hm-vid{position:relative;border-radius:6px;overflow:hidden;box-shadow:0 1px 2px #00325c0f,0 18px 44px #00325c26;background:var(--dark-blue)}
 .hm-vid video{width:100%;height:auto;display:block}
 .hm-vid-btn{position:absolute;inset:0;display:grid;place-items:center;border:0;background:#00325c40;cursor:pointer}
 .hm-play{width:82px;height:82px;border-radius:50%;background:var(--cta-yellow);display:grid;place-items:center;
@@ -149,7 +150,7 @@ body{margin:0;background:#fff}
 .hm-card-p{color:var(--ink);font-size:16.5px;line-height:1.65;margin:0;flex:1}
 /* ---------- press: three latest ---------- */
 .pr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:8px}
-.pr-card{background:#fff;border-radius:4px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column;
+.pr-card{background:#fff;border-radius:6px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column;
   box-shadow:0 1px 2px #00325c0a,0 10px 28px #00325c12;transition:transform .18s ease,box-shadow .18s ease}
 .pr-card:hover{transform:translateY(-3px);box-shadow:0 2px 4px #00325c0f,0 18px 40px #00325c1f}
 .pr-media{position:relative;overflow:hidden;background:var(--dark-blue)}
@@ -172,7 +173,7 @@ body{margin:0;background:#fff}
 .pr-card:hover .pr-go{text-decoration:underline}
 .pr-more{margin:34px 0 0}
 /* ---------- speaking ---------- */
-.sp-shot{width:100%;height:auto;display:block;border-radius:4px;
+.sp-shot{width:100%;height:auto;display:block;border-radius:6px;
   box-shadow:0 1px 2px #00325c0f,0 14px 34px #00325c24}
 .sp-lab{color:var(--dark-blue);font-weight:800;font-size:14px;letter-spacing:.02em;margin:0 0 14px}
 .sp-topics{list-style:none;margin:0 0 30px;padding:0;display:grid;gap:11px}
@@ -187,9 +188,10 @@ body{margin:0;background:#fff}
  .hm-hero-grid{grid-template-columns:1fr;row-gap:30px}
  .hm-book-wrap{margin:0;order:-1}
  .hm-book{width:100%;margin-left:0}
- .hm-badge{left:0;bottom:-3%;width:206px;padding:13px 15px 15px}
+ /* At this size the card would swallow the book, so it sits under it instead. */
+ .hm-badge{position:static;width:100%;max-width:340px;margin:20px auto 0;padding:16px 18px 18px}
  .hm-badge-stars{width:70px;height:14px;margin-bottom:6px}
- .hm-badge-slot{height:62px} .hm-bq p{font-size:13.5px}
+ .hm-badge-slot{height:86px} .hm-bq p{font-size:24px}
  .hm-roll-grid{grid-template-columns:1fr} .hm-roll{height:520px}
  .hm-two{grid-template-columns:1fr}
  .dh-band{grid-template-columns:1fr}
@@ -217,6 +219,8 @@ body{margin:0;background:#fff}
 <section class="hm-hero">
  <div class="hm-hero-grid">
   <div class="hm-book-wrap">
+   <img class="hm-book" src="https://cdn.prod.website-files.com/6a7cb5226941c3869a8b1f52/6a84ea7678518ed4dc932562_book-phone-real.webp"
+    alt="Unbreakable Sole hardcover beside the audiobook playing on a phone" fetchpriority="high">
    <div class="hm-badge">
     <span class="hm-badge-stars" aria-hidden="true"></span>
     <div class="hm-badge-slot" id="hmbq">
@@ -237,8 +241,6 @@ body{margin:0;background:#fff}
      <figure class="hm-bq"><p>&ldquo;Sacred teachers.&rdquo;</p><figcaption>Tara Lawallan</figcaption></figure>
     </div>
    </div>
-   <img class="hm-book" src="https://cdn.prod.website-files.com/6a7cb5226941c3869a8b1f52/6a84ea7678518ed4dc932562_book-phone-real.webp"
-    alt="Unbreakable Sole hardcover beside the audiobook playing on a phone" fetchpriority="high">
   </div>
   <div>
    <div class="hm-eyebrow">By Missy Moss Wright</div>
@@ -492,9 +494,10 @@ body{margin:0;background:#fff}
      alt="Two runners embracing at the finish of a race" loading="lazy"></div>
    <div>
     <div class="hm-kick">Speaking</div>
-    <h2 class="hm-h2">Honest, real, funny, and always in the room with you.</h2>
-    <p class="hm-p" style="margin-bottom:30px">Keynotes, workshops, chapels and classrooms, built around
-     your people, so they leave lighter than they came.</p>
+    <h2 class="hm-h2">Honest. Funny. Relatable.</h2>
+    <p class="hm-p" style="margin-bottom:30px">Missy tells the truth about the hard miles, including her
+     own, and she is never above the room she is standing in. Keynotes, workshops, chapels and classrooms,
+     built around your people, so they leave lighter than they came.</p>
     <p class="sp-lab">Speaking topics include</p>
     <ul class="sp-topics">
      <li>Turning your hardest story into strength</li>
@@ -526,7 +529,7 @@ body{margin:0;background:#fff}
    </div>
    <div><img src="https://cdn.prod.website-files.com/6a7cb5226941c3869a8b1f52/6a8f667bf7d7aaeb454de9b3_comm-05-virtual-v2.webp"
      alt="Unbreakable Sole readers together on a community video call" loading="lazy"
-     style="width:100%;border-radius:4px;display:block;box-shadow:0 1px 2px #00325c0f,0 14px 34px #00325c24"></div>
+     style="width:100%;border-radius:6px;display:block;box-shadow:0 1px 2px #00325c0f,0 14px 34px #00325c24"></div>
   </div>
  </div>
 </section>
