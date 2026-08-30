@@ -477,15 +477,15 @@
   .sk-close{color:rgba(255,255,255,.45);} .sk-close:hover{color:#fff;}
   @media (max-width:860px){
     :root{--player-h:74px;}
-    .sk-body{padding:11px 13px;gap:10px;}
-    .sk-art{width:38px;height:38px;}
-    .sk-close,.skb.back,.skb.prev{display:none;}
-    /* speed matters more than chapter-skip on an audiobook, so it stays on
-       phones - just tightened enough to keep the title readable beside it */
-    .sk-ctrls{gap:4px;}
-    .sk-rate{font-size:11px;padding:9px 7px;min-width:42px;border-radius:5px;border-width:1.5px;}
+    .sk-body{padding:11px 11px;gap:9px;}
+    .sk-art{width:36px;height:36px;}
+    /* back-15 earns its place: it is the control you reach for when you miss
+       a line. Only prev-chapter and close give way to make room. */
+    .sk-close,.skb.prev{display:none;}
+    .sk-ctrls{gap:3px;}
+    .sk-rate{font-size:11px;padding:9px 6px;min-width:40px;border-radius:5px;border-width:1.5px;}
     .skb.main{width:42px;height:42px;} .skb.main svg{width:17px;height:17px;}
-    .skb{width:34px;height:34px;} .skb svg{width:17px;height:17px;}
+    .skb{width:32px;height:32px;} .skb svg{width:16px;height:16px;}
     .sk-info .t{font-size:13px;} .sk-info .m{font-size:11px;margin-top:2px;}
     .sk-info .m .ct{display:none;}   /* "Chapter 14 of 33" - no room for it next to the times */
   }
