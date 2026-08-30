@@ -20,19 +20,23 @@ body{margin:0;background:#fff}
 
 .hm-hero{background-color:var(--sky-tint);font-family:var(--brand-sans);overflow:hidden;
   padding:132px 26px 104px;display:flex;align-items:center;
-  /* The sky sits at the top and settles into the blue band below, so the hero
-     and the video section read as one continuous stretch of sky. */
-  background-image:linear-gradient(to bottom,#c0e7fa00 40%,#c0e7fa8c 82%,var(--light-blue) 100%),
+  /* The sky sits at the top and dissolves to white at the bottom, so the hero
+     hands off cleanly to the white video section underneath it. */
+  background-image:linear-gradient(to bottom,#ffffff00 40%,#ffffffc4 82%,#ffffff 100%),
     url("assets/bg-clouds.webp");
   background-repeat:no-repeat,no-repeat;background-size:auto,cover;background-position:0 0,50% 30%}
 .hm-hero-grid{max-width:var(--container-max);margin:0 auto;width:100%;display:grid;
-  grid-template-columns:1fr 1fr;column-gap:64px;align-items:center}
+  grid-template-columns:.88fr 1.12fr;column-gap:56px;align-items:center}
 .hm-book-wrap{position:relative}
 .hm-book{width:106%;max-width:none;margin-left:-6%;height:auto;display:block;
   filter:drop-shadow(0 30px 60px #00325c33)}
 .hm-eyebrow{color:var(--medium-blue);letter-spacing:.2em;text-transform:uppercase;font-size:12.5px;font-weight:700;margin-bottom:16px}
-.hm-h1{font-family:var(--brand-display);color:var(--dark-blue);font-weight:400;line-height:1.03em;
-  letter-spacing:-.022em;text-wrap:balance;margin:0 0 24px;font-size:clamp(40px,5.6vw,78px)}
+.hm-h1{font-family:var(--brand-display);color:var(--dark-blue);font-weight:400;line-height:1.06em;
+  /* Capped at 70 so the highlighted "They build you." always holds one line;
+     74 overflows the 596px column by a few pixels and orphans "you." */
+  letter-spacing:-.022em;margin:0 0 24px;font-size:clamp(40px,5.4vw,70px)}
+.hm-h1 mark{background:var(--cta-yellow);color:var(--dark-blue);border-radius:4px;padding:.02em .14em;
+  box-decoration-break:clone;-webkit-box-decoration-break:clone}
 .hm-lede{color:var(--ink);font-size:20px;line-height:1.6;max-width:44ch;margin:0 0 34px;text-wrap:pretty}
 .hm-cta-row{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
 .hm-buy{display:inline-flex;align-items:center;gap:10px;background:var(--cta-yellow);color:var(--dark-blue);
@@ -198,7 +202,7 @@ body{margin:0;background:#fff}
   </div>
   <div>
    <div class="hm-eyebrow">By Missy Moss Wright</div>
-   <h1 class="hm-h1">The hard miles don&rsquo;t break you. They build you.</h1>
+   <h1 class="hm-h1">The hard miles don&rsquo;t break you. <br><mark>They build you.</mark></h1>
    <p class="hm-lede">26.2 principles for whatever life throws at you. One chapter for every mile
     of the marathon that changed everything.</p>
    <div class="hm-cta-row">
@@ -212,11 +216,10 @@ body{margin:0;background:#fff}
 </section>
 
 <!-- ============ VIDEO ============ -->
-<section class="hm-s blue">
+<section class="hm-s">
  <div class="hm-in" style="max-width:900px">
-  <div class="hm-kick" style="text-align:center">Ninety seconds</div>
-  <h2 class="hm-h2" style="text-align:center">Sometimes it is hard to see where the road is taking you.</h2>
-  <p class="hm-p" style="margin:0 auto 34px;text-align:center">Missy tells it better than a page can.</p>
+  <div class="hm-kick" style="text-align:center">Watch Missy tell it</div>
+  <h2 class="hm-h2" style="text-align:center;margin-bottom:34px">Sometimes it is hard to see where the road is taking you.</h2>
   <div class="hm-vid" id="hmvid">
    <video preload="none" playsinline controls poster="assets/us_website_video_poster.webp">
     <source src="assets/us_website_video.mp4" type="video/mp4">
@@ -227,11 +230,11 @@ body{margin:0;background:#fff}
 </section>
 
 <!-- ============ THE BOOK / MILES ============ -->
-<section class="hm-s" id="the-book">
+<section class="hm-s blue" id="the-book">
  <div class="hm-in">
   <div class="tb-wrap">
    <div class="tb-lead">
-    <h2 class="hm-h2 tb-h">8 Things <br><mark>This Book Will <br>Teach You</mark></h2>
+    <h2 class="hm-h2 tb-h"><mark>8 Things</mark> <br>This Book Will <br>Teach You</h2>
     <p class="tb-sub">26.2 chapters, one for every mile. You do not need to be a runner.
      You just need to be human.</p>
    </div>
@@ -250,7 +253,7 @@ body{margin:0;background:#fff}
 </section>
 
 <!-- ============ MISSY BAND + QUOTE ============ -->
-<section class="res-band" style="padding-top:0">
+<section class="res-band" style="padding-top:0;background:var(--light-blue)">
  <div class="res-band-inner">
   <div><img class="res-band-photo" src="https://cdn.prod.website-files.com/6a7cb5226941c3869a8b1f52/6a80b6e76dcaab11627f6701_missy-band-opt.webp"
     alt="Missy Moss Wright" loading="lazy" decoding="async"></div>
@@ -595,7 +598,7 @@ body{margin:0;background:#fff}
      alt="The Unbreakable Sole hardcover beside the audiobook playing on a phone" loading="lazy"></div>
    <div class="cta-two-copy">
     <div class="hm-kick">Your story is about to begin</div>
-    <h2 class="hm-h2">Start at Mile 1 today.</h2>
+    <h2 class="hm-h2">Start your journey today.</h2>
     <p class="hm-p" style="margin-bottom:30px">The hardcover ships free, and the complete audiobook is
      yours the moment you order, so you can start listening on the drive home.</p>
     <a class="vid-btn" href="https://secure.darrenhardy.com/checkout/unbreakable-sole">Get the book and audiobook &rarr;</a>
