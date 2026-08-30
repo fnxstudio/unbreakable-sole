@@ -48,10 +48,16 @@ body{margin:0;background:#fff}
 .hm-vid{position:relative;border-radius:4px;overflow:hidden;box-shadow:0 1px 2px #00325c0f,0 18px 44px #00325c26;background:#00325c}
 .hm-vid video{width:100%;height:auto;display:block}
 .hm-vid-btn{position:absolute;inset:0;display:grid;place-items:center;border:0;background:#00325c40;cursor:pointer}
-.hm-play{width:82px;height:82px;border-radius:50%;background:#fff;display:grid;place-items:center;
-  box-shadow:0 10px 30px #00325c4d}
+.hm-play{width:82px;height:82px;border-radius:50%;background:var(--cta-yellow);display:grid;place-items:center;
+  animation:hm-pulse 2.4s cubic-bezier(.4,0,.2,1) infinite;transition:transform .2s ease}
 .hm-play::after{content:"";border-left:22px solid var(--dark-blue);border-top:14px solid transparent;
   border-bottom:14px solid transparent;margin-left:6px}
+@keyframes hm-pulse{
+ 0%  {box-shadow:0 10px 30px #00325c4d, 0 0 0 0 #ffdd6099}
+ 70% {box-shadow:0 10px 30px #00325c4d, 0 0 0 30px #ffdd6000}
+ 100%{box-shadow:0 10px 30px #00325c4d, 0 0 0 0 #ffdd6000}}
+.hm-vid-btn:hover .hm-play{transform:scale(1.06)}
+@media (prefers-reduced-motion:reduce){.hm-play{animation:none;box-shadow:0 10px 30px #00325c4d}}
 /* ---------- miles ---------- */
 .hm-miles{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:30px 40px;margin-top:6px}
 .hm-mile{border-left:3px solid var(--gold);padding-left:20px}
@@ -85,6 +91,40 @@ body{margin:0;background:#fff}
 .hm-card-b{padding:26px 28px 30px;display:flex;flex-direction:column;gap:10px;flex:1}
 .hm-card-h{color:var(--dark-blue);font-size:21px;font-weight:800;line-height:1.3}
 .hm-card-p{color:var(--ink);font-size:16.5px;line-height:1.65;margin:0;flex:1}
+/* ---------- press: three latest ---------- */
+.pr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:8px}
+.pr-card{background:#fff;border-radius:4px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column;
+  box-shadow:0 1px 2px #00325c0a,0 10px 28px #00325c12;transition:transform .18s ease,box-shadow .18s ease}
+.pr-card:hover{transform:translateY(-3px);box-shadow:0 2px 4px #00325c0f,0 18px 40px #00325c1f}
+.pr-media{position:relative;overflow:hidden;background:var(--dark-blue)}
+.pr-media::before{content:"";display:block;padding-top:56.25%}
+.pr-media > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.pr-media.badge{background:var(--sky-tint)}
+.pr-badge{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:46%;aspect-ratio:1}
+.pr-badge img{width:100%;height:100%;object-fit:contain;border-radius:50%;display:block}
+.pr-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;
+  background:var(--cta-yellow);display:grid;place-items:center;box-shadow:0 8px 24px #00325c59;
+  transition:transform .18s ease}
+.pr-card:hover .pr-play{transform:translate(-50%,-50%) scale(1.08)}
+.pr-play::after{content:"";border-left:16px solid var(--dark-blue);border-top:10px solid transparent;
+  border-bottom:10px solid transparent;margin-left:5px}
+.pr-b{padding:20px 22px 22px;display:flex;flex-direction:column;gap:9px;flex:1}
+.pr-src{color:var(--medium-blue);letter-spacing:.14em;text-transform:uppercase;font-size:11px;font-weight:700}
+.pr-t{color:var(--dark-blue);font-size:17.5px;font-weight:800;line-height:1.35;margin:0}
+.pr-meta{color:var(--muted);font-size:13.5px;margin:0;flex:1}
+.pr-go{color:var(--medium-blue);font-weight:700;font-size:14.5px}
+.pr-card:hover .pr-go{text-decoration:underline}
+.pr-more{margin:34px 0 0}
+/* ---------- speaking ---------- */
+.sp-shot{width:100%;height:auto;display:block;border-radius:4px;
+  box-shadow:0 1px 2px #00325c0f,0 14px 34px #00325c24}
+.sp-lab{color:var(--dark-blue);font-weight:800;font-size:14px;letter-spacing:.02em;margin:0 0 14px}
+.sp-topics{list-style:none;margin:0 0 30px;padding:0;display:grid;gap:11px}
+.sp-topics li{position:relative;padding-left:24px;color:var(--ink);font-size:16.5px;line-height:1.55}
+.sp-topics li::before{content:"";position:absolute;left:0;top:.6em;width:9px;height:9px;border-radius:50%;background:var(--gold)}
+/* ---------- final cta ---------- */
+.cta-two{display:grid;grid-template-columns:.95fr 1.05fr;gap:52px;align-items:center}
+.cta-two img{width:100%;height:auto;display:block;filter:drop-shadow(0 24px 48px #00325c2b)}
 /* ---------- responsive ---------- */
 @media (max-width:991px){
  .hm-hero{min-height:0;padding-top:44px;padding-bottom:56px}
@@ -93,10 +133,15 @@ body{margin:0;background:#fff}
  .hm-book{width:100%;margin-left:0}
  .hm-roll-grid{grid-template-columns:1fr} .hm-roll{height:520px}
  .hm-two{grid-template-columns:1fr}
+ .pr-grid{grid-template-columns:1fr 1fr}
+ .cta-two{grid-template-columns:1fr;row-gap:32px;text-align:center}
+ .cta-two .hm-p{margin-left:auto;margin-right:auto}
+ .cta-two-copy{order:1} .cta-two-art{order:-1;max-width:460px;margin:0 auto}
 }
 @media (max-width:767px){
  .hm-hero{padding:32px 22px 62px} .hm-s{padding:64px 22px}
  .rq-face{width:76px;height:95px}
+ .pr-grid{grid-template-columns:1fr}
 }
 </style>
 </head><body><div class="hm-draftbar">DRAFT — home page for review. Not published. Styling pulled live from the Webflow site stylesheet.</div>
@@ -377,32 +422,86 @@ body{margin:0;background:#fff}
   <div class="hm-kick">Podcasts &amp; press</div>
   <h2 class="hm-h2">She meets them where they are already listening.</h2>
   <p class="hm-p">Missy is an easy guest who tells the truth, and you will never have to coax your way
-   to the real part. Here is where she has been, and how to have her on your show or stage.</p>
-  <div class="hm-two">
-   <div class="hm-card">
-    <img src="https://cdn.prod.website-files.com/6a7cb5226941c3869a8b1f52/6a908d56a4de26d53d37cf64_missy-podcast-twoshot.jpg" alt="Missy in a podcast interview" loading="lazy">
-    <div class="hm-card-b">
-     <div class="hm-card-h">On the podcast circuit</div>
-     <p class="hm-card-p">Conversations about grief, endurance, faith, and the miles nobody chooses.
-      Remote or in studio.</p>
-     <a class="vid-secondary" href="/press">See where she has been &rarr;</a>
+   to the real part. Here are her three most recent conversations.</p>
+
+  <div class="pr-grid">
+   <a class="pr-card" href="https://www.youtube.com/watch?v=foOo8EEI4-A" target="_blank" rel="noopener">
+    <div class="pr-media">
+     <img src="https://i.ytimg.com/vi/foOo8EEI4-A/maxresdefault.jpg"
+      alt="Missy Moss Wright interviewed on the Jake Turner channel" loading="lazy">
+     <span class="pr-play" aria-hidden="true"></span>
     </div>
-   </div>
-   <div class="hm-card">
-    <img src="https://cdn.prod.website-files.com/6a7cb5226941c3869a8b1f52/6a8fbc3499e2ccefda593c90_sp-cta-hug.webp" alt="Two runners embracing at a race" loading="lazy">
-    <div class="hm-card-b">
-     <div class="hm-card-h">Speaking</div>
-     <p class="hm-card-p">Keynotes, workshops, chapels and classrooms. Built around your people, so
-      they leave lighter than they came.</p>
-     <a class="vid-secondary" href="/speaking">Learn about speaking &rarr;</a>
+    <div class="pr-b">
+     <div class="pr-src">YouTube</div>
+     <p class="pr-t">Marathon Runner on Losing Her Son, Her Sweetheart, and Almost Her Husband</p>
+     <p class="pr-meta">Jake Turner</p>
+     <span class="pr-go">Watch the interview &rarr;</span>
     </div>
+   </a>
+
+   <a class="pr-card" href="https://www.youtube.com/watch?v=R8UpUaFtWPM" target="_blank" rel="noopener">
+    <div class="pr-media">
+     <img src="https://i.ytimg.com/vi/R8UpUaFtWPM/maxresdefault.jpg"
+      alt="Missy Moss Wright in conversation with Todd Sylvester" loading="lazy">
+     <span class="pr-play" aria-hidden="true"></span>
+    </div>
+    <div class="pr-b">
+     <div class="pr-src">YouTube</div>
+     <p class="pr-t">Missy Wright: Hard Miles Create Strong Soles</p>
+     <p class="pr-meta">Todd Sylvester</p>
+     <span class="pr-go">Watch the interview &rarr;</span>
+    </div>
+   </a>
+
+   <a class="pr-card" href="https://podcasts.apple.com/us/podcast/unbreakable-sole-missy-moss-wright-alan-moss/id1873074605?i=1000756908117" target="_blank" rel="noopener">
+    <div class="pr-media badge">
+     <span class="pr-badge"><img
+      src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/95/0d/d0/950dd094-d72c-dd31-3fae-4be1d4436533/mza_18047289211210272137.jpg/600x600bb.jpg"
+      alt="The St. George Marathon Podcast" loading="lazy"></span>
+    </div>
+    <div class="pr-b">
+     <div class="pr-src">Apple Podcasts</div>
+     <p class="pr-t">Unbreakable Sole &mdash; Missy Moss Wright &amp; Alan Moss</p>
+     <p class="pr-meta">The St. George Marathon Podcast &middot; 45 min</p>
+     <span class="pr-go">Listen to the episode &rarr;</span>
+    </div>
+   </a>
+  </div>
+
+  <p class="pr-more"><a class="vid-secondary" href="/press">See everywhere she has been &rarr;</a></p>
+ </div>
+</section>
+
+<!-- ============ SPEAKING ============ -->
+<section class="hm-s" id="speaking">
+ <div class="hm-in">
+  <div class="hm-two" style="align-items:center">
+   <div><img class="sp-shot"
+     src="https://cdn.prod.website-files.com/6a7cb5226941c3869a8b1f52/6a8fbc3499e2ccefda593c90_sp-cta-hug.webp"
+     alt="Two runners embracing at the finish of a race" loading="lazy"></div>
+   <div>
+    <div class="hm-kick">Speaking</div>
+    <h2 class="hm-h2">Honest, real, funny, and never above the room.</h2>
+    <p class="hm-p" style="margin-bottom:30px">Missy speaks to youth groups, schools, conferences, leadership
+     teams, corporate events, churches, and communities who want to learn how to face their miles with strength
+     and heart. Keynotes, workshops, chapels and classrooms, built around your people, so they leave lighter
+     than they came.</p>
+    <p class="sp-lab">Speaking topics include</p>
+    <ul class="sp-topics">
+     <li>Turning your hardest story into strength</li>
+     <li>Why you are not broken, you are becoming</li>
+     <li>Mental toughness for real humans</li>
+     <li>The marathon metaphor and what it teaches us</li>
+     <li>Honest conversations about anxiety, fear, and growth</li>
+    </ul>
+    <a class="vid-btn" href="/speaking">Request speaking info &rarr;</a>
    </div>
   </div>
  </div>
 </section>
 
 <!-- ============ COMMUNITY ============ -->
-<section class="hm-s">
+<section class="hm-s tint">
  <div class="hm-in">
   <div class="hm-two" style="align-items:center">
    <div>
@@ -421,13 +520,20 @@ body{margin:0;background:#fff}
 </section>
 
 <!-- ============ FINAL CTA ============ -->
-<section class="hm-s tint">
- <div class="hm-in" style="max-width:780px;text-align:center">
-  <div class="hm-kick">Your story is about to begin</div>
-  <h2 class="hm-h2">Start at Mile 1 today.</h2>
-  <p class="hm-p" style="margin:0 auto 30px">The hardcover ships free, and the complete audiobook is
-   yours the moment you order, so you can start listening on the drive home.</p>
-  <a class="vid-btn" href="https://secure.darrenhardy.com/checkout/unbreakable-sole">Get the book and audiobook &rarr;</a>
+<section class="hm-s">
+ <div class="hm-in">
+  <div class="cta-two">
+   <div class="cta-two-art"><img
+     src="https://cdn.prod.website-files.com/6a7cb5226941c3869a8b1f52/6a84ea7678518ed4dc932562_book-phone-real.webp"
+     alt="The Unbreakable Sole hardcover beside the audiobook playing on a phone" loading="lazy"></div>
+   <div class="cta-two-copy">
+    <div class="hm-kick">Your story is about to begin</div>
+    <h2 class="hm-h2">Start at Mile 1 today.</h2>
+    <p class="hm-p" style="margin-bottom:30px">The hardcover ships free, and the complete audiobook is
+     yours the moment you order, so you can start listening on the drive home.</p>
+    <a class="vid-btn" href="https://secure.darrenhardy.com/checkout/unbreakable-sole">Get the book and audiobook &rarr;</a>
+   </div>
+  </div>
  </div>
 </section>
 
