@@ -321,6 +321,16 @@
   .plat svg{width:16px;height:16px;flex:none;}
   .plat svg{width:20px;height:20px;border-radius:4px;}   /* app marks are square, not glyphs */
   .plat-more{color:var(--muted);}
+  /* not a link and not pretending to be: faded behind its own label */
+  .plat-soon{position:relative;cursor:default;}
+  .plat-soon:hover{border-color:var(--line);transform:none;box-shadow:none;}
+  .plat-soon{color:var(--muted);}
+  /* the logo stays recognisable behind the label - dimmed, not hidden */
+  .plat-soon > svg{filter:grayscale(.35);opacity:.8;}
+  .soon-tag{position:absolute;left:0;right:0;bottom:5px;display:flex;justify-content:center;
+    font-style:normal;font-size:8px;font-weight:800;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--muted);}
+  .plat-soon{padding-bottom:17px;}
   .plat-break{flex-basis:100%;height:0;margin:0;}
   .plat-steps{width:100%;margin:10px 0 0;padding:11px 13px;border-radius:10px;
     background:#fff;border:1px solid var(--sky-2);font-size:12.5px;line-height:1.55;color:var(--ink);}
@@ -699,6 +709,23 @@
      Explicitly NOT supported: iHeartRadio, Podbean, Podomatic, DoublePod.
      Amazon Music and Audible are not on their list either. iHeart, Amazon
      Music and Audible used to be shown here; they could never have worked. */
+  /* ─── SPOTIFY ────────────────────────────────────────────────
+     Hello Audio's own player page builds Spotify as
+         https://open.spotify.com/show/${window.podcast.spotifyUri}
+     and the code a listener pastes is window.podcast.spotifyCode, which is
+     simply the feed key. Read straight out of their page source.
+
+     spotifyUri comes back EMPTY for this podcast, which is why their page
+     renders no Spotify option either - it is gated on
+     `spotifyUri && spotifyCode`. That is a dashboard setting: the show has
+     not been connected to Spotify in Hello Audio yet. It is not something
+     we can construct.
+
+     TO TURN IT ON: connect the show to Spotify in Hello Audio, take the show
+     id it gives back, and paste it below. The chip stops saying "coming
+     soon" and becomes a real link on its own. Nothing else to change. */
+  var SPOTIFY_SHOW_ID = "";
+
   function subscribeUrl(){
     return "https://podcasts.helloaudio.fm/subscribe/" + FEED_ID + "/" + FEED_KEY;
   }
@@ -724,6 +751,58 @@
              '</g></svg>'
     },
     {
+      n: "Spotify",
+      on: ["ios", "android", "desktop", "mac"],
+      soonUnless: function(){ return SPOTIFY_SHOW_ID; },
+      manual: {
+        open: "https://open.spotify.com/show/",
+        openLabel: "Open in Spotify",
+        steps: "Your access code is copied. In Spotify: tap Subscribe, then the lock icon on any episode, link your Spotify account and paste the code."
+      },
+      /* Deliberately inert. Spotify needs Open Access: a per-listener access
+         code that is NOT the feed key, redeemed on Hello Audio's own
+         invitation page. There is no URL we can build, so this shows the
+         brand and says so rather than pretending to be a link. */
+      soon: true,
+      svg: '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+             '<circle cx="12" cy="12" r="11" fill="#1DB954"/>' +
+             '<g fill="#fff">' +
+               '<path d="M17.2 16.1a.75.75 0 0 1-1 .25c-2.8-1.7-6.3-2.1-10.4-1.15a.75.75 0 1 1-.33-1.46c4.5-1.02 8.4-.56 11.5 1.34.35.22.46.68.23 1.02z"/>' +
+               '<path d="M18.6 12.9a.94.94 0 0 1-1.29.31c-3.2-1.97-8.1-2.54-11.9-1.39a.94.94 0 1 1-.54-1.8c4.3-1.3 9.7-.66 13.4 1.6.44.27.58.85.31 1.28z"/>' +
+               '<path d="M18.75 9.6C15 7.37 8.8 7.16 5.2 8.25a1.12 1.12 0 1 1-.65-2.15c4.1-1.25 11-1 15.3 1.56a1.12 1.12 0 1 1-1.15 1.93z"/>' +
+             '</g></svg>'
+    },
+    {
+      n: "YouTube Music",
+      on: ["ios", "android", "desktop", "mac"],
+      manual: {
+        open: "https://music.youtube.com/library/podcasts",
+        steps: "Your link is copied. In YouTube Music: Library \u2192 Podcasts \u2192 " +
+               "+ Add Podcast \u2192 Add a podcast by RSS feed \u2192 paste. " +
+               "Episodes take a couple of minutes to appear."
+      },
+      svg: '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+             '<circle cx="12" cy="12" r="11" fill="#FF0000"/>' +
+             '<path d="M9.8 7.4v9.2L17 12z" fill="#fff"/>' +
+           '</svg>'
+    },
+    {
+      n: "Pocket Casts",
+      on: ["ios", "android", "desktop", "mac"],
+      breakBefore: ["desktop", "mac"],
+      manual: {
+        app: function(){ return "pktc://subscribe/" + FEED_URL.replace(/^https?:\/\//, ""); },
+        open: "https://play.pocketcasts.com/",
+        openLabel: "Open Pocket Casts",
+        steps: "Your link is copied. In Pocket Casts: Profile \u2192 + \u2192 Add URL \u2192 paste."
+      },
+      svg: '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+             '<rect width="24" height="24" rx="5.4" fill="#F43E37"/>' +
+             '<g fill="#fff" transform="translate(5,5) scale(.62)">' +
+               '<path d="M12 3.4a8.6 8.6 0 1 0 8.6 8.6h-2.6A6 6 0 1 1 12 6z"/><path d="M12 8.2a3.8 3.8 0 1 0 3.8 3.8h-2.3a1.5 1.5 0 1 1-1.5-1.5z"/>' +
+             '</g></svg>'
+    },
+    {
       n: "Overcast",
       on: ["ios"],
       manual: {
@@ -736,21 +815,6 @@
              '<rect width="24" height="24" rx="5.4" fill="#FC7E0F"/>' +
              '<g fill="#fff" transform="translate(5,5) scale(.62)">' +
                '<circle cx="12" cy="15.5" r="2"/><path d="M12 12.6a2.9 2.9 0 0 0-2.9 2.9H7.4a4.6 4.6 0 0 1 9.2 0h-1.7a2.9 2.9 0 0 0-2.9-2.9z" opacity=".85"/><path d="M12 8.6a6.9 6.9 0 0 0-6.9 6.9H3.4a8.6 8.6 0 0 1 17.2 0h-1.7A6.9 6.9 0 0 0 12 8.6z" opacity=".6"/>' +
-             '</g></svg>'
-    },
-    {
-      n: "Pocket Casts",
-      on: ["ios", "android", "desktop", "mac"],
-      manual: {
-        app: function(){ return "pktc://subscribe/" + FEED_URL.replace(/^https?:\/\//, ""); },
-        open: "https://play.pocketcasts.com/",
-        openLabel: "Open Pocket Casts",
-        steps: "Your link is copied. In Pocket Casts: Profile \u2192 + \u2192 Add URL \u2192 paste."
-      },
-      svg: '<svg viewBox="0 0 24 24" aria-hidden="true">' +
-             '<rect width="24" height="24" rx="5.4" fill="#F43E37"/>' +
-             '<g fill="#fff" transform="translate(5,5) scale(.62)">' +
-               '<path d="M12 3.4a8.6 8.6 0 1 0 8.6 8.6h-2.6A6 6 0 1 1 12 6z"/><path d="M12 8.2a3.8 3.8 0 1 0 3.8 3.8h-2.3a1.5 1.5 0 1 1-1.5-1.5z"/>' +
              '</g></svg>'
     },
     {
@@ -799,23 +863,8 @@
              '</g></svg>'
     },
     {
-      n: "YouTube Music",
-      on: ["ios", "android", "desktop", "mac"],
-      manual: {
-        open: "https://music.youtube.com/library/podcasts",
-        steps: "Your link is copied. In YouTube Music: Library \u2192 Podcasts \u2192 " +
-               "+ Add Podcast \u2192 Add a podcast by RSS feed \u2192 paste. " +
-               "Episodes take a couple of minutes to appear."
-      },
-      svg: '<svg viewBox="0 0 24 24" aria-hidden="true">' +
-             '<circle cx="12" cy="12" r="11" fill="#FF0000"/>' +
-             '<path d="M9.8 7.4v9.2L17 12z" fill="#fff"/>' +
-           '</svg>'
-    },
-    {
       n: "RSS Feed",
       on: ["ios", "android", "desktop", "mac"],
-      breakBefore: ["desktop", "mac"],
       manual: {
         steps: "Your link is copied. Paste it into any podcast app that can add a show by URL.",
         showUrl: true
@@ -925,7 +974,8 @@
     copy.textContent = isDesktop(kind)
       ? "Download the chapters to keep them on this computer, or add the audiobook to a podcast app to sync it to your phone."
       : "Download the chapters to keep them on this phone, or add the audiobook to a podcast app and it will download them for you.";
-    acts.innerHTML = '<button class="plat" id="dlAll" type="button">Download all ' + CH.length + ' chapters</button>';
+    acts.innerHTML = '<button class="plat" id="dlAll" type="button">' + DL_SVG +
+                     'Download all ' + CH.length + ' chapters</button>';
     hint.textContent = isDesktop(kind)
       ? "Downloading all chapters is about 1 GB and saves them one after another."
       : "Downloading all chapters is about 1 GB. Or tap the arrow beside any chapter to save just that one.";
@@ -951,7 +1001,10 @@
       /* a zero-height full-width flex item forces a wrap at this point, so the
          desktop row breaks 3 + 2 instead of leaving one chip stranded */
       if (a.breakBefore && a.breakBefore.indexOf(kind) > -1) html += '<span class="plat-break"></span>';
-      if (a.manual) {
+      if (a.soon && !(a.soonUnless && a.soonUnless())) {
+        html += '<span class="plat plat-soon">' + a.svg + esc(a.n) +
+                '<em class="soon-tag">Coming soon</em></span>';
+      } else if (a.manual) {
         html += '<button class="plat" type="button" data-manual="' + i + '">' + a.svg + esc(a.n) + '</button>';
         manual.push({ i: i, app: a });
       } else {
@@ -979,8 +1032,10 @@
                    '<span class="steps-or">Nothing happened? You don&rsquo;t have it yet.</span>';
         }
         inner += esc(man.steps);
+        var openHref = man.open;
+        if (m.app.n === "Spotify") openHref = man.open + SPOTIFY_SHOW_ID;
         if (man.open) {
-          inner += ' <a href="' + esc(man.open) + '" target="_blank" rel="noopener">' +
+          inner += ' <a href="' + esc(openHref) + '" target="_blank" rel="noopener">' +
                    esc(phone && man.app ? ("Get " + m.app.n) : (man.openLabel || ("Open " + m.app.n))) + ' &rarr;</a>';
         }
         if (man.showUrl) inner += '<code>' + esc(FEED_URL) + '</code>';
