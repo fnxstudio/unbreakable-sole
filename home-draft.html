@@ -58,12 +58,19 @@ body{margin:0;background:#fff}
  100%{box-shadow:0 10px 30px #00325c4d, 0 0 0 0 #ffdd6000}}
 .hm-vid-btn:hover .hm-play{transform:scale(1.06)}
 @media (prefers-reduced-motion:reduce){.hm-play{animation:none;box-shadow:0 10px 30px #00325c4d}}
-/* ---------- miles ---------- */
-.hm-miles{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:30px 40px;margin-top:6px}
-.hm-mile{border-left:3px solid var(--gold);padding-left:20px}
-.hm-mile-n{color:var(--medium-blue);letter-spacing:.14em;text-transform:uppercase;font-size:12px;font-weight:700;margin-bottom:8px}
-.hm-mile-h{color:var(--dark-blue);font-size:20px;font-weight:800;line-height:1.3;margin-bottom:8px}
-.hm-mile-p{color:var(--ink);font-size:16.5px;line-height:1.65;margin:0}
+/* ---------- the book: what it teaches ---------- */
+.tb-wrap{display:grid;grid-template-columns:.86fr 1.64fr;gap:64px;align-items:center}
+.tb-h{margin:0 0 22px;line-height:1.16em}
+.tb-h mark{background:var(--cta-yellow);color:var(--dark-blue);padding:.02em .14em;
+  box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.tb-sub{color:var(--ink);font-size:16.5px;line-height:1.65;margin:0;max-width:34ch}
+.tb-list{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(4,auto);
+  grid-auto-flow:column;gap:30px 48px}
+.tb-item{display:flex;gap:16px;align-items:flex-start}
+.tb-num{width:42px;height:42px;flex:none;border-radius:50%;background:var(--cta-yellow);
+  color:var(--dark-blue);display:grid;place-items:center;font-weight:800;font-size:16px;
+  margin-top:-1px;box-sizing:border-box}
+.tb-t{color:var(--dark-blue);font-size:18.5px;font-weight:800;line-height:1.38;margin:0}
 /* ---------- rolling endorsers ---------- */
 .hm-roll{position:relative;height:620px;overflow:hidden;
   -webkit-mask-image:linear-gradient(180deg,transparent,#000 9%,#000 91%,transparent);
@@ -144,6 +151,8 @@ body{margin:0;background:#fff}
  .hm-book{width:100%;margin-left:0}
  .hm-roll-grid{grid-template-columns:1fr} .hm-roll{height:520px}
  .hm-two{grid-template-columns:1fr}
+ .tb-wrap{grid-template-columns:1fr;gap:40px}
+ .tb-h br{display:none}
  .hm-fq.big{flex-direction:column}
  .hm-fq.big .hm-fq-hero{width:100%;height:300px;align-self:auto}
  .hm-fq.big .hm-fq-inner{padding:28px 30px 32px}
@@ -155,6 +164,8 @@ body{margin:0;background:#fff}
 @media (max-width:767px){
  .hm-hero{padding:32px 22px 62px} .hm-s{padding:64px 22px}
  .rq-face{width:76px;height:95px}
+ .tb-list{grid-template-columns:1fr;grid-template-rows:none;grid-auto-flow:row;gap:22px}
+ .tb-num{width:34px;height:34px;font-size:14px} .tb-t{font-size:17px}
  .rq-mono{width:76px;height:95px;font-size:22px}
  .pr-grid{grid-template-columns:1fr}
 }
@@ -202,20 +213,22 @@ body{margin:0;background:#fff}
 <!-- ============ THE BOOK / MILES ============ -->
 <section class="hm-s tint" id="the-book">
  <div class="hm-in">
-  <div class="hm-kick">The book</div>
-  <h2 class="hm-h2">Built like the marathon that changed her life.</h2>
-  <p class="hm-p">26.2 chapters, one for every mile. Each one hands you something to carry when the
-   road gets steep. You do not need to be a runner. You just need to be human.</p>
-  <div class="hm-miles">
-   <div class="hm-mile"><div class="hm-mile-n">Miles 1 to 9</div>
-    <div class="hm-mile-h">Find your footing</div>
-    <p class="hm-mile-p">Name what is really weighing on you, then take the first honest step forward.</p></div>
-   <div class="hm-mile"><div class="hm-mile-n">Miles 10 to 20</div>
-    <div class="hm-mile-h">Push through the wall</div>
-    <p class="hm-mile-p">What keeps you going when it stops being exciting and starts being hard.</p></div>
-   <div class="hm-mile"><div class="hm-mile-n">Miles 21 to 26.2</div>
-    <div class="hm-mile-h">Finish stronger</div>
-    <p class="hm-mile-p">Cross into the joy, purpose, and steadiness waiting on the other side.</p></div>
+  <div class="tb-wrap">
+   <div class="tb-lead">
+    <h2 class="hm-h2 tb-h">8 Things <br><mark>This Book Will <br>Teach You</mark></h2>
+    <p class="tb-sub">26.2 chapters, one for every mile. You do not need to be a runner.
+     You just need to be human.</p>
+   </div>
+   <div class="tb-list">
+    <div class="tb-item"><span class="tb-num">1</span><p class="tb-t">Break the impossible into one mile at a time</p></div>
+    <div class="tb-item"><span class="tb-num">2</span><p class="tb-t">Stop being defined by how you started</p></div>
+    <div class="tb-item"><span class="tb-num">3</span><p class="tb-t">Choose who gets to set your pace</p></div>
+    <div class="tb-item"><span class="tb-num">4</span><p class="tb-t">Handle hard people without becoming one</p></div>
+    <div class="tb-item"><span class="tb-num">5</span><p class="tb-t">Keep going when quitting pulls up beside you</p></div>
+    <div class="tb-item"><span class="tb-num">6</span><p class="tb-t">Carry grief without letting it carry you</p></div>
+    <div class="tb-item"><span class="tb-num">7</span><p class="tb-t">Show up for the person struggling in silence</p></div>
+    <div class="tb-item"><span class="tb-num">8</span><p class="tb-t">Turn pain with purpose into strength</p></div>
+   </div>
   </div>
  </div>
 </section>
