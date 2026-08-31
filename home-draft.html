@@ -22,7 +22,8 @@ body{margin:0;background:#fff}
 /* Sits in the open sky under the earbuds. The book is lifted 18% to make the
    room; the card clears the phone (which ends at y .95 of the art) and still
    lands inside the hero. */
-.hm-badge{position:absolute;right:-8%;bottom:-22%;z-index:2;width:316px;text-align:center}
+.hm-badge{position:absolute;left:48%;transform:translateX(-50%);bottom:-22%;z-index:2;
+  width:316px;text-align:center}
 .hm-badge-stars{display:block;width:84px;height:17px;margin:0 auto 7px;
   background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2024%22%20fill%3D%22%23ffdd60%22%3E%3Cpath%20transform%3D%22translate%280%200%29%22%20d%3D%22M12%201.6l3.2%206.5%207.2%201-5.2%205.1%201.2%207.2L12%2018l-6.4%203.4%201.2-7.2L1.6%209.1l7.2-1z%22%2F%3E%3Cpath%20transform%3D%22translate%2824%200%29%22%20d%3D%22M12%201.6l3.2%206.5%207.2%201-5.2%205.1%201.2%207.2L12%2018l-6.4%203.4%201.2-7.2L1.6%209.1l7.2-1z%22%2F%3E%3Cpath%20transform%3D%22translate%2848%200%29%22%20d%3D%22M12%201.6l3.2%206.5%207.2%201-5.2%205.1%201.2%207.2L12%2018l-6.4%203.4%201.2-7.2L1.6%209.1l7.2-1z%22%2F%3E%3Cpath%20transform%3D%22translate%2872%200%29%22%20d%3D%22M12%201.6l3.2%206.5%207.2%201-5.2%205.1%201.2%207.2L12%2018l-6.4%203.4%201.2-7.2L1.6%209.1l7.2-1z%22%2F%3E%3Cpath%20transform%3D%22translate%2896%200%29%22%20d%3D%22M12%201.6l3.2%206.5%207.2%201-5.2%205.1%201.2%207.2L12%2018l-6.4%203.4%201.2-7.2L1.6%209.1l7.2-1z%22%2F%3E%3C%2Fsvg%3E") no-repeat center/contain}
 /* Fixed height so the card never resizes as the quotes rotate through it. */
@@ -113,7 +114,7 @@ body{margin:0;background:#fff}
 .hm-roll{position:relative;height:620px;overflow:hidden;
   -webkit-mask-image:linear-gradient(180deg,transparent,#000 9%,#000 91%,transparent);
   mask-image:linear-gradient(180deg,transparent,#000 9%,#000 91%,transparent)}
-.hm-roll .rq-track{animation:hm-up 120s linear infinite}
+.hm-roll .rq-track{animation:hm-up 84s linear infinite}
 @keyframes hm-up{from{transform:translateY(0)}to{transform:translateY(-50%)}}
 @media (prefers-reduced-motion:reduce){.hm-roll .rq-track{animation:none}}
 .rq-role{color:var(--muted);font-size:12.5px}
@@ -150,7 +151,8 @@ body{margin:0;background:#fff}
 /* ---------- press: three latest ---------- */
 .pr-sec{background:linear-gradient(180deg,#fff 58%,var(--sky-tint) 100%)}
 .pr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:8px}
-.pr-card{background:#fff;border-radius:6px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column;
+.pr-card{background:#fff;border:1.5px solid #d79f3652;border-radius:6px;overflow:hidden;
+  text-decoration:none;display:flex;flex-direction:column;
   box-shadow:0 1px 2px #00325c0a,0 10px 28px #00325c12;transition:transform .18s ease,box-shadow .18s ease}
 .pr-card:hover{transform:translateY(-6px);box-shadow:0 4px 10px #00325c14,0 26px 54px #00325c2b}
 .pr-card:hover .pr-media img{transform:scale(1.04)}
@@ -168,9 +170,7 @@ body{margin:0;background:#fff}
 .pr-play::after{content:"";border-left:16px solid var(--dark-blue);border-top:10px solid transparent;
   border-bottom:10px solid transparent;margin-left:5px}
 .pr-b{padding:20px 22px 22px;display:flex;flex-direction:column;gap:9px;flex:1}
-.pr-chip{position:absolute;left:14px;top:14px;z-index:2;background:#fff;color:var(--dark-blue);
-  border-radius:100px;padding:5px 12px 6px;font-size:10.5px;font-weight:800;letter-spacing:.12em;
-  text-transform:uppercase;box-shadow:0 2px 8px #00325c33}
+.pr-src{color:var(--medium-blue);letter-spacing:.14em;text-transform:uppercase;font-size:11px;font-weight:700}
 .pr-media::after{content:"";position:absolute;inset:auto 0 0 0;height:46%;pointer-events:none;
   background:linear-gradient(180deg,#00325c00,#00325c4d)}
 .pr-media.badge::after{display:none}
@@ -185,8 +185,9 @@ body{margin:0;background:#fff}
 .sp-collage figure{position:absolute;margin:0;overflow:hidden;border-radius:6px;background:#fff;
   box-shadow:0 2px 6px #00325c14,0 18px 40px #00325c2b}
 .sp-collage img{width:100%;height:100%;object-fit:cover;display:block}
-.sp-c1{left:0;top:0;width:62%;aspect-ratio:4/3}
-.sp-c2{right:0;top:27%;width:56%;aspect-ratio:4/3;z-index:2}
+.sp-c1{left:0;top:0;width:56%;aspect-ratio:3/4;background:var(--sky-tint)}
+.sp-c1 img{object-fit:cover;object-position:50% 12%}
+.sp-c2{right:0;top:22%;width:56%;aspect-ratio:4/3;z-index:2}
 .sp-c3{left:2%;bottom:0;width:60%;aspect-ratio:4/3;z-index:3}
 .sp-c3 img{object-position:50% 30%}
 .sp-lab{color:var(--dark-blue);font-weight:800;font-size:14px;letter-spacing:.02em;margin:0 0 14px}
@@ -209,7 +210,7 @@ body{margin:0;background:#fff}
  .hm-book-wrap{margin:0;order:-1}
  .hm-book{width:100%;margin-left:0}
  /* At this size the card would swallow the book, so it sits under it instead. */
- .hm-badge{position:static;width:100%;max-width:340px;margin:22px auto 0}
+ .hm-badge{position:static;transform:none;width:100%;max-width:340px;margin:22px auto 0}
  .hm-badge-stars{width:70px;height:14px;margin-bottom:6px}
  .hm-badge-slot{height:86px} .hm-bq p{font-size:24px}
  .hm-roll-grid{grid-template-columns:1fr} .hm-roll{height:520px}
@@ -453,9 +454,9 @@ body{margin:0;background:#fff}
 <section class="hm-s pr-sec" id="press">
  <div class="hm-in">
   <div class="hm-kick">Podcasts &amp; press</div>
-  <h2 class="hm-h2">Take her with you.</h2>
-  <p class="hm-p">Put one on during a drive or a walk. These conversations keep you company in the
-   miles, and give your own story room to surface.</p>
+  <h2 class="hm-h2">Something for the miles you are in.</h2>
+  <p class="hm-p">Honest conversations about grief, endurance, and starting again. Put one on during
+   a walk or a drive, and let it sit with whatever you are carrying.</p>
 
   <div class="pr-grid">
    <a class="pr-card" href="https://www.youtube.com/watch?v=foOo8EEI4-A" target="_blank" rel="noopener">
@@ -463,9 +464,9 @@ body{margin:0;background:#fff}
      <img src="https://i.ytimg.com/vi/foOo8EEI4-A/maxresdefault.jpg"
       alt="Missy Moss Wright interviewed on the Jake Turner channel" loading="lazy">
      <span class="pr-play" aria-hidden="true"></span>
-    <span class="pr-chip">YouTube</span>
     </div>
     <div class="pr-b">
+     <div class="pr-src">YouTube</div>
      <p class="pr-t">Marathon Runner on Losing Her Son, Her Sweetheart, and Almost Her Husband</p>
      <p class="pr-meta">Jake Turner</p>
      <span class="pr-go">Watch the interview &rarr;</span>
@@ -477,9 +478,9 @@ body{margin:0;background:#fff}
      <img src="https://i.ytimg.com/vi/R8UpUaFtWPM/maxresdefault.jpg"
       alt="Missy Moss Wright in conversation with Todd Sylvester" loading="lazy">
      <span class="pr-play" aria-hidden="true"></span>
-    <span class="pr-chip">YouTube</span>
     </div>
     <div class="pr-b">
+     <div class="pr-src">YouTube</div>
      <p class="pr-t">Missy Wright: Hard Miles Create Strong Soles</p>
      <p class="pr-meta">Todd Sylvester</p>
      <span class="pr-go">Watch the interview &rarr;</span>
@@ -492,9 +493,9 @@ body{margin:0;background:#fff}
       src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/95/0d/d0/950dd094-d72c-dd31-3fae-4be1d4436533/mza_18047289211210272137.jpg/600x600bb.jpg"
       alt="The St. George Marathon Podcast" loading="lazy"></span>
      <span class="pr-play" aria-hidden="true"></span>
-    <span class="pr-chip">Apple Podcasts</span>
     </div>
     <div class="pr-b">
+     <div class="pr-src">Apple Podcasts</div>
      <p class="pr-t">Unbreakable Sole &mdash; Missy Moss Wright &amp; Alan Moss</p>
      <p class="pr-meta">The St. George Marathon Podcast &middot; 45 min</p>
      <span class="pr-go">Listen to the episode &rarr;</span>
@@ -510,8 +511,8 @@ body{margin:0;background:#fff}
  <div class="hm-in">
   <div class="hm-two" style="align-items:center">
    <div class="sp-collage">
-    <figure class="sp-c1"><img src="https://cdn.prod.website-files.com/6a7cb5226941c3869a8b1f52/6a8f2ec040082c8c52558473_abt-card-speaking.webp"
-      alt="Missy Moss Wright speaking at a podium" loading="lazy"></figure>
+    <figure class="sp-c1"><img src="https://cdn.prod.website-files.com/6a7cb5226941c3869a8b1f52/6a90a76579e7e23903543c45_sp-hero-cutout-opt.webp"
+      alt="Missy Moss Wright speaking on stage with a headset microphone" loading="lazy"></figure>
     <figure class="sp-c2"><img src="https://cdn.prod.website-files.com/6a7cb5226941c3869a8b1f52/6a90a76679e7e23903543c74_sp-pod-twoshot-opt.webp"
       alt="Missy Moss Wright recording a podcast interview" loading="lazy"></figure>
     <figure class="sp-c3"><img src="assets/sp-group.webp"
@@ -521,7 +522,7 @@ body{margin:0;background:#fff}
     <div class="hm-kick">Speaking</div>
     <h2 class="hm-h2">Honest. Funny. Relatable.</h2>
     <p class="hm-p" style="margin-bottom:30px">Missy tells the truth about the hard miles, including her
-     own, and she is never above the room she is standing in. Keynotes, workshops, chapels and classrooms,
+     own, and she carries the light into the room with her. Keynotes, workshops, chapels and classrooms,
      built around your people, so they leave lighter than they came.</p>
     <p class="sp-lab">Speaking topics include</p>
     <ul class="sp-topics">
