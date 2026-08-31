@@ -16,13 +16,13 @@ body{margin:0;background:#fff}
   background-repeat:no-repeat,no-repeat;background-size:auto,cover;background-position:0 0,50% 30%}
 .hm-hero-grid{max-width:var(--container-max);margin:0 auto;width:100%;display:grid;
   grid-template-columns:1fr 1fr;column-gap:56px;align-items:center}
-.hm-book-wrap{position:relative}
+.hm-book-wrap{position:relative;margin-top:-18%}
 .hm-book{width:140%;max-width:none;margin-left:-22%;height:auto;display:block;
   filter:drop-shadow(0 34px 68px #00325c33)}
-/* Sits in the empty sky above the phone: clear of the cover (which ends at x .51
-   of the art), clear of the player controls and earbuds (phone starts at y .33),
-   and clear of the headline column. */
-.hm-badge{position:absolute;right:-8%;top:-2%;z-index:2;width:316px;text-align:center}
+/* Sits in the open sky under the earbuds. The book is lifted 18% to make the
+   room; the card clears the phone (which ends at y .95 of the art) and still
+   lands inside the hero. */
+.hm-badge{position:absolute;right:-8%;bottom:-22%;z-index:2;width:316px;text-align:center}
 .hm-badge-stars{display:block;width:84px;height:17px;margin:0 auto 7px;
   background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2024%22%20fill%3D%22%23ffdd60%22%3E%3Cpath%20transform%3D%22translate%280%200%29%22%20d%3D%22M12%201.6l3.2%206.5%207.2%201-5.2%205.1%201.2%207.2L12%2018l-6.4%203.4%201.2-7.2L1.6%209.1l7.2-1z%22%2F%3E%3Cpath%20transform%3D%22translate%2824%200%29%22%20d%3D%22M12%201.6l3.2%206.5%207.2%201-5.2%205.1%201.2%207.2L12%2018l-6.4%203.4%201.2-7.2L1.6%209.1l7.2-1z%22%2F%3E%3Cpath%20transform%3D%22translate%2848%200%29%22%20d%3D%22M12%201.6l3.2%206.5%207.2%201-5.2%205.1%201.2%207.2L12%2018l-6.4%203.4%201.2-7.2L1.6%209.1l7.2-1z%22%2F%3E%3Cpath%20transform%3D%22translate%2872%200%29%22%20d%3D%22M12%201.6l3.2%206.5%207.2%201-5.2%205.1%201.2%207.2L12%2018l-6.4%203.4%201.2-7.2L1.6%209.1l7.2-1z%22%2F%3E%3Cpath%20transform%3D%22translate%2896%200%29%22%20d%3D%22M12%201.6l3.2%206.5%207.2%201-5.2%205.1%201.2%207.2L12%2018l-6.4%203.4%201.2-7.2L1.6%209.1l7.2-1z%22%2F%3E%3C%2Fsvg%3E") no-repeat center/contain}
 /* Fixed height so the card never resizes as the quotes rotate through it. */
@@ -405,7 +405,7 @@ body{margin:0;background:#fff}
  </div>
 </div>
 <div class="rq-card">
- <img class="rq-face" src="assets/1c3ccbba_1806d1bcaba9b6ca57dc40dd7b2368add17014be.webp" alt="Chris Rosendahl" loading="lazy" decoding="async">
+ <img class="rq-face rq-flip" src="assets/1c3ccbba_1806d1bcaba9b6ca57dc40dd7b2368add17014be.webp" alt="Chris Rosendahl" loading="lazy" decoding="async">
  <div class="rq-body">
   <p class="rq-quote">“We’ve all heard walk a mile in someone else’s shoes. Missy lets you walk 26 of hers. <mark>I laughed, cried, and saw myself in so many of her stories.</mark> I can’t wait to share it with my family.”</p>
   <div class="rq-name">Chris Rosendahl</div>
