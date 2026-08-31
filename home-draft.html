@@ -246,20 +246,18 @@ body{margin:0;background:#fff}
     <span class="hm-badge-stars" aria-hidden="true"></span>
     <div class="hm-badge-slot" id="hmbq">
      <figure class="hm-bq is-on"><p>&ldquo;Soul hydration.&rdquo;</p><figcaption>Jessica Fairbanks</figcaption></figure>
-     <figure class="hm-bq"><p>&ldquo;Raw, real, and unfiltered.&rdquo;</p><figcaption>Dave Koepsell</figcaption></figure>
      <figure class="hm-bq"><p>&ldquo;It made me feel seen.&rdquo;</p><figcaption>Maureen Holland</figcaption></figure>
-     <figure class="hm-bq"><p>&ldquo;A sacred mirror.&rdquo;</p><figcaption>Dr. Kristi Lopez</figcaption></figure>
+     <figure class="hm-bq"><p>&ldquo;I laughed, cried, and saw myself.&rdquo;</p><figcaption>Chris Rosendahl</figcaption></figure>
+     <figure class="hm-bq"><p>&ldquo;It reached places in me.&rdquo;</p><figcaption>Dr. Kristi Lopez</figcaption></figure>
      <figure class="hm-bq"><p>&ldquo;Hit me squared in the heart.&rdquo;</p><figcaption>Olga Gonzalez</figcaption></figure>
-     <figure class="hm-bq"><p>&ldquo;Grit and grace.&rdquo;</p><figcaption>Dr. Jack Ward</figcaption></figure>
-     <figure class="hm-bq"><p>&ldquo;A beauty and grace.&rdquo;</p><figcaption>Holly Nye</figcaption></figure>
-     <figure class="hm-bq"><p>&ldquo;A pilgrimage of the heart.&rdquo;</p><figcaption>Elo Jones</figcaption></figure>
-     <figure class="hm-bq"><p>&ldquo;This book changed me.&rdquo;</p><figcaption>David I. Green</figcaption></figure>
+     <figure class="hm-bq"><p>&ldquo;Something in me softened.&rdquo;</p><figcaption>David I. Green</figcaption></figure>
+     <figure class="hm-bq"><p>&ldquo;It moved me to reflect, cry, and hope.&rdquo;</p><figcaption>Gini Williams</figcaption></figure>
+     <figure class="hm-bq"><p>&ldquo;It stirs buried wounds.&rdquo;</p><figcaption>Cindy Santos-Mendoza</figcaption></figure>
      <figure class="hm-bq"><p>&ldquo;It captures your heart.&rdquo;</p><figcaption>Dinorah Livingston</figcaption></figure>
-     <figure class="hm-bq"><p>&ldquo;Beautifully raw.&rdquo;</p><figcaption>Gini Williams</figcaption></figure>
      <figure class="hm-bq"><p>&ldquo;Holding my breath.&rdquo;</p><figcaption>Nikki Barratt</figcaption></figure>
-     <figure class="hm-bq"><p>&ldquo;A powerful story of hope.&rdquo;</p><figcaption>Pamela Nelson</figcaption></figure>
-     <figure class="hm-bq"><p>&ldquo;Wear them with pride.&rdquo;</p><figcaption>Evelyn Opony</figcaption></figure>
-     <figure class="hm-bq"><p>&ldquo;Sacred teachers.&rdquo;</p><figcaption>Tara Lawallan</figcaption></figure>
+     <figure class="hm-bq"><p>&ldquo;Heartfelt and heartbreaking.&rdquo;</p><figcaption>Ray Koopman</figcaption></figure>
+     <figure class="hm-bq"><p>&ldquo;Raw, real, and unfiltered.&rdquo;</p><figcaption>Dave Koepsell</figcaption></figure>
+     <figure class="hm-bq"><p>&ldquo;A pilgrimage of the heart.&rdquo;</p><figcaption>Elo Jones</figcaption></figure>
     </div>
    </div>
   </div>
@@ -454,7 +452,7 @@ body{margin:0;background:#fff}
 <section class="hm-s pr-sec" id="press">
  <div class="hm-in">
   <div class="hm-kick">Podcasts &amp; press</div>
-  <h2 class="hm-h2">Something for the miles you are in.</h2>
+  <h2 class="hm-h2">More conversations with Missy for the miles you are in today.</h2>
   <p class="hm-p">Honest conversations about grief, endurance, and starting again. Put one on during
    a walk or a drive, and let it sit with whatever you are carrying.</p>
 
@@ -627,11 +625,14 @@ body{margin:0;background:#fff}
  var slot=document.getElementById('hmbq'); if(!slot) return;
  var qs=slot.querySelectorAll('.hm-bq'); if(qs.length<2) return;
  var i=0;
- setInterval(function(){
+ function next(){
   qs[i].classList.remove('is-on');
   i=(i+1)%qs.length;
   qs[i].classList.add('is-on');
- },3600);
+ }
+ // Short lines, so they can move quickly; the first turns over early enough
+ // that the card reads as a rotation rather than a static quote.
+ setTimeout(function(){ next(); setInterval(next,2100); },1500);
 })();
 // The rolling track scrolls to -50%, so it needs exactly two copies of the run to loop seamlessly.
 (function(){
